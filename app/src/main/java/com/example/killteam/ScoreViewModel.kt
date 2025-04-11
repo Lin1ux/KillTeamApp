@@ -1,6 +1,8 @@
 package com.example.killteam
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -11,40 +13,51 @@ import kotlin.Int
 class ScoreViewModel : ViewModel()
 {
     var round by mutableStateOf(1)                          //Current round of game
+    var gameFinished by mutableStateOf(false)               //Is game finished
 
-    //First Player - Red
-    var RedPlayer by mutableStateOf(Player(
-        allPoints = 0,
-        selectedTeam = KillTeams.teamList[0],
-        selectedTacop = TacOps.Unknown,
-        showTacoop = false,
-        critPoints = mutableListOf(0,0,0,0,0,0,0),
-        tacPoints = mutableListOf(0,0,0,0,0,0,0),
-        killPoints = mutableListOf(0,0,0,0,0,0,0)
-        )
-    )
+    //Player State
+    inner class PlayerState
+    {
+        var selectedTeam by mutableStateOf(KillTeams.teamList[0])
+        var selectedTacop by mutableStateOf(TacOps.Unknown)
+        var primaryTacop by mutableStateOf(PointType.UNKNOWN)
 
-    //Second Player - Blue
-    var BluePlayer by mutableStateOf(Player(
-        allPoints = 0,
-        selectedTeam = KillTeams.teamList[0],
-        selectedTacop = TacOps.Unknown,
-        showTacoop = false,
-        critPoints = mutableListOf(0,0,0,0,0,0,0),
-        tacPoints = mutableListOf(0,0,0,0,0,0,0),
-        killPoints = mutableListOf(0,0,0,0,0,0,0)
-        )
-    )
+        val critPoints = mutableStateListOf(0,0,0,0,0,0,0)
+        val tacPoints = mutableStateListOf(0,0,0,0,0,0,0)
+        val killPoints = mutableStateListOf(0,0,0,0,0,0,0)
+
+        var commandPoints by mutableStateOf(0)
+    }
+
+    val RedPlayer = PlayerState()   //First Player - Red
+    val BluePlayer = PlayerState()  //Blue Player - Blue
 
     //Change round on selected value
     fun ChangeRound(newRound : Int)
     {
+        if(gameFinished) //block possibility to change value after finishing game
+        {
+            return
+        }
         if(newRound > 5 || newRound < 0)
         {
             round = 1
             return
         }
         round = newRound
+    }
+    fun SetTeam(isRedTeam: Boolean,team : TeamInfo)
+    {
+        if(gameFinished) //block possibility to change value after finishing game
+        {
+            return
+        }
+        if(isRedTeam)
+        {
+            RedPlayer.selectedTeam = team
+            return
+        }
+        BluePlayer.selectedTeam = team
     }
     //return background color which depends of round number
     fun GetBackgroundRoundColor(buttonNumber : Int) : Color
@@ -76,7 +89,7 @@ class ScoreViewModel : ViewModel()
                 PointType.CRITOP ->
                 {
                     //point which can be changed in current round (for example if user make mistake)
-                    if (RedPlayer.critPoints[Index] == 1 && Index.IndexToRound() == round)
+                    if (RedPlayer.critPoints[Index] == 1 && (Index.IndexToRound() == round || gameFinished))
                     {
                         return KTColors.Red
                     }
@@ -92,7 +105,7 @@ class ScoreViewModel : ViewModel()
                 PointType.TACOP ->
                 {
                     //point which can be changed in current round (for example if user make mistake)
-                    if (RedPlayer.tacPoints[Index] == 1 && Index.IndexToRound() == round)
+                    if (RedPlayer.tacPoints[Index] == 1 && (Index.IndexToRound() == round || gameFinished))
                     {
                         return KTColors.Red
                     }
@@ -107,8 +120,12 @@ class ScoreViewModel : ViewModel()
                 }
                 PointType.KILLOP ->
                 {
-                    //point but not changeable by clicking
-                    if (RedPlayer.killPoints[Index] == 1)
+                    //Finish game
+                    if(RedPlayer.killPoints[Index] == 1 && gameFinished)
+                    {
+                        return KTColors.Red
+                    }
+                    else if (RedPlayer.killPoints[Index] == 1) //point but not changeable by clicking
                     {
                         return KTColors.AlphaRed
                     }
@@ -117,6 +134,7 @@ class ScoreViewModel : ViewModel()
                         return Color.Transparent
                     }
                 }
+                else -> { return Color.Transparent }
             }
         }
         else    //Second Player - Blue
@@ -126,7 +144,7 @@ class ScoreViewModel : ViewModel()
                 PointType.CRITOP ->
                 {
                     //point which can be changed in current round (for example if user make mistake)
-                    if (BluePlayer.critPoints[Index] == 1 && Index.IndexToRound() == round)
+                    if (BluePlayer.critPoints[Index] == 1 && (Index.IndexToRound() == round || gameFinished))
                     {
                         return KTColors.Blue
                     }
@@ -142,7 +160,7 @@ class ScoreViewModel : ViewModel()
                 PointType.TACOP ->
                 {
                     //point which can be changed in current round (for example if user make mistake)
-                    if (BluePlayer.tacPoints[Index] == 1 && Index.IndexToRound() == round)
+                    if (BluePlayer.tacPoints[Index] == 1 && (Index.IndexToRound() == round || gameFinished))
                     {
                         return KTColors.Blue
                     }
@@ -157,8 +175,12 @@ class ScoreViewModel : ViewModel()
                 }
                 PointType.KILLOP ->
                 {
-                    //point but not changeable by clicking
-                    if (BluePlayer.killPoints[Index] == 1)
+                    //Finish game
+                    if(BluePlayer.killPoints[Index] == 1 && gameFinished)
+                    {
+                        return KTColors.Blue
+                    }
+                    if (BluePlayer.killPoints[Index] == 1) //point but not changeable by clicking
                     {
                         return KTColors.AlphaBlue
                     }
@@ -167,13 +189,14 @@ class ScoreViewModel : ViewModel()
                         return Color.Transparent
                     }
                 }
+                else -> { return Color.Transparent}
             }
         }
     }
     //return alpha depended on current round
     fun GetAlphaByRound(turningPointNumber : Int) : Float
     {
-        if (round == turningPointNumber)
+        if (round == turningPointNumber || gameFinished)
         {
             return 1.0f
         }
@@ -195,25 +218,27 @@ class ScoreViewModel : ViewModel()
     fun SwitchCritPoints(isRedTeam : Boolean,index : Int)
     {
         //Don't make changes if it isn' right round
-        if(index.IndexToRound() != round)
+        if(index.IndexToRound() != round || gameFinished)
         {
             return
         }
         if(isRedTeam)
         {
-            //Makes copy of critPoints so change would be seen by button
-            RedPlayer = RedPlayer.copy(critPoints = RedPlayer.critPoints.toMutableList().apply
+            if (RedPlayer.critPoints[index] == 0)
             {
-                set(index, if (this[index] == 0) 1 else 0)  //change of point
-            })
+                RedPlayer.critPoints[index] = 1
+                return
+            }
+            RedPlayer.critPoints[index] = 0
         }
         else
         {
-            //Makes copy of critPoints so change would be seen by button
-            BluePlayer = BluePlayer.copy(critPoints = BluePlayer.critPoints.toMutableList().apply
+            if (BluePlayer.critPoints[index] == 0)
             {
-                set(index, if (this[index] == 0) 1 else 0) //change of point
-            })
+                BluePlayer.critPoints[index] = 1
+                return
+            }
+            BluePlayer.critPoints[index] = 0
         }
     }
     //Change point of Tac Ops point list
@@ -226,19 +251,21 @@ class ScoreViewModel : ViewModel()
         }
         if(isRedTeam)
         {
-            //Makes copy of critPoints so change would be seen by button
-            RedPlayer = RedPlayer.copy(tacPoints = RedPlayer.tacPoints.toMutableList().apply
+            if (RedPlayer.tacPoints[index] == 0)
             {
-                set(index, if (this[index] == 0) 1 else 0) //change of point
-            })
+                RedPlayer.tacPoints[index] = 1
+                return
+            }
+            RedPlayer.tacPoints[index] = 0
         }
         else
         {
-            //Makes copy of critPoints so change would be seen by button
-            BluePlayer = BluePlayer.copy(tacPoints = BluePlayer.tacPoints.toMutableList().apply
+            if (BluePlayer.tacPoints[index] == 0)
             {
-                set(index, if (this[index] == 0) 1 else 0) //change of point
-            })
+                BluePlayer.tacPoints[index] = 1
+                return
+            }
+            BluePlayer.tacPoints[index] = 0
         }
     }
     //Return value of selected ops on given index
@@ -260,6 +287,7 @@ class ScoreViewModel : ViewModel()
                 {
                     return RedPlayer.killPoints[index]
                 }
+                else -> { return 0}
             }
         }
         else
@@ -278,6 +306,7 @@ class ScoreViewModel : ViewModel()
                 {
                     return BluePlayer.killPoints[index]
                 }
+                else -> { return 0}
             }
         }
     }
@@ -290,25 +319,166 @@ class ScoreViewModel : ViewModel()
         }
         return return BluePlayer.critPoints.sum() + BluePlayer.tacPoints.sum() + BluePlayer.killPoints.sum()
     }
+    //Return Command points of player
+    fun GetCP(isRedTeam: Boolean) : Int
+    {
+        if(isRedTeam)
+        {
+            return RedPlayer.commandPoints
+        }
+        return BluePlayer.commandPoints
+    }
+    //Increases Players CP
+    fun IncreaseCP(isRedTeam: Boolean)
+    {
+        if(gameFinished) //block possibility to change value after finishing game
+        {
+            return
+        }
+        if(isRedTeam)
+        {
+            RedPlayer.commandPoints++
+            return
+        }
+        BluePlayer.commandPoints++
+    }
+    //Decrease Players CP
+    fun DecreaseCP(isRedTeam: Boolean)
+    {
+        if(gameFinished) //block possibility to change value after finishing game
+        {
+            return
+        }
+        if(isRedTeam)
+        {
+            RedPlayer.commandPoints--
+            if(RedPlayer.commandPoints < 0)
+            {
+                RedPlayer.commandPoints = 0
+            }
+            return
+        }
+        BluePlayer.commandPoints--
+        if(BluePlayer.commandPoints < 0)
+        {
+            BluePlayer.commandPoints = 0
+        }
+    }
+    //Returns TacOps
+    fun GetTacOp(isRedTeam: Boolean) : Mission
+    {
+        if(isRedTeam)
+        {
+            return RedPlayer.selectedTacop
+        }
+        return BluePlayer.selectedTacop
+    }
+    //Returns TacOp color
+    fun GetTacOpColor(isRedTeam: Boolean) : Color
+    {
+        if(isRedTeam)
+        {
+            if(RedPlayer.selectedTacop != TacOps.Unknown)
+            {
+                return RedPlayer.selectedTacop.color
+            }
+            return KTColors.Red
+        }
+        if(BluePlayer.selectedTacop != TacOps.Unknown)
+        {
+            return BluePlayer.selectedTacop.color
+        }
+        return KTColors.Blue
+    }
+    //Selects TacOps
+    fun SetTacOp(isRedTeam: Boolean,TacOp : Mission)
+    {
+        if(gameFinished)    //block possibility to change value after finishing game
+        {
+            return
+        }
+        if(isRedTeam)
+        {
+            RedPlayer.selectedTacop = TacOp
+            return
+        }
+        BluePlayer.selectedTacop = TacOp
+    }
+    //Selects Primary Ops
+    fun SetPrimaryOp(isRedTeam: Boolean, type : PointType)
+    {
+        if(gameFinished) //block possibility to change value after finishing game
+        {
+            return
+        }
+        if(isRedTeam)
+        {
+            RedPlayer.primaryTacop = type
+            return
+        }
+        BluePlayer.primaryTacop = type
+    }
+    //Return is Primary op selected
+    fun IsPrimaryOpSelected(isRedTeam: Boolean) : Boolean
+    {
+        if(isRedTeam)
+        {
+            return RedPlayer.primaryTacop != PointType.UNKNOWN
+        }
+        return BluePlayer.primaryTacop != PointType.UNKNOWN
+    }
+    //Give information about Selected Tacop
+    fun GetPrimaryInfo(isRedTeam: Boolean) : String
+    {
+        if(isRedTeam)
+        {
+            if(RedPlayer.primaryTacop == PointType.UNKNOWN) //If player don't select primary op
+            {
+                return "Select Primary Op!"
+            }
+            if(!gameFinished)   //If game isn't finished primary op is hidden
+            {
+                return "Primary Op Selected"
+            }
+            //If game finishes tac op is revealed
+            when(RedPlayer.primaryTacop)
+            {
+                PointType.CRITOP -> { return "Crit Ops: "+RedPlayer.critPoints.last().toString() }
+                PointType.TACOP -> { return "Tac Ops: "+RedPlayer.tacPoints.last().toString() }
+                PointType.KILLOP -> { return "Kill Ops: "+RedPlayer.killPoints.last().toString() }
+                PointType.UNKNOWN -> { return "Primary Op: None"}
+            }
+        }
+        if(BluePlayer.primaryTacop == PointType.UNKNOWN) //If player don't select primary op
+        {
+            return "Select Primary Op!"
+        }
+        if(!gameFinished) //If game isn't finished primary op is hidden
+        {
+            return "Primary Op Selected"
+        }
+        //If game finishes tac op is revealed
+        when(BluePlayer.primaryTacop)
+        {
+            PointType.CRITOP -> { return "Crit Op: "+BluePlayer.critPoints.last().toString() }
+            PointType.TACOP -> { return "Tac Op: "+BluePlayer.tacPoints.last().toString() }
+            PointType.KILLOP -> { return "Kill Op: "+BluePlayer.killPoints.last().toString() }
+            PointType.UNKNOWN -> { return "Primary Op: None"}
+        }
+    }
+    //Finishes game and counts bonus points
+    fun FinishGame()
+    {
+        gameFinished = true
+        //Counting final points
+    }
 }
-
-//Data of player
-data class Player(
-        //Points
-    var allPoints : Int,
-    var critPoints : MutableList<Int>,
-    var tacPoints : MutableList<Int>,
-    var killPoints : MutableList<Int>,
-        //Team Info
-    var selectedTeam : TeamInfo,
-    var selectedTacop : Mission,
-    var showTacoop : Boolean
-        )
 
 //Enum for selecting Ops
 enum class PointType
 {
     CRITOP,
     TACOP,
-    KILLOP
+    KILLOP,
+    UNKNOWN
 }

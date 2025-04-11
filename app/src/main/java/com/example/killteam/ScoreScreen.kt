@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
@@ -23,6 +24,7 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,31 +41,34 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.killteam.ui.theme.KTColors
+
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun ScoreScreen(viewModel: ScoreViewModel)
 {
-    LazyColumn(modifier = Modifier.fillMaxSize().padding(vertical = 35.dp, horizontal = 5.dp))
+    LazyColumn(modifier = Modifier.fillMaxSize().padding(horizontal = 5.dp))
     {
         item()
         {
-            GameResult(viewModel)
+            GameResult(viewModel)   //Result of the game
 
         }
         item()
         {
-            RoundBar(viewModel)
+            RoundBar(viewModel)    //Show which is current round
         }
         item()
         {
-            PlayerInfo(KTColors.Red,true,viewModel)
+            PlayerInfo(KTColors.Red,true,viewModel)     //Show info about Red Player
         }
         item()
         {
-            PlayerInfo(KTColors.Blue,false,viewModel)
+            PlayerInfo(KTColors.Blue,false,viewModel)   //Show info about Blue Player
         }
     }
 }
 
+//Show Info about player
 @Composable
 fun PlayerInfo(color : Color,
                firstPlayer : Boolean,
@@ -73,11 +78,15 @@ fun PlayerInfo(color : Color,
     {
         Box()
         {
-            TeamSelection(color,firstPlayer,viewModel)
+            TeamSelection(color,firstPlayer,viewModel)  //Selection of team
         }
         Box()
         {
-            ScorePoints(color,firstPlayer,viewModel)
+            ScorePoints(color,firstPlayer,viewModel)    //Show Points which can be selected during game
+        }
+        Box()
+        {
+            PlayerSelection(color,firstPlayer,viewModel)    // Show other info like Command Points, Tac ops and Primary Objective
         }
 
     }
@@ -98,6 +107,7 @@ fun RoundBar(viewModel: ScoreViewModel)
             verticalAlignment = Alignment.CenterVertically
         )
         {
+            var showDialog by remember { mutableStateOf(false) }
             //Spacer(modifier = Modifier.weight(1.0f).fillMaxWidth())
             Button(
                 modifier = Modifier.weight(0.75f).fillMaxWidth().fillMaxHeight().padding(vertical = 25.dp, horizontal = 5.dp).border(2.dp, KTColors.Orange),
@@ -139,12 +149,24 @@ fun RoundBar(viewModel: ScoreViewModel)
                 modifier = Modifier.weight(1.0f).fillMaxWidth().fillMaxHeight().padding(vertical = 25.dp, horizontal = 5.dp).border(2.dp, KTColors.Orange),
                 colors = ButtonDefaults.buttonColors(containerColor = viewModel.GetBackgroundRoundColor(5)),
                 shape = RectangleShape,
-                onClick = { viewModel.ChangeRound(5) }
+                onClick = { showDialog = true }
             )
             {
                 Text("End",style = TextStyle(color = viewModel.GetTextRoundColor(5), fontSize = 16.sp))
+                if(showDialog && !viewModel.gameFinished)
+                {
+                    EndGameDialogWindow(
+                        KTColors.Orange,{showDialog = false},
+                        { finish -> if(finish)
+                            {
+                                viewModel.ChangeRound(5)
+                                viewModel.FinishGame()
+                            }
+                            showDialog = false
+                        })
+
+                }
             }
-            //Spacer(modifier = Modifier.weight(1.0f).fillMaxWidth())
         }
     }
 }
@@ -200,7 +222,7 @@ fun TeamSelection(
             )
 
             ExposedDropdownMenu(
-                expanded = isExpanded,
+                expanded = isExpanded && !viewModel.gameFinished,
                 onDismissRequest = { isExpanded = false }
             )
             {
@@ -210,11 +232,7 @@ fun TeamSelection(
                         text = { Text(team.name) },
                         contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
                         onClick = {
-                            if (firstPlayer) {
-                                viewModel.RedPlayer.selectedTeam = team
-                            } else {
-                                viewModel.BluePlayer.selectedTeam = team
-                            }
+                            viewModel.SetTeam(firstPlayer,team)
                             isExpanded = false
                         }
                     )
@@ -753,4 +771,271 @@ fun ScorePoints(
         }
     }
 }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PlayerSelection(
+    color : Color,
+    firstPlayer : Boolean,
+    viewModel: ScoreViewModel
+)
+{
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(5.dp)
+    )
+    {
+        //Command Points panel
+        Column(
+            modifier = Modifier.weight(0.4f).fillMaxWidth().background(Color.LightGray).border(2.dp,color,RectangleShape))
+        {
+            //CP Label
+            Box(
+                Modifier.fillMaxWidth().background(color).padding(top = 5.dp),
+                contentAlignment = Alignment.Center
+            )
+            {
+                Text("CP",style = TextStyle(fontSize = 16.sp,color=Color.White))
+            }
+            //CP Manager
+            Row(
+                Modifier.fillMaxWidth().padding(top = 5.dp)
+            )
+            {
+                //CP Value
+                Box(
+                    modifier = Modifier.weight(2.0f).fillMaxWidth().padding(15.dp),
+                    contentAlignment = Alignment.Center
+                )
+                {
+                    Text("${viewModel.GetCP(firstPlayer)}",style = TextStyle(fontSize = 48.sp))
+                }
+                //CP Buttons
+                Column(
+                    modifier = Modifier.weight(1.0f).fillMaxWidth()
+                )
+                {
+                    //Increment Button
+                    Box(
+                        modifier = Modifier.fillMaxSize().background(color),
+                        contentAlignment = Alignment.Center
+                    )
+                    {
 
+                        Button(
+                            modifier = Modifier.fillMaxSize(),
+                            shape = RectangleShape,
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                            onClick = { viewModel.IncreaseCP(firstPlayer) },
+                        ){}
+                        Text("+",style = TextStyle(fontSize = 20.sp,color=Color.White))
+                    }
+                    //Decrement Button
+                    Box(
+                        modifier = Modifier.fillMaxSize().background(color),
+                        contentAlignment = Alignment.Center)
+                    {
+
+                        Button(
+                            modifier = Modifier.fillMaxSize(),
+                            shape = RectangleShape,
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                            onClick = { viewModel.DecreaseCP(firstPlayer) },
+
+                        ){}
+                        Text("-", style = TextStyle(fontSize = 20.sp, color = Color.White))
+                    }
+                }
+            }
+        }
+        //Missions
+        Column(
+            modifier = Modifier.weight(0.6f).fillMaxSize().padding(start = 5.dp)
+        )
+        {
+            //TacOp Selection
+            Box(
+                modifier = Modifier.fillMaxWidth().background(viewModel.GetTacOpColor(firstPlayer)),
+                contentAlignment = Alignment.Center
+                )
+            {
+                var isExpanded by remember { mutableStateOf(false) }
+
+                Column(
+                    modifier = Modifier.fillMaxWidth().background(viewModel.GetTacOpColor(firstPlayer)).padding(horizontal = 5.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                )
+                {
+                    ExposedDropdownMenuBox(
+                        modifier = Modifier.fillMaxWidth().background(viewModel.GetTacOpColor(firstPlayer)),
+                        expanded = isExpanded,
+                        onExpandedChange = {
+                            isExpanded = !isExpanded
+                        }
+                    )
+                    {
+                        TextField(
+                            modifier = Modifier.menuAnchor().fillMaxWidth(),
+                            value = viewModel.GetTacOp(firstPlayer).name,
+                            onValueChange = {},
+                            readOnly = true,
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
+                            colors = TextFieldDefaults.colors(
+                                focusedTextColor = Color.White,
+                                unfocusedTextColor = Color.White,
+                                unfocusedContainerColor = viewModel.GetTacOpColor(firstPlayer),
+                                focusedContainerColor = viewModel.GetTacOpColor(firstPlayer)
+                            ),
+                            textStyle = TextStyle(fontSize = 16.sp)
+                        )
+
+                        ExposedDropdownMenu(
+                            expanded = isExpanded && !viewModel.gameFinished,
+                            onDismissRequest = { isExpanded = false }
+                        )
+                        {
+                            getMissions(viewModel.GetTeam(firstPlayer)).forEachIndexed()
+                            {   index, mission ->
+                                DropdownMenuItem(
+                                    text = { Text(mission.name) },
+                                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                                    onClick = {
+                                        viewModel.SetTacOp(firstPlayer,mission)
+                                        isExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            //Primary Ops Selection
+            Box(
+                modifier = Modifier.fillMaxSize().padding(top = 20.dp).background(color),
+                contentAlignment = Alignment.BottomCenter
+            )
+            {
+                var showDialog by remember { mutableStateOf(false) }
+"End"
+                Button(
+                    modifier = Modifier.fillMaxSize(),
+                    shape = RectangleShape,
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    enabled = !viewModel.IsPrimaryOpSelected(firstPlayer),
+                    onClick = { showDialog = true }
+                )
+                {
+                    Text(viewModel.GetPrimaryInfo(firstPlayer),style = TextStyle(fontSize = 16.sp,color = Color.White))
+
+                    //Ask Player for Primary Op
+                    if(showDialog && !viewModel.gameFinished)
+                    {
+                        PrimaryMissionDialogWindow(
+                            color,
+                            {showDialog = false},
+                            {
+                                pointType -> viewModel.SetPrimaryOp(firstPlayer, pointType)
+                                showDialog = false
+                            })
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Dialog Window which allows user to select Primary Op
+@Composable
+fun PrimaryMissionDialogWindow(
+    color : Color,
+    onDismiss: () -> Unit,
+    onAccept: (PointType) -> Unit
+)
+{
+    AlertDialog(
+        onDismissRequest = onDismiss ,
+        title = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            )
+            {
+                Text("Select Primary Op")
+            }
+             },
+        text = {
+            Column()
+            {
+                Button(
+                    modifier = Modifier.fillMaxWidth().padding(5.dp),
+                    shape = RectangleShape,
+                    colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                    onClick = {onAccept(PointType.CRITOP)}
+                )
+                {
+                    Text("Crit Op")
+                }
+                Button(
+                    modifier = Modifier.fillMaxWidth().padding(5.dp),
+                    shape = RectangleShape,
+                    colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                    onClick = {onAccept(PointType.TACOP)}
+                )
+                {
+                    Text("Tac Op")
+                }
+                Button(
+                    modifier = Modifier.fillMaxWidth().padding(5.dp),
+                    shape = RectangleShape,
+                    colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                    onClick = {onAccept(PointType.KILLOP)}
+                )
+                {
+                    Text("Kill Op")
+                }
+            }
+        },
+        confirmButton = {
+
+        },
+    )
+
+}
+//Dialog Window which ask player is game should be ended
+@Composable
+fun EndGameDialogWindow(
+    color : Color,
+    onDismiss: () -> Unit,
+    onAccept: (Boolean) -> Unit
+)
+{
+    AlertDialog(
+        onDismissRequest = onDismiss ,
+        title = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            )
+            {
+                Text("Do you want finish game?")
+            }
+        },
+        text = {
+            Column()
+            {
+                Text("Finish game would remove possibility to change points, cp, etc.")
+                Button(
+                    modifier = Modifier.fillMaxWidth().padding(5.dp),
+                    shape = RectangleShape,
+                    colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                    onClick = {onAccept(true)}
+                )
+                {
+                    Text("Confirm")
+                }
+            }
+        },
+        confirmButton = {
+
+        }
+    )
+
+}

@@ -8,4 +8,16 @@ fun Int.IndexToRound() : Int = when(this)
     4,5 -> 4
     else -> -1
 }
+//Return List of avaliable missions for team
+fun getMissions(Team : TeamInfo) : MutableList<Mission>
+{
+    var list : MutableList<Mission> = mutableListOf()
+    //list
+    Team.archetypes.forEach { archetype ->
+        archetype.missionList.forEach { mission ->
+            list.add(mission)
+        }
+    }
+    return list
+}
 

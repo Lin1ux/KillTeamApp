@@ -18,7 +18,8 @@ data class Archetype(
 
 data class Mission(
     var name : String,
-    var description : String
+    var description : String,
+    var color : Color
 )
 
 object TacOps
@@ -26,20 +27,24 @@ object TacOps
     //Unknown
     val Unknown = Mission(
         name = "Unknown",
-        description = ""
+        description = "",
+        color = Color.Black
     )
     //Recon
     val ConfirmKill = Mission(
         name = "Confirm Kill",
-        description = ""
+        description = "",
+        color = KTColors.Recon
     )
     val RecoverItems = Mission(
         name = "Confirm Kill",
-        description = ""
+        description = "",
+        color = KTColors.Recon
     )
     val PlantBeacons = Mission(
         name = "Confirm Kill",
-        description = ""
+        description = "",
+        color = KTColors.Recon
     )
     val Recon = Archetype(
         name = "Recon",
@@ -49,15 +54,18 @@ object TacOps
     //Seek and Destroy
     val Overun = Mission(
         name = "Overun",
-        description = ""
+        description = "",
+        color = KTColors.SeekDestroy
     )
     val StormObjectives = Mission(
         name = "Storm Objectives",
-        description = ""
+        description = "",
+        color = KTColors.SeekDestroy
     )
     val Champion = Mission(
         name = "Champion",
-        description = ""
+        description = "",
+        color = KTColors.SeekDestroy
     )
     val SeekDestroy = Archetype(
         name = "Seek and Destroy",
@@ -67,15 +75,18 @@ object TacOps
     //Security
     val Contain = Mission(
         name = "Contain",
-        description = ""
+        description = "",
+        color = KTColors.Security
     )
     val TakeGround = Mission(
         name = "Take Ground",
-        description = ""
+        description = "",
+        color = KTColors.Security
     )
     val SecureCenter = Mission(
         name = "Secure Center",
-        description = ""
+        description = "",
+        color = KTColors.Security
     )
     val Security = Archetype(
         name = "Security",
@@ -85,18 +96,21 @@ object TacOps
     //Infiltration
     val Surveillance = Mission(
         name = "Surveillance",
-        description = ""
+        description = "",
+        color = KTColors.Infiltration
     )
     val Implant = Mission(
         name = "Implant",
-        description = ""
+        description = "",
+        color = KTColors.Infiltration
     )
     val Wiretap = Mission(
         name = "Wiretap",
-        description = ""
+        description = "",
+        color = KTColors.Infiltration
     )
     val Infiltration = Archetype(
-        name = "Infiltratino",
+        name = "Infiltration",
         color = KTColors.Infiltration,
         missionList = listOf(Surveillance,Implant,Wiretap)
     )
