@@ -112,7 +112,7 @@ fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean,index: Int)
                     contentAlignment = Alignment.CenterEnd
                 )
                 {
-                    Text("1CP",style = TextStyle(fontSize = 16.sp),color = Color.White, textAlign = TextAlign.End,)
+                    Text("${viewModel.GetTeam(firstPlayer).ploys[index].cost}",style = TextStyle(fontSize = 16.sp),color = Color.White, textAlign = TextAlign.End,)
                 }
 
             }

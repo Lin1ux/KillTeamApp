@@ -10,7 +10,8 @@ data class TeamInfo(
 data class Ploy(
     var name : String,
     var description : String,
-    var type : PloyType
+    var type : PloyType,
+    var cost : String
 )
 
 //Enum of ploy types
