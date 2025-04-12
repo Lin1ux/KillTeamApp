@@ -443,9 +443,9 @@ class ScoreViewModel : ViewModel()
             //If game finishes tac op is revealed
             when(RedPlayer.primaryTacop)
             {
-                PointType.CRITOP -> { return "Crit Ops: "+RedPlayer.critPoints.last().toString() }
-                PointType.TACOP -> { return "Tac Ops: "+RedPlayer.tacPoints.last().toString() }
-                PointType.KILLOP -> { return "Kill Ops: "+RedPlayer.killPoints.last().toString() }
+                PointType.CRITOP -> { return "Crit Op: "+RedPlayer.critPoints.last().toString() }
+                PointType.TACOP -> { return "Tac Op: "+RedPlayer.tacPoints.last().toString() }
+                PointType.KILLOP -> { return "Kill Op: "+RedPlayer.killPoints.last().toString() }
                 PointType.UNKNOWN -> { return "Primary Op: None"}
             }
         }
@@ -470,15 +470,22 @@ class ScoreViewModel : ViewModel()
     fun FinishGame()
     {
         gameFinished = true
-        //Counting final points
+        //Counting Primary Ops points for Red Player
+        when(RedPlayer.primaryTacop)
+        {
+            PointType.CRITOP -> { RedPlayer.critPoints[RedPlayer.critPoints.size-1] = countBonus(RedPlayer.critPoints) }
+            PointType.TACOP -> { RedPlayer.tacPoints[RedPlayer.tacPoints.size-1] = countBonus(RedPlayer.tacPoints) }
+            PointType.KILLOP -> { RedPlayer.killPoints[RedPlayer.killPoints.size-1] = countBonus(RedPlayer.killPoints) }
+            PointType.UNKNOWN -> { }
+        }
+        //Counting Primary Ops points for Blue Player
+        when(BluePlayer.primaryTacop)
+        {
+            PointType.CRITOP -> { BluePlayer.critPoints[BluePlayer.critPoints.size-1] = countBonus(BluePlayer.critPoints) }
+            PointType.TACOP -> { BluePlayer.tacPoints[BluePlayer.tacPoints.size-1] = countBonus(BluePlayer.tacPoints) }
+            PointType.KILLOP -> { BluePlayer.killPoints[BluePlayer.killPoints.size-1] = countBonus(BluePlayer.killPoints) }
+            PointType.UNKNOWN -> { }
+        }
     }
 }
 
-//Enum for selecting Ops
-enum class PointType
-{
-    CRITOP,
-    TACOP,
-    KILLOP,
-    UNKNOWN
-}

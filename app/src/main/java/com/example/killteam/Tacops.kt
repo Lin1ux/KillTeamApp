@@ -116,3 +116,12 @@ object TacOps
     )
 
 }
+
+//Enum for selecting Ops
+enum class PointType
+{
+    CRITOP,
+    TACOP,
+    KILLOP,
+    UNKNOWN
+}

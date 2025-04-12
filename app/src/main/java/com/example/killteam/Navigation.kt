@@ -36,38 +36,39 @@ fun Navigation()
     val viewModel: ScoreViewModel = viewModel()
 
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route)
+    NavHost(navController = navController, startDestination = Screen.ScoreScreen.route)
     {
-        composable(route = Screen.MainScreen.route)
+        composable(route = Screen.ScoreScreen.route)
         {
-            ScoreScreen(navController = navController,viewModel = viewModel)
-            //MainScreen(navController = navController)
+            ShowScoreScreen(navController = navController,viewModel = viewModel)
+        }
+        composable(route = Screen.FractionScreen.route, //route to Fraction Screen
+            arguments = listOf(navArgument("RedPlayer") //It requires boolean argument is Red Player
+            {
+                type = NavType.BoolType
+                defaultValue = true
+            }))
+        { entry ->
+            val RedPlayer = entry.arguments?.getBoolean("RedPlayer") ?: false
+            ShowFractionScreen(navController,viewModel, RedPlayer)
+        }
+        composable(route = Screen.UnitScreen.route, //route to Fraction Screen
+            arguments = listOf(navArgument("RedPlayer") //It requires boolean argument is Red Player
+            {
+                type = NavType.BoolType
+                defaultValue = true
+            }))
+        { entry ->
+            val RedPlayer = entry.arguments?.getBoolean("RedPlayer") ?: false
+            ShowUnitScreen(navController,viewModel, RedPlayer)
         }
     }
 }
-        /*composable (
-            route = Screen.DetailScreen.route + "/{name}/{description}",
-            arguments = listOf(
-                navArgument("name")
-                {
-                    type = NavType.StringType
-                    defaultValue = "Drink"
-                    nullable = true
-                }
-            )
-        )
-        {   entry ->
-            /*SelectDetailScreen(
-                title = entry.arguments?.getString("name"),
-                description = entry.arguments?.getString("description"))*/
-        }*/
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
 @Composable
-fun ScoreScreen(navController : NavController,viewModel: ScoreViewModel)
+fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel)
 {
-
-
     val context = LocalContext.current
     val activity = context as ComponentActivity
     val windowSizeClass = calculateWindowSizeClass(activity)    //Pobranie klasy ekranu
@@ -89,7 +90,68 @@ fun ScoreScreen(navController : NavController,viewModel: ScoreViewModel)
     )
     { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            ScoreScreen(viewModel = viewModel)
+            ScoreScreen(viewModel = viewModel,navController)
+        }
+    }
+}
+
+
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
+@Composable
+fun ShowFractionScreen(navController : NavController,viewModel: ScoreViewModel,firstPlayer : Boolean)
+{
+    val context = LocalContext.current
+    val activity = context as ComponentActivity
+    val windowSizeClass = calculateWindowSizeClass(activity)    //Pobranie klasy ekranu
+    Scaffold(
+
+        topBar = {
+            TopAppBar(
+                modifier = Modifier.height(75.dp),
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = KTColors.Infiltration,
+                    titleContentColor = Color.White // Dopasuj kolor tekstu do tła
+                ),
+                title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
+                {
+                    Text("${viewModel.GetTeam(firstPlayer).name}")}
+                }
+            )
+        }
+    )
+    { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            FractionScreen(viewModel,firstPlayer)
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
+@Composable
+fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,firstPlayer : Boolean)
+{
+    val context = LocalContext.current
+    val activity = context as ComponentActivity
+    val windowSizeClass = calculateWindowSizeClass(activity)    //Pobranie klasy ekranu
+    Scaffold(
+
+        topBar = {
+            TopAppBar(
+                modifier = Modifier.height(75.dp),
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = KTColors.Infiltration,
+                    titleContentColor = Color.White // Dopasuj kolor tekstu do tła
+                ),
+                title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
+                {
+                    Text("${viewModel.GetTeam(firstPlayer).name}")}
+                }
+            )
+        }
+    )
+    { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            UnitScreen(viewModel,firstPlayer)
         }
     }
 }

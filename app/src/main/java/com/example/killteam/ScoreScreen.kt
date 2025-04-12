@@ -1,5 +1,6 @@
 package com.example.killteam
 
+import android.graphics.Paint.Align
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -38,13 +39,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.killteam.ui.theme.KTColors
+import java.nio.file.WatchEvent
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun ScoreScreen(viewModel: ScoreViewModel)
+fun ScoreScreen(viewModel: ScoreViewModel,navController : NavController)
 {
     LazyColumn(modifier = Modifier.fillMaxSize().padding(horizontal = 5.dp))
     {
@@ -59,11 +63,11 @@ fun ScoreScreen(viewModel: ScoreViewModel)
         }
         item()
         {
-            PlayerInfo(KTColors.Red,true,viewModel)     //Show info about Red Player
+            PlayerInfo(KTColors.Red,true,viewModel,navController)     //Show info about Red Player
         }
         item()
         {
-            PlayerInfo(KTColors.Blue,false,viewModel)   //Show info about Blue Player
+            PlayerInfo(KTColors.Blue,false,viewModel,navController)   //Show info about Blue Player
         }
     }
 }
@@ -72,7 +76,8 @@ fun ScoreScreen(viewModel: ScoreViewModel)
 @Composable
 fun PlayerInfo(color : Color,
                firstPlayer : Boolean,
-               viewModel: ScoreViewModel)
+               viewModel: ScoreViewModel,
+               navController : NavController)
 {
     Column(modifier = Modifier.padding(top = 5.dp).background(Color.LightGray))
     {
@@ -88,11 +93,16 @@ fun PlayerInfo(color : Color,
         {
             PlayerSelection(color,firstPlayer,viewModel)    // Show other info like Command Points, Tac ops and Primary Objective
         }
+        Box()
+        {
+            PlayerTeamInfo(color,firstPlayer,viewModel,navController)     //Buttons which navigates to team info sections
+        }
 
     }
 
 }
 
+//Creates bar for managing rounds
 @Composable
 fun RoundBar(viewModel: ScoreViewModel)
 {
@@ -785,7 +795,7 @@ fun PlayerSelection(
     {
         //Command Points panel
         Column(
-            modifier = Modifier.weight(0.4f).fillMaxWidth().background(Color.LightGray).border(2.dp,color,RectangleShape))
+            modifier = Modifier.weight(1f).fillMaxWidth().background(Color.LightGray).border(2.dp,color,RectangleShape))
         {
             //CP Label
             Box(
@@ -848,7 +858,7 @@ fun PlayerSelection(
         }
         //Missions
         Column(
-            modifier = Modifier.weight(0.6f).fillMaxSize().padding(start = 5.dp)
+            modifier = Modifier.weight(1.0f).fillMaxSize().padding(start = 5.dp)
         )
         {
             //TacOp Selection
@@ -909,12 +919,11 @@ fun PlayerSelection(
             }
             //Primary Ops Selection
             Box(
-                modifier = Modifier.fillMaxSize().padding(top = 20.dp).background(color),
+                modifier = Modifier.fillMaxSize().padding(top = 15.dp).background(color),
                 contentAlignment = Alignment.BottomCenter
             )
             {
                 var showDialog by remember { mutableStateOf(false) }
-"End"
                 Button(
                     modifier = Modifier.fillMaxSize(),
                     shape = RectangleShape,
@@ -923,7 +932,7 @@ fun PlayerSelection(
                     onClick = { showDialog = true }
                 )
                 {
-                    Text(viewModel.GetPrimaryInfo(firstPlayer),style = TextStyle(fontSize = 16.sp,color = Color.White))
+                    Text(viewModel.GetPrimaryInfo(firstPlayer),style = TextStyle(fontSize = 16.sp,color = Color.White),textAlign = TextAlign.Center)
 
                     //Ask Player for Primary Op
                     if(showDialog && !viewModel.gameFinished)
@@ -939,6 +948,40 @@ fun PlayerSelection(
                 }
             }
         }
+    }
+}
+
+//Creates box for navigating to sections with team informations
+@Composable
+fun PlayerTeamInfo(
+    color : Color,
+    firstPlayer : Boolean,
+    viewModel: ScoreViewModel,
+    navController : NavController)
+{
+    Row(
+        modifier = Modifier.fillMaxWidth().height(75.dp).padding(5.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    )
+    {
+        //Button which change to fraction screen
+        Button(
+            modifier = Modifier.weight(1.0f).fillMaxSize().padding(horizontal = 5.dp, vertical = 2.dp),
+            shape = RectangleShape,
+            colors = ButtonDefaults.buttonColors(containerColor = color, contentColor = Color.White),
+            onClick = { navController.navigate(Screen.FractionScreen.FractionRoute(firstPlayer)) }
+        )
+        { Text("Ploys/Equipment") }
+        //Button which change to unit screen
+        Button(
+            modifier = Modifier.weight(1.0f).fillMaxSize().padding(horizontal = 5.dp, vertical = 2.dp),
+            shape = RectangleShape,
+            colors = ButtonDefaults.buttonColors(containerColor = color, contentColor = Color.White),
+            onClick = { navController.navigate(Screen.UnitScreen.UnitRoute(firstPlayer)) }
+        )
+        { Text("Operators") }
+
     }
 }
 
