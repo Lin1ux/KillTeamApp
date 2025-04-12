@@ -27,6 +27,8 @@ class ScoreViewModel : ViewModel()
         val killPoints = mutableStateListOf(0,0,0,0,0,0,0)
 
         var commandPoints by mutableStateOf(0)
+
+        var selectedPloys = mutableStateListOf<ploySelection>()
     }
 
     val RedPlayer = PlayerState()   //First Player - Red
@@ -487,5 +489,42 @@ class ScoreViewModel : ViewModel()
             PointType.UNKNOWN -> { }
         }
     }
+    //Return ploy Selection of player
+    fun GetPloysBySelection(isRedTeam: Boolean) : List<ploySelection>
+    {
+        if(isRedTeam)
+        {
+            //if list is null
+            if(RedPlayer.selectedPloys.isEmpty())
+            {
+                RedPlayer.selectedTeam.ploys.forEachIndexed { index,ploy ->
+                    RedPlayer.selectedPloys.add(ploySelection(ploy,false,index))
+                }
+            }
+            return RedPlayer.selectedPloys
+        }
+        //if list is null
+        if(BluePlayer.selectedPloys.isEmpty())
+        {
+            BluePlayer.selectedTeam.ploys.forEachIndexed { index,ploy ->
+                BluePlayer.selectedPloys.add(ploySelection(ploy,false,index))
+            }
+        }
+        return BluePlayer.selectedPloys
+    }
+    //Get Alpha
+    /*fun GetAlphaByPloySelection(isRedTeam: Boolean,ploySelection: ploySelection)
+    {
+        if(isRedTeam)
+        {
+
+        }
+    }*/
 }
+
+data class ploySelection(
+        var ploy : Ploy,
+        var selected : Boolean,
+        var index : Int
+        )
 

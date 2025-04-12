@@ -37,4 +37,51 @@ fun ployToColor(ploy : PloyType) : Color
         PloyType.FIREFIGHT -> return KTColors.Firefight
     }
 }
+//Return list of one type ploys
+fun GetOneTypePloys(Ploys : List<Ploy>,type : PloyType) : List<Ploy>
+{
+    var list : MutableList<Ploy> = mutableListOf()
+    Ploys.forEach { ploy ->
+        if(ploy.type == type)
+        {
+            list.add(ploy)
+        }
+    }
+    return list
+}
+
+//Return list of one type ploys
+fun GetOneTypePloysSelection(Ploys : List<ploySelection>,type : PloyType) : List<ploySelection>
+{
+    var list : MutableList<ploySelection> = mutableListOf()
+    Ploys.forEach { selectedPloy ->
+        if(selectedPloy.ploy.type == type)
+        {
+            list.add(selectedPloy)
+        }
+    }
+    return list
+}
+
+//Return alpha depended on state of ploySelection
+fun GetAlphaFromPloySelecion(PloySelection : ploySelection) : Float
+{
+    when(PloySelection.ploy.type)
+    {
+        PloyType.STRATEGY -> {
+            if (PloySelection.selected)
+            {
+                return 1.0f
+            }
+            return 0.5f
+        }
+        PloyType.FIREFIGHT -> {
+            if (PloySelection.selected)
+            {
+                return 0.5f
+            }
+            return 1.0f
+        }
+    }
+}
 

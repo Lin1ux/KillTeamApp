@@ -42,27 +42,50 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
                 modifier = Modifier.fillMaxWidth().background(KTColors.Orange).padding(vertical = 10.dp),
                 contentAlignment = Alignment.Center)
             {
-                Text("Ploys",style = TextStyle(fontSize = 32.sp),color = Color.White)
+                Text("Strategy Ploys",style = TextStyle(fontSize = 32.sp),color = Color.White)
             }
         }
         item()
         {
-            viewModel.GetTeam(firstPlayer).ploys.forEachIndexed { index,element ->
-                Ploys(viewModel, firstPlayer,index)
+            GetOneTypePloysSelection(viewModel.GetPloysBySelection(firstPlayer),PloyType.STRATEGY).forEach { element ->
+                Ploys(viewModel, firstPlayer, element)
+            }
+        }
+        item()
+        {
+            Box(
+                modifier = Modifier.fillMaxWidth().background(KTColors.Orange).padding(vertical = 10.dp),
+                contentAlignment = Alignment.Center)
+            {
+                Text("Firefight Ploys",style = TextStyle(fontSize = 32.sp),color = Color.White)
+            }
+        }
+        item()
+        {
+            GetOneTypePloysSelection(viewModel.GetPloysBySelection(firstPlayer),PloyType.FIREFIGHT).forEach { element ->
+                Ploys(viewModel, firstPlayer, element)
+            }
+        }
+        item()
+        {
+            Box(
+                modifier = Modifier.fillMaxWidth().background(KTColors.Orange).padding(vertical = 10.dp),
+                contentAlignment = Alignment.Center)
+            {
+                Text("Equipment",style = TextStyle(fontSize = 32.sp),color = Color.White)
             }
         }
     }
 }
 
 @Composable
-fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean,index: Int)
+fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean,ploySelection: ploySelection)
 {
-    val color by remember { mutableStateOf( ployToColor(viewModel.GetTeam(firstPlayer).ploys[index].type)) }
+    val color by remember { mutableStateOf( ployToColor(ploySelection.ploy.type).copy(alpha = GetAlphaFromPloySelecion(ploySelection))) }
     Box(modifier = Modifier.fillMaxWidth().padding(top = 20.dp, bottom = 10.dp,end = 20.dp,start = 10.dp).drawBehind
     {
         val strokeWidth = 10f
         val x = size.width - strokeWidth
-        //val y = size.height - strokeWidth
 
         //top line
         drawLine(
@@ -91,15 +114,15 @@ fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean,index: Int)
             modifier = Modifier.fillMaxSize().background(color).padding(10.dp),
             contentAlignment = Alignment.Center)
         {
-            Row(modifier = Modifier.fillMaxSize().background(color))
+            Row(modifier = Modifier.fillMaxSize().background(Color.Transparent))
             {
                 Box(
-                    modifier = Modifier.weight(0.75f).fillMaxSize().background(color),
+                    modifier = Modifier.weight(0.75f).fillMaxSize().background(Color.Transparent),
                     contentAlignment = Alignment.CenterStart
 
                 )
                 {
-                    Text("${viewModel.GetTeam(firstPlayer).ploys[index].name}",
+                    Text("${ploySelection.ploy.name}",
                         style = TextStyle(fontSize = 20.sp),
                         color = Color.White,textAlign = TextAlign.End,
                         softWrap = false,
@@ -108,11 +131,11 @@ fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean,index: Int)
                     )
                 }
                 Box(
-                    modifier = Modifier.weight(0.25f).fillMaxSize().background(color),
+                    modifier = Modifier.weight(0.25f).fillMaxSize().background(Color.Transparent),
                     contentAlignment = Alignment.CenterEnd
                 )
                 {
-                    Text("${viewModel.GetTeam(firstPlayer).ploys[index].cost}",style = TextStyle(fontSize = 16.sp),color = Color.White, textAlign = TextAlign.End,)
+                    Text("${ploySelection.ploy.cost}",style = TextStyle(fontSize = 16.sp),color = Color.White, textAlign = TextAlign.End,)
                 }
 
             }
