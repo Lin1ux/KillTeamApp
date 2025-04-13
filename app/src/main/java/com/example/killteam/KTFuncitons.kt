@@ -78,7 +78,7 @@ fun GetAlphaFromPloySelecion(PloySelection : ploySelection) : Float
             {
                 return 1.0f
             }
-            return 0.5f
+            return 0.25f
         }
         PloyType.FIREFIGHT -> {
             if (PloySelection.selected)

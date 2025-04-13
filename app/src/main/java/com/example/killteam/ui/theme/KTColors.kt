@@ -2,9 +2,11 @@ package com.example.killteam.ui.theme
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.LineBreak
+import com.example.killteam.Equipment
 
 object KTColors
 {
+    val Background = Color(0xFFDCD3D0)
     val Orange = Color(0xFFCA521C)
     val Weapon = Color(0xFF4061D0)
     val Red = Color(0xFF811212)
@@ -17,5 +19,6 @@ object KTColors
     val Recon = Color(0xFFF05C22)
     val Firefight = Color(0xFF000000)
     val Strategy = Color(0xFF7D857C)
+    val Equipment = Color(0xFF424242)
 
 }

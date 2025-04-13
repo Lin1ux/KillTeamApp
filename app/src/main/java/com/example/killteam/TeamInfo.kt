@@ -3,7 +3,8 @@ package com.example.killteam
 data class TeamInfo(
     var name : String,
     var archetypes : List<Archetype>,
-    var ploys : List<Ploy>
+    var ploys : List<Ploy>,
+    var equipment: List<Equipment>
 
 )
 

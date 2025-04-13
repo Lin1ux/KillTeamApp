@@ -16,8 +16,6 @@ class ScoreViewModel : ViewModel()
     var currentRound by mutableStateOf(1)                   //used to reset Ploys
     var gameFinished by mutableStateOf(false)               //Is game finished
 
-    var reload by mutableStateOf(false)                     //State to changing
-
     //Player State
     inner class PlayerState
     {
@@ -32,6 +30,7 @@ class ScoreViewModel : ViewModel()
         var commandPoints by mutableStateOf(2)
 
         var ploysData = mutableStateListOf<ploySelection>()
+        var eqData = mutableStateListOf<eqSelection>()
     }
 
     val RedPlayer = PlayerState()   //First Player - Red
@@ -66,11 +65,13 @@ class ScoreViewModel : ViewModel()
         if(isRedTeam)
         {
             RedPlayer.ploysData = mutableStateListOf<ploySelection>()
+            RedPlayer.eqData = mutableStateListOf<eqSelection>()
             RedPlayer.selectedTeam = team
 
             return
         }
         BluePlayer.ploysData = mutableStateListOf<ploySelection>()
+        BluePlayer.eqData = mutableStateListOf<eqSelection>()
         BluePlayer.selectedTeam = team
     }
     //return background color which depends of round number
@@ -524,33 +525,60 @@ class ScoreViewModel : ViewModel()
         }
         return BluePlayer.ploysData
     }
+    //Return equipment Selection of player
+    fun GetEqBySelection(isRedTeam: Boolean) : List<eqSelection>
+    {
+        if(isRedTeam)
+        {
+            //if list is null
+            if(RedPlayer.eqData.isEmpty())
+            {
+                RedPlayer.selectedTeam.equipment.forEachIndexed { index,eq ->
+                    RedPlayer.eqData.add(eqSelection(eq,false,index))
+                }
+            }
+            return RedPlayer.eqData
+        }
+        //if list is null
+        if(BluePlayer.eqData.isEmpty())
+        {
+            BluePlayer.selectedTeam.equipment.forEachIndexed { index,eq ->
+                BluePlayer.eqData.add(eqSelection(eq,false,index))
+            }
+        }
+        return BluePlayer.eqData
+    }
     //Switch Activation of Ploy
     fun SwitchPloyActivation(isRedTeam: Boolean,Index: Int)
     {
         if(isRedTeam)
         {
-            RedPlayer.ploysData.forEachIndexed { index, ploy ->
-                if( RedPlayer.ploysData[index].index == Index )
-                {
-                    RedPlayer.ploysData[index] = RedPlayer.ploysData[index].copy(selected = !RedPlayer.ploysData[index].selected)
-                }
-            }
+            RedPlayer.ploysData[Index].selected = !RedPlayer.ploysData[Index].selected
             return
         }
-        BluePlayer.ploysData.forEachIndexed { index, ploy ->
-            if( BluePlayer.ploysData[index].index == Index )
-            {
-                BluePlayer.ploysData[index] = BluePlayer.ploysData[index].copy(selected = !BluePlayer.ploysData[index].selected)
-            }
+        BluePlayer.ploysData[Index].selected = !BluePlayer.ploysData[Index].selected
+    }
+    //Switch Placement of Ploy
+    fun SwitchEqPlacement(isRedTeam: Boolean,Index: Int)
+    {
+        if (isRedTeam)
+        {
+            RedPlayer.eqData[Index] = RedPlayer.eqData[Index].copy(selected = !RedPlayer.eqData[Index].selected)
+            return
         }
+        BluePlayer.eqData[Index] = BluePlayer.eqData[Index].copy(selected = !BluePlayer.eqData[Index].selected)
     }
 }
 
 data class ploySelection(
         var ploy : Ploy,
-        val selected : Boolean,
+        var selected : Boolean,
         var index : Int
         )
-{
-}
+
+data class eqSelection(
+    var eq : Equipment,
+    var selected: Boolean,
+    var index: Int
+)
 

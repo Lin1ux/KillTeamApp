@@ -50,7 +50,7 @@ import java.nio.file.WatchEvent
 @Composable
 fun ScoreScreen(viewModel: ScoreViewModel,navController : NavController)
 {
-    LazyColumn(modifier = Modifier.fillMaxSize().padding(horizontal = 5.dp))
+    LazyColumn(modifier = Modifier.fillMaxSize().background(KTColors.Background).padding(horizontal = 5.dp))
     {
         item()
         {
@@ -79,7 +79,7 @@ fun PlayerInfo(color : Color,
                viewModel: ScoreViewModel,
                navController : NavController)
 {
-    Column(modifier = Modifier.padding(top = 5.dp).background(Color.LightGray))
+    Column(modifier = Modifier.padding(top = 5.dp).background(KTColors.Background))
     {
         Box()
         {
@@ -112,7 +112,7 @@ fun RoundBar(viewModel: ScoreViewModel)
     )
     {
         Row(
-            modifier = Modifier.fillMaxSize().background(Color.LightGray),
+            modifier = Modifier.fillMaxSize().background(KTColors.Background),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         )
@@ -307,7 +307,7 @@ fun ScorePoints(
                 Text("Crit",color = Color.White, style = TextStyle(fontSize = 16.sp))
             }
             Box(
-                modifier = Modifier.background(Color.LightGray).weight(0.2f).fillMaxSize(),
+                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
                 contentAlignment = Alignment.Center
             )
             {
@@ -368,7 +368,7 @@ fun ScorePoints(
 
             }
             Box(
-                modifier = Modifier.background(Color.LightGray).weight(0.2f).fillMaxSize(),
+                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
                 contentAlignment = Alignment.Center
             )
             {
@@ -427,7 +427,7 @@ fun ScorePoints(
                 }
             }
             Box(
-                modifier = Modifier.background(Color.LightGray).weight(0.2f).fillMaxSize(),
+                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
                 contentAlignment = Alignment.Center
             )
             {
@@ -499,7 +499,7 @@ fun ScorePoints(
                 Text("Tac",color = Color.White, style = TextStyle(fontSize = 16.sp))
             }
             Box(
-                modifier = Modifier.background(Color.LightGray).weight(0.2f).fillMaxSize(),
+                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
                 contentAlignment = Alignment.Center
             )
             {
@@ -559,7 +559,7 @@ fun ScorePoints(
 
             }
             Box(
-                modifier = Modifier.background(Color.LightGray).weight(0.2f).fillMaxSize(),
+                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
                 contentAlignment = Alignment.Center
             )
             {
@@ -618,7 +618,7 @@ fun ScorePoints(
                 }
             }
             Box(
-                modifier = Modifier.background(Color.LightGray).weight(0.2f).fillMaxSize(),
+                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
                 contentAlignment = Alignment.Center
             )
             {
@@ -702,7 +702,7 @@ fun ScorePoints(
                 Text("Kill",color = Color.White, style = TextStyle(fontSize = 16.sp))
             }
             Box(
-                modifier = Modifier.background(Color.LightGray).weight(0.2f).fillMaxSize(),
+                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
                 contentAlignment = Alignment.Center
             )
             {
@@ -728,7 +728,7 @@ fun ScorePoints(
 
             }
             Box(
-                modifier = Modifier.background(Color.LightGray).weight(0.2f).fillMaxSize(),
+                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
                 contentAlignment = Alignment.Center
             )
             {
@@ -753,7 +753,7 @@ fun ScorePoints(
                 }
             }
             Box(
-                modifier = Modifier.background(Color.LightGray).weight(0.2f).fillMaxSize(),
+                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
                 contentAlignment = Alignment.Center
             )
             {
@@ -795,7 +795,7 @@ fun PlayerSelection(
     {
         //Command Points panel
         Column(
-            modifier = Modifier.weight(1f).fillMaxWidth().background(Color.LightGray).border(2.dp,color,RectangleShape))
+            modifier = Modifier.weight(1f).fillMaxWidth().background(KTColors.Background).border(2.dp,color,RectangleShape))
         {
             //CP Label
             Box(

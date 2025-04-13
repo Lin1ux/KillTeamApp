@@ -1,10 +1,12 @@
 package com.example.killteam
 
+import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,10 +39,8 @@ import com.example.killteam.ui.theme.KTColors
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
-    // Zmieniamy LazyColumn na Column - lepiej sprawdza się z weight
-    LazyColumn(modifier = Modifier.fillMaxSize().background(Color.LightGray)) {
-        //Ploys(viewModel, firstPlayer)
-        item()
+    LazyColumn(modifier = Modifier.fillMaxSize().background(KTColors.Background)) {
+        item()  //Strategy Ploy Label
         {
             Box(
                 modifier = Modifier.fillMaxWidth().background(KTColors.Orange).padding(vertical = 10.dp),
@@ -49,13 +49,13 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
                 Text("Strategy Ploys",style = TextStyle(fontSize = 32.sp),color = Color.White)
             }
         }
-        item()
+        item()  //Strategy Ploys button
         {
             GetOneTypePloysSelection(viewModel.GetPloysBySelection(firstPlayer),PloyType.STRATEGY).forEach { element ->
                 Ploys(viewModel, firstPlayer, element)
             }
         }
-        item()
+        item() //Firefight ploy label
         {
             Box(
                 modifier = Modifier.fillMaxWidth().background(KTColors.Orange).padding(vertical = 10.dp),
@@ -64,13 +64,38 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
                 Text("Firefight Ploys",style = TextStyle(fontSize = 32.sp),color = Color.White)
             }
         }
-        item()
+        item() //Firefight Ploys button
         {
             GetOneTypePloysSelection(viewModel.GetPloysBySelection(firstPlayer),PloyType.FIREFIGHT).forEach { element ->
                 Ploys(viewModel, firstPlayer, element)
             }
         }
-        item()
+        item() //Selected Equipment label
+        {
+            Box(
+                modifier = Modifier.fillMaxWidth().background(KTColors.Orange).padding(vertical = 10.dp),
+                contentAlignment = Alignment.Center)
+            {
+                Text("Selected Equipment",style = TextStyle(fontSize = 32.sp),color = Color.White)
+            }
+        }
+        item() //Equipment buttons
+        {
+            var selectedAmount : Int = 0
+            viewModel.GetEqBySelection(firstPlayer).forEach { element ->
+
+                if(element.selected)
+                {
+                    selectedAmount++
+                    Equipment(viewModel, firstPlayer, element)
+                }
+            }
+            if(selectedAmount == 0) //Spacer to prevent merging of to labels
+            {
+                Spacer(modifier = Modifier.fillMaxWidth().padding(bottom = 5.dp))
+            }
+        }
+        item() //Equipment label
         {
             Box(
                 modifier = Modifier.fillMaxWidth().background(KTColors.Orange).padding(vertical = 10.dp),
@@ -78,6 +103,19 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
             {
                 Text("Equipment",style = TextStyle(fontSize = 32.sp),color = Color.White)
             }
+        }
+        item() //equipment buttons
+        {
+            viewModel.GetEqBySelection(firstPlayer).forEach { element ->
+                if(!element.selected)
+                {
+                    Equipment(viewModel, firstPlayer, element)
+                }
+            }
+        }
+        item() //Spacer to make space between last equipment button and system navigation
+        {
+            Spacer(modifier = Modifier.fillMaxWidth().padding(10.dp))
         }
     }
 }
@@ -246,4 +284,116 @@ fun PloyInfoDialog(
         }
     )
 
+}
+
+//Component giving information about selected equipment
+@Composable
+fun Equipment(viewModel: ScoreViewModel, firstPlayer: Boolean,eqSelection: eqSelection)
+{
+    Box(
+        modifier = Modifier.fillMaxWidth().padding(5.dp).border(2.dp, KTColors.Equipment,RectangleShape)
+    )
+    {
+        var showDialog by remember { mutableStateOf(false) }
+
+        Button(
+            modifier = Modifier.fillMaxSize().background(Color.Transparent),
+            shape = RectangleShape,
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+            onClick = { showDialog = true }
+        )
+        {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.CenterStart
+            )
+            {
+                Text("${viewModel.GetTeam(firstPlayer).equipment[eqSelection.index].name}",
+                    style = TextStyle(fontSize = 20.sp),
+                    textAlign = TextAlign.Start,
+                    color = KTColors.Equipment)
+            }
+            if(showDialog)
+            {
+                EquipmentInfoDialog(
+                    KTColors.Orange,firstPlayer, eqSelection,viewModel,
+                    {showDialog = false},   //On Dismiss
+                    { finish -> if(finish)  //On Accept
+                    {
+                        viewModel.SwitchEqPlacement(firstPlayer, eqSelection.index)
+                    }
+                        showDialog = false
+                    })
+
+            }
+        }
+    }
+}
+
+//Dialog Window which ask player is game should be ended
+@Composable
+fun EquipmentInfoDialog(
+    color : Color,
+    firstPlayer : Boolean,
+    eqSelection: eqSelection,
+    viewModel: ScoreViewModel,
+    onDismiss: () -> Unit,
+    onAccept: (Boolean) -> Unit
+)
+{
+    AlertDialog(
+        onDismissRequest = onDismiss ,
+        title = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            )
+            {
+                Text("${eqSelection.eq.name}", textAlign = TextAlign.Center)
+            }
+        },
+        text = {
+            LazyColumn(horizontalAlignment = Alignment.CenterHorizontally)
+            {
+                item()
+                {
+                    Box(modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp), contentAlignment = Alignment.Center)
+                    {
+                        Text(FormatTextWithMarkers(eqSelection.eq.description),style = TextStyle(fontSize = 14.sp), textAlign = TextAlign.Justify)
+                    }
+                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center)
+                    {
+                        Text("Remained: ${viewModel.GetCP(firstPlayer)}CP",style = TextStyle(fontSize = 16.sp))
+                    }
+                    if(eqSelection.selected)
+                    {
+                        Button(
+                            modifier = Modifier.fillMaxWidth().padding(5.dp),
+                            shape = RectangleShape,
+                            colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                            onClick = {onAccept(true)}
+                        )
+                        {
+                            Text("Remove")
+                        }
+                    }
+                    else
+                    {
+                        Button(
+                            modifier = Modifier.fillMaxWidth().padding(5.dp),
+                            shape = RectangleShape,
+                            colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                            onClick = {onAccept(true)}
+                        )
+                        {
+                            Text("Add")
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+
+        }
+    )
 }
