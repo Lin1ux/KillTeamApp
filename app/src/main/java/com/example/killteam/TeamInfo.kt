@@ -19,3 +19,8 @@ enum class PloyType{
     STRATEGY,
     FIREFIGHT
 }
+
+data class Equipment(
+    var name : String,
+    var description: String
+)

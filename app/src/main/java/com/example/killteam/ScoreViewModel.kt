@@ -13,7 +13,10 @@ import kotlin.Int
 class ScoreViewModel : ViewModel()
 {
     var round by mutableStateOf(1)                          //Current round of game
+    var currentRound by mutableStateOf(1)                   //used to reset Ploys
     var gameFinished by mutableStateOf(false)               //Is game finished
+
+    var reload by mutableStateOf(false)                     //State to changing
 
     //Player State
     inner class PlayerState
@@ -26,9 +29,9 @@ class ScoreViewModel : ViewModel()
         val tacPoints = mutableStateListOf(0,0,0,0,0,0,0)
         val killPoints = mutableStateListOf(0,0,0,0,0,0,0)
 
-        var commandPoints by mutableStateOf(0)
+        var commandPoints by mutableStateOf(2)
 
-        var selectedPloys = mutableStateListOf<ploySelection>()
+        var ploysData = mutableStateListOf<ploySelection>()
     }
 
     val RedPlayer = PlayerState()   //First Player - Red
@@ -40,6 +43,12 @@ class ScoreViewModel : ViewModel()
         if(gameFinished) //block possibility to change value after finishing game
         {
             return
+        }
+        if(currentRound+1 == newRound)  //Reseting Ploys
+        {
+            currentRound += 1
+            BluePlayer.ploysData = mutableStateListOf<ploySelection>()
+            RedPlayer.ploysData = mutableStateListOf<ploySelection>()
         }
         if(newRound > 5 || newRound < 0)
         {
@@ -56,9 +65,12 @@ class ScoreViewModel : ViewModel()
         }
         if(isRedTeam)
         {
+            RedPlayer.ploysData = mutableStateListOf<ploySelection>()
             RedPlayer.selectedTeam = team
+
             return
         }
+        BluePlayer.ploysData = mutableStateListOf<ploySelection>()
         BluePlayer.selectedTeam = team
     }
     //return background color which depends of round number
@@ -495,36 +507,50 @@ class ScoreViewModel : ViewModel()
         if(isRedTeam)
         {
             //if list is null
-            if(RedPlayer.selectedPloys.isEmpty())
+            if(RedPlayer.ploysData.isEmpty())
             {
                 RedPlayer.selectedTeam.ploys.forEachIndexed { index,ploy ->
-                    RedPlayer.selectedPloys.add(ploySelection(ploy,false,index))
+                    RedPlayer.ploysData.add(ploySelection(ploy,false,index))
                 }
             }
-            return RedPlayer.selectedPloys
+            return RedPlayer.ploysData
         }
         //if list is null
-        if(BluePlayer.selectedPloys.isEmpty())
+        if(BluePlayer.ploysData.isEmpty())
         {
             BluePlayer.selectedTeam.ploys.forEachIndexed { index,ploy ->
-                BluePlayer.selectedPloys.add(ploySelection(ploy,false,index))
+                BluePlayer.ploysData.add(ploySelection(ploy,false,index))
             }
         }
-        return BluePlayer.selectedPloys
+        return BluePlayer.ploysData
     }
-    //Get Alpha
-    /*fun GetAlphaByPloySelection(isRedTeam: Boolean,ploySelection: ploySelection)
+    //Switch Activation of Ploy
+    fun SwitchPloyActivation(isRedTeam: Boolean,Index: Int)
     {
         if(isRedTeam)
         {
-
+            RedPlayer.ploysData.forEachIndexed { index, ploy ->
+                if( RedPlayer.ploysData[index].index == Index )
+                {
+                    RedPlayer.ploysData[index] = RedPlayer.ploysData[index].copy(selected = !RedPlayer.ploysData[index].selected)
+                }
+            }
+            return
         }
-    }*/
+        BluePlayer.ploysData.forEachIndexed { index, ploy ->
+            if( BluePlayer.ploysData[index].index == Index )
+            {
+                BluePlayer.ploysData[index] = BluePlayer.ploysData[index].copy(selected = !BluePlayer.ploysData[index].selected)
+            }
+        }
+    }
 }
 
 data class ploySelection(
         var ploy : Ploy,
-        var selected : Boolean,
+        val selected : Boolean,
         var index : Int
         )
+{
+}
 

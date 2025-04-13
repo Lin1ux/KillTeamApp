@@ -1,5 +1,10 @@
 package com.example.killteam
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import com.example.killteam.ui.theme.KTColors
 import kotlin.math.ceil
 
@@ -78,9 +83,66 @@ fun GetAlphaFromPloySelecion(PloySelection : ploySelection) : Float
         PloyType.FIREFIGHT -> {
             if (PloySelection.selected)
             {
-                return 0.5f
+                return 0.25f
             }
             return 1.0f
+        }
+    }
+}
+//Format text
+fun FormatTextWithMarkers(text: String): AnnotatedString {
+    val parts = text.split(" ")
+
+    return buildAnnotatedString {
+        var isBold = false
+        var isOrange = false
+        var isWeapon = false
+
+        parts.forEach { part ->
+            if (part.length < 2)    //If word is to small it's added immediately
+            {
+                append(part+" ")
+            }
+            else
+            {
+                //Turning on formating
+                if (part.get(0) == '*' && part.get(1) == '*') {
+                    isBold = true
+                }
+                if (part.get(0) == '#' && part.get(1) == '#') {
+                    isOrange = true
+                }
+                if (part.get(0) == 'x' && part.get(1) == 'x') {
+                    isWeapon = true
+                }
+                //Append parts with removed markers
+                if(isBold)
+                {
+                    withStyle(SpanStyle(fontWeight = FontWeight.Bold)) { append(part.replace("**", "")+" ") }
+                }
+                else if(isOrange)
+                {
+                    withStyle(SpanStyle(color = KTColors.Orange,fontWeight = FontWeight.Bold)) { append(part.replace("##", "")+" ") }
+                }
+                else if(isWeapon)
+                {
+                    withStyle(SpanStyle(color = KTColors.Weapon)) { append(part.replace("xx", "")+" ") }
+                }
+                else
+                {
+                    append(part+" ")
+                }
+                //Turning off if markers are on the end
+                if (part.get(part.length-1) == '*' && part.get(part.length-2) == '*') {
+                    isBold = false
+                }
+                if (part.get(part.length-1) == '#' && part.get(part.length-2) == '#') {
+                    isOrange = false
+                }
+                if (part.get(part.length-1) == 'x' && part.get(part.length-2) == 'x') {
+                    isWeapon = false
+                }
+            }
         }
     }
 }

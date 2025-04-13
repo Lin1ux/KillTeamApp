@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.Composable
@@ -81,26 +85,28 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
 @Composable
 fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean,ploySelection: ploySelection)
 {
-    val color by remember { mutableStateOf( ployToColor(ploySelection.ploy.type).copy(alpha = GetAlphaFromPloySelecion(ploySelection))) }
-    Box(modifier = Modifier.fillMaxWidth().padding(top = 20.dp, bottom = 10.dp,end = 20.dp,start = 10.dp).drawBehind
+    var color by remember { mutableStateOf( ployToColor(ploySelection.ploy.type).copy(alpha = GetAlphaFromPloySelecion(ploySelection))) }
+    var showDialog by remember { mutableStateOf(false) }
+
+    Box(modifier = Modifier.fillMaxWidth().padding(top = 20.dp, bottom = 10.dp,end = 20.dp,start = 10.dp).drawBehind //top line
     {
         val strokeWidth = 10f
         val x = size.width - strokeWidth
 
-        //top line
+
         drawLine(
             color = color,
             start = Offset(0f, -strokeWidth*2), //(0,0) at top-left point of the box
             end = Offset(x+strokeWidth*3, -strokeWidth*2), //top-right point of the box
             strokeWidth = strokeWidth
         )
-    }.drawBehind
+    }.drawBehind //Right line
     {
         val strokeWidth = 10f
         val x = size.width - strokeWidth
         val y = size.height - strokeWidth
 
-        //Right line
+
         drawLine(
             color = color,
             start = Offset(x+strokeWidth*3, -strokeWidth*2), //top-right point of the box
@@ -110,9 +116,12 @@ fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean,ploySelection: ploySel
     },
         contentAlignment = Alignment.Center)
     {
-        Box(
-            modifier = Modifier.fillMaxSize().background(color).padding(10.dp),
-            contentAlignment = Alignment.Center)
+        Button(
+            modifier = Modifier.fillMaxSize().background(color),
+            shape = RectangleShape,
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+            onClick = { showDialog = true }
+            )
         {
             Row(modifier = Modifier.fillMaxSize().background(Color.Transparent))
             {
@@ -137,9 +146,104 @@ fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean,ploySelection: ploySel
                 {
                     Text("${ploySelection.ploy.cost}",style = TextStyle(fontSize = 16.sp),color = Color.White, textAlign = TextAlign.End,)
                 }
+            }
+            if(showDialog)
+            {
+                PloyInfoDialog(
+                    KTColors.Orange,firstPlayer,ploySelection,viewModel,
+                    {showDialog = false},   //On Dismiss
+                    { finish -> if(finish)  //On Accept for Free
+                        {
+                            viewModel.SwitchPloyActivation(firstPlayer,ploySelection.index)
+                            color =  ployToColor(ploySelection.ploy.type).copy(alpha = GetAlphaFromPloySelecion(viewModel.GetPloysBySelection(firstPlayer)[ploySelection.index]))
+                        }
+                        showDialog = false
+                    })
 
             }
-
         }
     }
+}
+//Dialog Window which ask player is game should be ended
+@Composable
+fun PloyInfoDialog(
+    color : Color,
+    firstPlayer : Boolean,
+    ploySelection: ploySelection,
+    viewModel: ScoreViewModel,
+    onDismiss: () -> Unit,
+    onAccept: (Boolean) -> Unit
+)
+{
+    AlertDialog(
+        onDismissRequest = onDismiss ,
+        title = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            )
+            {
+                Text("${ploySelection.ploy.name}", textAlign = TextAlign.Center)
+            }
+        },
+        text = {
+            LazyColumn(horizontalAlignment = Alignment.CenterHorizontally)
+            {
+                item()
+                {
+                    Box(modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp), contentAlignment = Alignment.Center)
+                    {
+                        Text(FormatTextWithMarkers(ploySelection.ploy.description),style = TextStyle(fontSize = 14.sp), textAlign = TextAlign.Justify)
+                    }
+                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center)
+                    {
+                            Text("Remained: ${viewModel.GetCP(firstPlayer)}CP",style = TextStyle(fontSize = 16.sp))
+                    }
+                    if(ploySelection.selected)
+                    {
+                        Button(
+                            modifier = Modifier.fillMaxWidth().padding(5.dp),
+                            shape = RectangleShape,
+                            colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                            onClick = {onAccept(true)}
+                        )
+                        {
+                            Text("Turn Off")
+                        }
+                    }
+                    else
+                    {
+                        Button(
+                            modifier = Modifier.fillMaxWidth().padding(5.dp),
+                            shape = RectangleShape,
+                            colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                            onClick = {onAccept(true)}
+                        )
+                        {
+                            Text("Play for 0CP")
+                        }
+                        if(viewModel.GetCP(firstPlayer) > 0)
+                        {
+                            Button(
+                                modifier = Modifier.fillMaxWidth().padding(5.dp),
+                                shape = RectangleShape,
+                                colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                                onClick = {
+                                    onAccept(true)
+                                    viewModel.DecreaseCP(firstPlayer)
+                                }
+                            )
+                            {
+                                Text("Play for 1CP")
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+
+        }
+    )
+
 }

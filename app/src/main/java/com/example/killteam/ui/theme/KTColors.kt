@@ -6,6 +6,7 @@ import androidx.compose.ui.text.style.LineBreak
 object KTColors
 {
     val Orange = Color(0xFFCA521C)
+    val Weapon = Color(0xFF4061D0)
     val Red = Color(0xFF811212)
     val AlphaRed = Color(0x80811212)
     val Blue = Color(0xFF132485)

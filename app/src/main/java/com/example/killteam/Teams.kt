@@ -22,7 +22,7 @@ object KillTeams
     )
 
     val VoidscaredCorsairs = TeamInfo(
-        name = "Voidscared Corsairs",
+        name = "Corsairs Voidscared",
         archetypes = listOf(TacOps.Recon,TacOps.Infiltration),
         ploys = VoidscaredCorsairsPloys.ployList
     )
