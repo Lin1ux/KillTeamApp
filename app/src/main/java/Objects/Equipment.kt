@@ -1,4 +1,4 @@
-package com.example.killteam
+package Objects
 
 object UniversalEquipment
 {

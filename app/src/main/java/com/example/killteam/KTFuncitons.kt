@@ -1,4 +1,8 @@
 package com.example.killteam
+import Objects.Mission
+import Objects.Ploy
+import Objects.PloyType
+import Objects.TeamInfo
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -43,7 +47,7 @@ fun ployToColor(ploy : PloyType) : Color
     }
 }
 //Return list of one type ploys
-fun GetOneTypePloys(Ploys : List<Ploy>,type : PloyType) : List<Ploy>
+fun GetOneTypePloys(Ploys : List<Ploy>, type : PloyType) : List<Ploy>
 {
     var list : MutableList<Ploy> = mutableListOf()
     Ploys.forEach { ploy ->

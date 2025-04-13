@@ -114,7 +114,7 @@ fun ShowFractionScreen(navController : NavController,viewModel: ScoreViewModel,f
                 ),
                 title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
                 {
-                    Text("${viewModel.GetTeam(firstPlayer).name}")}
+                    Text("${viewModel.GetPlayer(firstPlayer).GetTeam().name}")}
                 }
             )
         }
@@ -133,6 +133,64 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
     val context = LocalContext.current
     val activity = context as ComponentActivity
     val windowSizeClass = calculateWindowSizeClass(activity)    //Pobranie klasy ekranu
+
+    if(viewModel.IsTroopsSelected(firstPlayer))
+    {
+        Scaffold(
+
+            topBar = {
+                TopAppBar(
+                    modifier = Modifier.height(75.dp),
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = KTColors.Infiltration,
+                        titleContentColor = Color.White // Dopasuj kolor tekstu do tła
+                    ),
+                    title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
+                    {
+                        Text("${viewModel.GetPlayer(firstPlayer).GetTeam().name}")}
+                    }
+                )
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                UnitScreen(viewModel,firstPlayer)
+            }
+        }
+    }
+    else
+    {
+        Scaffold(
+
+            topBar = {
+                TopAppBar(
+                    modifier = Modifier.height(75.dp),
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = KTColors.Infiltration,
+                        titleContentColor = Color.White // Dopasuj kolor tekstu do tła
+                    ),
+                    title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
+                    {
+                        Text("${viewModel.GetPlayer(firstPlayer).GetTeam().name}")}
+                    }
+                )
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                UnitSelectionScreen(navController,viewModel,firstPlayer)
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
+@Composable
+fun ShowUnitSelectionScreen(navController : NavController,viewModel: ScoreViewModel,firstPlayer : Boolean)
+{
+    val context = LocalContext.current
+    val activity = context as ComponentActivity
+    val windowSizeClass = calculateWindowSizeClass(activity)    //Pobranie klasy ekranu
     Scaffold(
 
         topBar = {
@@ -144,7 +202,7 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
                 ),
                 title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
                 {
-                    Text("${viewModel.GetTeam(firstPlayer).name}")}
+                    Text("${viewModel.GetPlayer(firstPlayer).GetTeam().name}")}
                 }
             )
         }

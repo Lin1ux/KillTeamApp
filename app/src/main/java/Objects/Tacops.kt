@@ -1,12 +1,6 @@
-package com.example.killteam
+package Objects
 
 import androidx.compose.ui.graphics.Color
-import com.example.killteam.KillTeams.AngelsOfDeath
-import com.example.killteam.KillTeams.DeathKorps
-import com.example.killteam.KillTeams.HunterClade
-import com.example.killteam.KillTeams.KasrkinSquad
-import com.example.killteam.KillTeams.PlagueMarines
-import com.example.killteam.KillTeams.VoidscaredCorsairs
 import com.example.killteam.ui.theme.KTColors
 import kotlin.String
 

@@ -1,21 +1,18 @@
 package com.example.killteam
 
-import android.widget.Space
+import Objects.PloyType
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.Composable
@@ -51,7 +48,8 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
         }
         item()  //Strategy Ploys button
         {
-            GetOneTypePloysSelection(viewModel.GetPloysBySelection(firstPlayer),PloyType.STRATEGY).forEach { element ->
+            GetOneTypePloysSelection(viewModel.GetPloysBySelection(firstPlayer),
+                PloyType.STRATEGY).forEach { element ->
                 Ploys(viewModel, firstPlayer, element)
             }
         }
@@ -66,7 +64,8 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
         }
         item() //Firefight Ploys button
         {
-            GetOneTypePloysSelection(viewModel.GetPloysBySelection(firstPlayer),PloyType.FIREFIGHT).forEach { element ->
+            GetOneTypePloysSelection(viewModel.GetPloysBySelection(firstPlayer),
+                PloyType.FIREFIGHT).forEach { element ->
                 Ploys(viewModel, firstPlayer, element)
             }
         }
@@ -235,7 +234,7 @@ fun PloyInfoDialog(
                     }
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center)
                     {
-                            Text("Remained: ${viewModel.GetCP(firstPlayer)}CP",style = TextStyle(fontSize = 16.sp))
+                            Text("Remained: ${viewModel.GetPlayer(firstPlayer).GetCP()}CP",style = TextStyle(fontSize = 16.sp))
                     }
                     if(ploySelection.selected)
                     {
@@ -260,7 +259,7 @@ fun PloyInfoDialog(
                         {
                             Text("Play for 0CP")
                         }
-                        if(viewModel.GetCP(firstPlayer) > 0)
+                        if(viewModel.GetPlayer(firstPlayer).GetCP() > 0)
                         {
                             Button(
                                 modifier = Modifier.fillMaxWidth().padding(5.dp),
@@ -268,7 +267,7 @@ fun PloyInfoDialog(
                                 colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
                                 onClick = {
                                     onAccept(true)
-                                    viewModel.DecreaseCP(firstPlayer)
+                                    viewModel.GetPlayer(firstPlayer).DecreaseCP()
                                 }
                             )
                             {
@@ -308,7 +307,7 @@ fun Equipment(viewModel: ScoreViewModel, firstPlayer: Boolean,eqSelection: eqSel
                 contentAlignment = Alignment.CenterStart
             )
             {
-                Text("${viewModel.GetTeam(firstPlayer).equipment[eqSelection.index].name}",
+                Text("${viewModel.GetPlayer(firstPlayer).GetTeam().equipment[eqSelection.index].name}",
                     style = TextStyle(fontSize = 20.sp),
                     textAlign = TextAlign.Start,
                     color = KTColors.Equipment)
@@ -363,7 +362,7 @@ fun EquipmentInfoDialog(
                     }
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center)
                     {
-                        Text("Remained: ${viewModel.GetCP(firstPlayer)}CP",style = TextStyle(fontSize = 16.sp))
+                        Text("Remained: ${viewModel.GetPlayer(firstPlayer).GetCP()}CP",style = TextStyle(fontSize = 16.sp))
                     }
                     if(eqSelection.selected)
                     {

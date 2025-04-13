@@ -1,6 +1,7 @@
 package com.example.killteam
 
-import android.graphics.Paint.Align
+import Objects.KillTeams
+import Objects.PointType
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -44,7 +45,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.killteam.ui.theme.KTColors
-import java.nio.file.WatchEvent
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -189,7 +189,7 @@ fun GameResult(viewModel : ScoreViewModel)
         contentAlignment = Alignment.Center
     )
     {
-        Text("${viewModel.GetAllPoints(true)}:${viewModel.GetAllPoints(false)}",style = TextStyle(fontSize = 48.sp))
+        Text("${viewModel.GetPlayer(true).GetAllPoints()}:${viewModel.GetPlayer(false).GetAllPoints()}",style = TextStyle(fontSize = 48.sp))
     }
 }
 
@@ -218,7 +218,7 @@ fun TeamSelection(
         {
             TextField(
                 modifier = Modifier.menuAnchor().fillMaxWidth(),
-                value = viewModel.GetTeam(firstPlayer).name,
+                value = viewModel.GetPlayer(firstPlayer).GetTeam().name,
                 onValueChange = {},
                 readOnly = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
@@ -242,7 +242,7 @@ fun TeamSelection(
                         text = { Text(team.name) },
                         contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
                         onClick = {
-                            viewModel.SetTeam(firstPlayer,team)
+                            viewModel.GetPlayer(firstPlayer).SetTeam(team)
                             isExpanded = false
                         }
                     )
@@ -321,15 +321,16 @@ fun ScorePoints(
                         modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(2)), RectangleShape),
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        onClick = { viewModel.SwitchCritPoints(firstPlayer,0) },
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(0) },
                         contentPadding = PaddingValues(0.dp)
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.CRITOP,firstPlayer,0))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.CRITOP,firstPlayer,0))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.CRITOP,firstPlayer,0) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,0) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -345,14 +346,15 @@ fun ScorePoints(
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.SwitchCritPoints(firstPlayer,1) }
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(1) }
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.CRITOP,firstPlayer,1))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.CRITOP,firstPlayer,1))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.CRITOP,firstPlayer,1) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,1) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -383,14 +385,15 @@ fun ScorePoints(
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.SwitchCritPoints(firstPlayer,2) }
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(2) }
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.CRITOP,firstPlayer,2))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.CRITOP,firstPlayer,2))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.CRITOP,firstPlayer,2) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,2) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -406,14 +409,15 @@ fun ScorePoints(
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.SwitchCritPoints(firstPlayer,3) }
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(3) }
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.CRITOP,firstPlayer,3))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.CRITOP,firstPlayer,3))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.CRITOP,firstPlayer,3) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,3) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -442,14 +446,15 @@ fun ScorePoints(
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.SwitchCritPoints(firstPlayer,4) }
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(4) }
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.CRITOP,firstPlayer,4))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.CRITOP,firstPlayer,4))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.CRITOP,firstPlayer,4) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,4) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -465,14 +470,15 @@ fun ScorePoints(
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.SwitchCritPoints(firstPlayer,5) }
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(5) }
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.CRITOP,firstPlayer,5))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.CRITOP,firstPlayer,5))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.CRITOP,firstPlayer,5) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,5) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -514,14 +520,15 @@ fun ScorePoints(
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.SwitchTacPoints(firstPlayer,0) }
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(0) }
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.TACOP,firstPlayer,0))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.TACOP,firstPlayer,0))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.TACOP,firstPlayer,0) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,0) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -537,14 +544,15 @@ fun ScorePoints(
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.SwitchTacPoints(firstPlayer,1) }
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(1) }
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.TACOP,firstPlayer,1))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.TACOP,firstPlayer,1))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.TACOP,firstPlayer,1) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,1) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -574,14 +582,15 @@ fun ScorePoints(
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.SwitchTacPoints(firstPlayer,2) }
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(2) }
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.TACOP,firstPlayer,2))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.TACOP,firstPlayer,2))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.TACOP,firstPlayer,2) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,2) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -597,14 +606,15 @@ fun ScorePoints(
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.SwitchTacPoints(firstPlayer,3) }
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(3) }
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.TACOP,firstPlayer,3))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.TACOP,firstPlayer,3))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.TACOP,firstPlayer,3) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,3) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -633,14 +643,15 @@ fun ScorePoints(
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.SwitchTacPoints(firstPlayer,4) }
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(4) }
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.TACOP,firstPlayer,4))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.TACOP,firstPlayer,4))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.TACOP,firstPlayer,4) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,4) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -656,14 +667,15 @@ fun ScorePoints(
                         shape = RectangleShape,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.SwitchTacPoints(firstPlayer,5) }
+                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(5) }
                     )
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.TACOP,firstPlayer,5))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.TACOP,firstPlayer,5))
                         )
                         {
-                            if(viewModel.GetPoint(PointType.TACOP,firstPlayer,5) == 1)
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,5) == 1)
                             {
                                 Image(
                                     modifier = Modifier.fillMaxSize().padding(5.dp),
@@ -715,13 +727,15 @@ fun ScorePoints(
                     Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.KILLOP,firstPlayer,0))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.KILLOP,firstPlayer,0))
                         )
                     }
                     Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.KILLOP,firstPlayer,1))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.KILLOP,firstPlayer,1))
                         )
                     }
                 }
@@ -741,13 +755,15 @@ fun ScorePoints(
                     Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.KILLOP,firstPlayer,2))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.KILLOP,firstPlayer,2))
                         )
                     }
                     Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.KILLOP,firstPlayer,3))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.KILLOP,firstPlayer,3))
                         )
                     }
                 }
@@ -766,13 +782,15 @@ fun ScorePoints(
                     Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.KILLOP,firstPlayer,4))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.KILLOP,firstPlayer,4))
                         )
                     }
                     Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
                     {
                         Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(PointType.KILLOP,firstPlayer,5))
+                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                                PointType.KILLOP,firstPlayer,5))
                         )
 
                     }
@@ -816,7 +834,7 @@ fun PlayerSelection(
                     contentAlignment = Alignment.Center
                 )
                 {
-                    Text("${viewModel.GetCP(firstPlayer)}",style = TextStyle(fontSize = 48.sp))
+                    Text("${viewModel.GetPlayer(firstPlayer).GetCP()}",style = TextStyle(fontSize = 48.sp))
                 }
                 //CP Buttons
                 Column(
@@ -834,7 +852,7 @@ fun PlayerSelection(
                             modifier = Modifier.fillMaxSize(),
                             shape = RectangleShape,
                             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                            onClick = { viewModel.IncreaseCP(firstPlayer) },
+                            onClick = { viewModel.GetPlayer(firstPlayer).IncreaseCP() },
                         ){}
                         Text("+",style = TextStyle(fontSize = 20.sp,color=Color.White))
                     }
@@ -848,7 +866,7 @@ fun PlayerSelection(
                             modifier = Modifier.fillMaxSize(),
                             shape = RectangleShape,
                             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                            onClick = { viewModel.DecreaseCP(firstPlayer) },
+                            onClick = { viewModel.GetPlayer(firstPlayer).DecreaseCP() },
 
                         ){}
                         Text("-", style = TextStyle(fontSize = 20.sp, color = Color.White))
@@ -884,7 +902,7 @@ fun PlayerSelection(
                     {
                         TextField(
                             modifier = Modifier.menuAnchor().fillMaxWidth(),
-                            value = viewModel.GetTacOp(firstPlayer).name,
+                            value = viewModel.GetPlayer(firstPlayer).GetTacOp().name,
                             onValueChange = {},
                             readOnly = true,
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
@@ -902,13 +920,13 @@ fun PlayerSelection(
                             onDismissRequest = { isExpanded = false }
                         )
                         {
-                            getMissions(viewModel.GetTeam(firstPlayer)).forEachIndexed()
+                            getMissions(viewModel.GetPlayer(firstPlayer).GetTeam()).forEachIndexed()
                             {   index, mission ->
                                 DropdownMenuItem(
                                     text = { Text(mission.name) },
                                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
                                     onClick = {
-                                        viewModel.SetTacOp(firstPlayer,mission)
+                                        viewModel.GetPlayer(firstPlayer).SetTacOp(mission)
                                         isExpanded = false
                                     }
                                 )
@@ -928,11 +946,11 @@ fun PlayerSelection(
                     modifier = Modifier.fillMaxSize(),
                     shape = RectangleShape,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                    enabled = !viewModel.IsPrimaryOpSelected(firstPlayer),
+                    enabled = !viewModel.GetPlayer(firstPlayer).IsPrimaryOpSelected(),
                     onClick = { showDialog = true }
                 )
                 {
-                    Text(viewModel.GetPrimaryInfo(firstPlayer),style = TextStyle(fontSize = 16.sp,color = Color.White),textAlign = TextAlign.Center)
+                    Text(viewModel.GetPlayer(firstPlayer).GetPrimaryInfo(),style = TextStyle(fontSize = 16.sp,color = Color.White),textAlign = TextAlign.Center)
 
                     //Ask Player for Primary Op
                     if(showDialog && !viewModel.gameFinished)
@@ -941,7 +959,7 @@ fun PlayerSelection(
                             color,
                             {showDialog = false},
                             {
-                                pointType -> viewModel.SetPrimaryOp(firstPlayer, pointType)
+                                pointType -> viewModel.GetPlayer(firstPlayer).SetPrimaryOp(pointType)
                                 showDialog = false
                             })
                     }

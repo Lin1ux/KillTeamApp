@@ -1,6 +1,4 @@
-package com.example.killteam
-
-import androidx.compose.foundation.layout.Box
+package Objects
 
 //Death Korps
 object DeathKorpsPloys
@@ -28,9 +26,9 @@ object DeathKorpsPloys
 
     val Regroup = Ploy(
         name = "Regroup",
-        description =   "**SUPPORT:** Select one friendly **DEATH KORPS** operative that’s more than 3” from enemy operatives. Each other friendly ##DEATH KORPS## operative within 5” of that operative and not within control range of enemy operatives can immediately perform a free **Dash** action in an order of your choice, but each that does so must end that move closer to that operative. \n" +
-                        "\nNote that a Comms Device from universal equipment only affects the second distance of this rule.\n" +
-                        "\nYou cannot use this ploy and the Chronometer faction equipment **STRATEGIC GAMBIT** during the same turning point.\n",
+        description = "**SUPPORT:** Select one friendly **DEATH KORPS** operative that’s more than 3” from enemy operatives. Each other friendly ##DEATH KORPS## operative within 5” of that operative and not within control range of enemy operatives can immediately perform a free **Dash** action in an order of your choice, but each that does so must end that move closer to that operative. \n" +
+                "\nNote that a Comms Device from universal equipment only affects the second distance of this rule.\n" +
+                "\nYou cannot use this ploy and the Chronometer faction equipment **STRATEGIC GAMBIT** during the same turning point.\n",
         type = PloyType.STRATEGY,
         cost = "1CP"
     )
