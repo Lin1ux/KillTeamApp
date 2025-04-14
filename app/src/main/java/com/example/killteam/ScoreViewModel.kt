@@ -49,8 +49,10 @@ class ScoreViewModel : ViewModel()
             {
                 return
             }
-            ploysData = mutableStateListOf<ploySelection>()
-            eqData = mutableStateListOf<eqSelection>()
+            ploysData.clear()
+            eqData.clear()
+            troopsData.clear()
+            troopsSelected = false
             selectedTeam = team
         }
         //return Information about selected team
@@ -190,6 +192,127 @@ class ScoreViewModel : ViewModel()
                 PointType.KILLOP -> { return "Kill Op: "+killPoints.last().toString() }
                 PointType.UNKNOWN -> { return "Primary Op: None"}
             }
+        }
+
+        //Return ploy Selection of player
+        fun GetPloysBySelection() : List<ploySelection>
+        {
+            //if list is null
+            if(ploysData.isEmpty())
+            {
+                selectedTeam.ploys.forEachIndexed { index,ploy ->
+                    ploysData.add(ploySelection(ploy,false,index))
+                }
+            }
+            return ploysData
+        }
+        //Return equipment Selection of player
+        fun GetEqBySelection() : List<eqSelection>
+        {
+            //if list is null
+            if(eqData.isEmpty())
+            {
+                selectedTeam.equipment.forEachIndexed { index,eq ->
+                    eqData.add(eqSelection(eq,false,index))
+                }
+            }
+            return eqData
+        }
+        //Switch Activation of Ploy
+        fun SwitchPloyActivation(Index: Int)
+        {
+            ploysData[Index].selected = !ploysData[Index].selected
+        }
+        //Switch Placement of Ploy
+        fun SwitchEqPlacement(Index: Int)
+        {
+            eqData[Index] = eqData[Index].copy(selected = !eqData[Index].selected)
+        }
+        //Return is player finish making his squad
+        fun IsTroopsSelected() : Boolean
+        {
+            return troopsSelected
+        }
+        //return selected troops
+        fun GetSelectedTroops() : List<selectedOperators>
+        {
+            return troopsData
+        }
+        //return is operator was selected
+        fun isOperatorSelected(operator: Operator) : Boolean
+        {
+            troopsData.forEach { troop ->
+                if(troop.operator == operator)
+                {
+                    return true
+                }
+            }
+            return false
+        }
+        //Add operator to selected troops
+        fun AddTroop(operator: Operator)
+        {
+            if(troopsData.size < selectedTeam.maxOperator)
+            {
+                troopsData.add(selectedOperators(operator = operator, currentWounds = mutableStateOf(operator.wounds)))
+            }
+
+        }
+        //Remove operator from selected troops
+        fun RemoveTroop(operator: Operator)
+        {
+            troopsData.forEachIndexed { index, troop ->
+                if(troop.operator == operator)
+                {
+                    troopsData.removeAt(index)
+                    return
+                }
+            }
+        }
+        //Clear all selected troops
+        fun ClearTroopSelection()
+        {
+            troopsData.clear()
+        }
+        //Give troop selected by Index
+        fun GetTroopSelectionByIndex(index : Int) : selectedOperators
+        {
+            return troopsData[index]
+        }
+        //Give troop selected by Index
+        fun GetTroopByIndex(index : Int) : Operator
+        {
+            return troopsData[index].operator
+        }
+        //Check if selected squad is legal (valid)
+        fun ValidateTeam() : Boolean
+        {
+            var leaderAmount : Int = 0
+            var operatorAmount : Int = 0
+            troopsData.forEach { troop ->
+                if(troop.operator.leader)
+                {
+                    leaderAmount += 1
+                }
+                operatorAmount += 1
+            }
+            if(leaderAmount != 1)
+            {
+                return false
+            }
+            if(operatorAmount < selectedTeam.minOperators)
+            {
+                return false
+            }
+            if(operatorAmount > selectedTeam.maxOperator)
+            {
+                return false
+            }
+            return true
+        }
+        fun selectTeam()
+        {
+            troopsSelected = true
         }
     }
     //ENND
@@ -389,11 +512,6 @@ class ScoreViewModel : ViewModel()
         }
         return KTColors.Blue
     }
-
-//ENND
-
-
-
     //Finishes game and counts bonus points
     fun FinishGame()
     {
@@ -415,89 +533,6 @@ class ScoreViewModel : ViewModel()
             PointType.UNKNOWN -> { }
         }
     }
-    //Return ploy Selection of player
-    fun GetPloysBySelection(isRedTeam: Boolean) : List<ploySelection>
-    {
-        if(isRedTeam)
-        {
-            //if list is null
-            if(RedPlayer.ploysData.isEmpty())
-            {
-                RedPlayer.selectedTeam.ploys.forEachIndexed { index,ploy ->
-                    RedPlayer.ploysData.add(ploySelection(ploy,false,index))
-                }
-            }
-            return RedPlayer.ploysData
-        }
-        //if list is null
-        if(BluePlayer.ploysData.isEmpty())
-        {
-            BluePlayer.selectedTeam.ploys.forEachIndexed { index,ploy ->
-                BluePlayer.ploysData.add(ploySelection(ploy,false,index))
-            }
-        }
-        return BluePlayer.ploysData
-    }
-    //Return equipment Selection of player
-    fun GetEqBySelection(isRedTeam: Boolean) : List<eqSelection>
-    {
-        if(isRedTeam)
-        {
-            //if list is null
-            if(RedPlayer.eqData.isEmpty())
-            {
-                RedPlayer.selectedTeam.equipment.forEachIndexed { index,eq ->
-                    RedPlayer.eqData.add(eqSelection(eq,false,index))
-                }
-            }
-            return RedPlayer.eqData
-        }
-        //if list is null
-        if(BluePlayer.eqData.isEmpty())
-        {
-            BluePlayer.selectedTeam.equipment.forEachIndexed { index,eq ->
-                BluePlayer.eqData.add(eqSelection(eq,false,index))
-            }
-        }
-        return BluePlayer.eqData
-    }
-    //Switch Activation of Ploy
-    fun SwitchPloyActivation(isRedTeam: Boolean,Index: Int)
-    {
-        if(isRedTeam)
-        {
-            RedPlayer.ploysData[Index].selected = !RedPlayer.ploysData[Index].selected
-            return
-        }
-        BluePlayer.ploysData[Index].selected = !BluePlayer.ploysData[Index].selected
-    }
-    //Switch Placement of Ploy
-    fun SwitchEqPlacement(isRedTeam: Boolean,Index: Int)
-    {
-        if (isRedTeam)
-        {
-            RedPlayer.eqData[Index] = RedPlayer.eqData[Index].copy(selected = !RedPlayer.eqData[Index].selected)
-            return
-        }
-        BluePlayer.eqData[Index] = BluePlayer.eqData[Index].copy(selected = !BluePlayer.eqData[Index].selected)
-    }
-    //Return is player finish making his squad
-    fun IsTroopsSelected(isRedTeam: Boolean) : Boolean
-    {
-        if(isRedTeam)
-        {
-            return RedPlayer.troopsSelected
-        }
-        return BluePlayer.troopsSelected
-    }
-    //
-    /*fun GetSelectedTroops(isRedTeam: Boolean)
-    {
-        if(isRedTeam)
-        {
-
-        }
-    }*/
 }
 
 data class ploySelection(
@@ -514,6 +549,14 @@ data class eqSelection(
 
 data class selectedOperators(
     var operator: Operator,
-    var currentWounds : MutableState<Int>
+    var currentWounds : MutableState<Int>,
+    var ready : Boolean = true,
+    var order : Order = Order.CONCEAL
 )
+
+enum class Order
+{
+    CONCEAL,
+    ENGAGE
+}
 

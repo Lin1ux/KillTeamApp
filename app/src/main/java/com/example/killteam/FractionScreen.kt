@@ -48,7 +48,7 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
         }
         item()  //Strategy Ploys button
         {
-            GetOneTypePloysSelection(viewModel.GetPloysBySelection(firstPlayer),
+            GetOneTypePloysSelection(viewModel.GetPlayer(firstPlayer).GetPloysBySelection(),
                 PloyType.STRATEGY).forEach { element ->
                 Ploys(viewModel, firstPlayer, element)
             }
@@ -64,7 +64,7 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
         }
         item() //Firefight Ploys button
         {
-            GetOneTypePloysSelection(viewModel.GetPloysBySelection(firstPlayer),
+            GetOneTypePloysSelection(viewModel.GetPlayer(firstPlayer).GetPloysBySelection(),
                 PloyType.FIREFIGHT).forEach { element ->
                 Ploys(viewModel, firstPlayer, element)
             }
@@ -81,7 +81,7 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
         item() //Equipment buttons
         {
             var selectedAmount : Int = 0
-            viewModel.GetEqBySelection(firstPlayer).forEach { element ->
+            viewModel.GetPlayer(firstPlayer).GetEqBySelection().forEach { element ->
 
                 if(element.selected)
                 {
@@ -105,7 +105,7 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
         }
         item() //equipment buttons
         {
-            viewModel.GetEqBySelection(firstPlayer).forEach { element ->
+            viewModel.GetPlayer(firstPlayer).GetEqBySelection().forEach { element ->
                 if(!element.selected)
                 {
                     Equipment(viewModel, firstPlayer, element)
@@ -191,8 +191,8 @@ fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean,ploySelection: ploySel
                     {showDialog = false},   //On Dismiss
                     { finish -> if(finish)  //On Accept for Free
                         {
-                            viewModel.SwitchPloyActivation(firstPlayer,ploySelection.index)
-                            color =  ployToColor(ploySelection.ploy.type).copy(alpha = GetAlphaFromPloySelecion(viewModel.GetPloysBySelection(firstPlayer)[ploySelection.index]))
+                            viewModel.GetPlayer(firstPlayer).SwitchPloyActivation(ploySelection.index)
+                            color =  ployToColor(ploySelection.ploy.type).copy(alpha = GetAlphaFromPloySelecion(viewModel.GetPlayer(firstPlayer).GetPloysBySelection()[ploySelection.index]))
                         }
                         showDialog = false
                     })
@@ -319,7 +319,7 @@ fun Equipment(viewModel: ScoreViewModel, firstPlayer: Boolean,eqSelection: eqSel
                     {showDialog = false},   //On Dismiss
                     { finish -> if(finish)  //On Accept
                     {
-                        viewModel.SwitchEqPlacement(firstPlayer, eqSelection.index)
+                        viewModel.GetPlayer(firstPlayer).SwitchEqPlacement(eqSelection.index)
                     }
                         showDialog = false
                     })
@@ -356,15 +356,12 @@ fun EquipmentInfoDialog(
             {
                 item()
                 {
+                    //Description
                     Box(modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp), contentAlignment = Alignment.Center)
                     {
                         Text(FormatTextWithMarkers(eqSelection.eq.description),style = TextStyle(fontSize = 14.sp), textAlign = TextAlign.Justify)
                     }
-                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center)
-                    {
-                        Text("Remained: ${viewModel.GetPlayer(firstPlayer).GetCP()}CP",style = TextStyle(fontSize = 16.sp))
-                    }
-                    if(eqSelection.selected)
+                    if(eqSelection.selected)    //Remove Button
                     {
                         Button(
                             modifier = Modifier.fillMaxWidth().padding(5.dp),
@@ -376,7 +373,7 @@ fun EquipmentInfoDialog(
                             Text("Remove")
                         }
                     }
-                    else
+                    else    //Add Button
                     {
                         Button(
                             modifier = Modifier.fillMaxWidth().padding(5.dp),

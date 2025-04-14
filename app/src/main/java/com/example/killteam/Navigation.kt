@@ -1,5 +1,6 @@
 package com.example.killteam
 
+import Objects.Operator
 import android.annotation.SuppressLint
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
@@ -62,6 +63,23 @@ fun Navigation()
             val RedPlayer = entry.arguments?.getBoolean("RedPlayer") ?: false
             ShowUnitScreen(navController,viewModel, RedPlayer)
         }
+        composable(route = Screen.UnitPreview.route, //route to Fraction Screen
+            arguments = listOf(navArgument("RedPlayer") //It requires boolean argument is Red Player
+            {
+                type = NavType.BoolType
+                defaultValue = true
+            },
+                navArgument("index") {
+                    type = NavType.IntType
+                    defaultValue = 0
+                }
+            )
+        )
+        { entry ->
+            val RedPlayer = entry.arguments?.getBoolean("RedPlayer") ?: false
+            val index = entry.arguments!!.getInt("index")
+            ShowPreviewScreen(navController,viewModel, RedPlayer,index)
+        }
     }
 }
 
@@ -71,7 +89,7 @@ fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel)
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
-    val windowSizeClass = calculateWindowSizeClass(activity)    //Pobranie klasy ekranu
+    val windowSizeClass = calculateWindowSizeClass(activity)
     Scaffold(
 
         topBar = {
@@ -79,7 +97,7 @@ fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel)
                 modifier = Modifier.height(75.dp),
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = KTColors.Infiltration,
-                    titleContentColor = Color.White // Dopasuj kolor tekstu do tła
+                    titleContentColor = Color.White
                 ),
                 title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
                 {
@@ -102,7 +120,7 @@ fun ShowFractionScreen(navController : NavController,viewModel: ScoreViewModel,f
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
-    val windowSizeClass = calculateWindowSizeClass(activity)    //Pobranie klasy ekranu
+    val windowSizeClass = calculateWindowSizeClass(activity)
     Scaffold(
 
         topBar = {
@@ -110,7 +128,7 @@ fun ShowFractionScreen(navController : NavController,viewModel: ScoreViewModel,f
                 modifier = Modifier.height(75.dp),
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = KTColors.Infiltration,
-                    titleContentColor = Color.White // Dopasuj kolor tekstu do tła
+                    titleContentColor = Color.White
                 ),
                 title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
                 {
@@ -132,9 +150,9 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
-    val windowSizeClass = calculateWindowSizeClass(activity)    //Pobranie klasy ekranu
+    val windowSizeClass = calculateWindowSizeClass(activity)
 
-    if(viewModel.IsTroopsSelected(firstPlayer))
+    if(viewModel.GetPlayer(firstPlayer).IsTroopsSelected())
     {
         Scaffold(
 
@@ -143,7 +161,7 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
                     modifier = Modifier.height(75.dp),
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = KTColors.Infiltration,
-                        titleContentColor = Color.White // Dopasuj kolor tekstu do tła
+                        titleContentColor = Color.White
                     ),
                     title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
                     {
@@ -154,7 +172,7 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
         )
         { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                UnitScreen(viewModel,firstPlayer)
+                UnitScreen(navController,viewModel,firstPlayer)
             }
         }
     }
@@ -167,7 +185,7 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
                     modifier = Modifier.height(75.dp),
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = KTColors.Infiltration,
-                        titleContentColor = Color.White // Dopasuj kolor tekstu do tła
+                        titleContentColor = Color.White
                     ),
                     title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
                     {
@@ -186,11 +204,11 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
 @Composable
-fun ShowUnitSelectionScreen(navController : NavController,viewModel: ScoreViewModel,firstPlayer : Boolean)
+fun ShowPreviewScreen(navController : NavController,viewModel: ScoreViewModel,firstPlayer : Boolean,index : Int)
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
-    val windowSizeClass = calculateWindowSizeClass(activity)    //Pobranie klasy ekranu
+    val windowSizeClass = calculateWindowSizeClass(activity)
     Scaffold(
 
         topBar = {
@@ -198,7 +216,7 @@ fun ShowUnitSelectionScreen(navController : NavController,viewModel: ScoreViewMo
                 modifier = Modifier.height(75.dp),
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = KTColors.Infiltration,
-                    titleContentColor = Color.White // Dopasuj kolor tekstu do tła
+                    titleContentColor = Color.White
                 ),
                 title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
                 {
@@ -209,7 +227,7 @@ fun ShowUnitSelectionScreen(navController : NavController,viewModel: ScoreViewMo
     )
     { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            UnitScreen(viewModel,firstPlayer)
+            PreviewScreen(viewModel,firstPlayer,index)
         }
     }
 }

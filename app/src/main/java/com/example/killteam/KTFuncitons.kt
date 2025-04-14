@@ -1,5 +1,6 @@
 package com.example.killteam
 import Objects.Mission
+import Objects.Operator
 import Objects.Ploy
 import Objects.PloyType
 import Objects.TeamInfo
@@ -150,4 +151,42 @@ fun FormatTextWithMarkers(text: String): AnnotatedString {
         }
     }
 }
+//Give color for given type
+fun GetOrderColor(order : Order) : Color
+{
+    when(order)
+    {
+        Order.CONCEAL -> { return KTColors.Conceal }
+        Order.ENGAGE ->  { return KTColors.Engage }
+    }
+}
+//Give alpha value dependend on given value
+fun GetReadyAlpha(ready : Boolean) : Float
+{
+    if(ready)
+    {
+        return 1.0f
+    }
+    return 0.25f
+}
+//return color for unit
+fun GetOrderColor(operator: selectedOperators) : Color
+{
+    var alpha : Float = 1.0f
+    if(!operator.ready)
+    {
+        alpha = 0.25f
+    }
+
+    when(operator.order)
+    {
+        Order.CONCEAL -> { return KTColors.Conceal.copy(alpha = alpha) }
+        Order.ENGAGE ->  { return KTColors.Engage.copy(alpha = alpha) }
+    }
+}
+
+//Remove keyword from name
+fun String.RemoveKeyWord(viewModel: ScoreViewModel,firstPlayer : Boolean) :
+        String = this.replace(viewModel.GetPlayer(firstPlayer).GetTeam().nameKeyword,"")
+
 

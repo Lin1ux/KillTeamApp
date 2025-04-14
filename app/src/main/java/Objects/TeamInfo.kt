@@ -5,7 +5,10 @@ data class TeamInfo(
     var archetypes : List<Archetype>,
     var ploys : List<Ploy>,
     var equipment: List<Equipment>,
-    var operators: List<Operator> = DeathKorpsOperators.operatorList
+    var operators: List<Operator> = DeathKorpsOperators.operatorList,
+    var nameKeyword : String = "", //Word which is shared in most of operators
+    var minOperators : Int,
+    var maxOperator: Int
 
 )
 
