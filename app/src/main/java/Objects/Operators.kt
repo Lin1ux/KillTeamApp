@@ -28,7 +28,7 @@ object DeathKorpsOperators
     )
 
     val GunnerGranadeLuncher = Operator(
-        name = "Death Korps Gunner (Granade Luncher)",
+        name = "Death Korps Gunner (Grenade Luncher)",
         APL = 2,
         move = 6,
         save = 5,
@@ -153,7 +153,8 @@ object KasrkinSquadOperators
         weapons = listOf(Weapons.KSPlasmaPistolStandard,Weapons.KSPlasmaPistolCharged, Weapons.KSChainsword),
         keywords = listOf("##KASRKIN##"),
         size = 28,
-        leader = true
+        leader = true,
+        actions = listOf(Actions.KSTacticalCommand)
     )
 
     val Medic = Operator(
@@ -164,7 +165,9 @@ object KasrkinSquadOperators
         wounds = 8,
         weapons = listOf(Weapons.KSHotShotLasgun, Weapons.KSGunButt),
         keywords = listOf("##KASRKIN##"),
-        size = 28
+        size = 28,
+        additionalRules = "**Medic!** The first time per turning point that a friendly ##KASRKIN## operative would incapacitated while visible to and within 3\" of this operative, you can use this rule, providing neither this nor that operative is within control Range of an enemy operative. If you do, that friendly operative isn’t incapacitated and has 1 wound remaining and cannot be incapacitated for the remainder of the action. After that action, that friendly operative can then immediately perform a free **Dash** action, but must end that move within this operative’s control Range . Subtract 1 from this and that operative’s APL stats until the end of their next activations respectively, and if this rule was used during that friendly operative’s activation, that activation ends. You cannot use this rule if this operative is incapacitated, or if it’s a Shoot action and this operative would be a primary or secondary target.\n",
+        actions = listOf(Actions.KSMedikit)
     )
 
     val DemoTrooper = Operator(
@@ -175,11 +178,14 @@ object KasrkinSquadOperators
         wounds = 8,
         weapons = listOf(Weapons.KSHotShotLasPistol, Weapons.KSGunButt),
         keywords = listOf("##KASRKIN##"),
-        size = 28
+        size = 28,
+        additionalRules = "**Melta Mine:** This operative is carrying your Melta Mine marker. It can perform the **Pick Up Marker** action on that marker, and whenever it performs the **Place Marker** action on that marker, it can immediately perform a free **Dash** action. That marker cannot be placed within an enemy operative’s control Range (if this operative is incapacitated while carrying that marker and that marker cannot be placed, it’s removed with this operative). \n\n" +
+                        "**Proximity Mine:** The first time your Melta Mine marker is within another operative’s control Range , remove that marker and inflict **2D6+3** damage on that operative; if it isn’t incapacitated, end its action (if any), even if that action’s effects aren’t fulfilled. If it cannot be placed, move it the minimum amount to do so. Note that this operative is ignored for these effects (i.e. it cannot set it off or take damage from that marker). \n\n" +
+                        "**Blast Padding:** Whenever an operative is shooting this operative with a weapon that has the xxBlastxx or xxTorrentxx weapon rule (excluding weapons that have a sweeping profile), you can **re-roll** one of your defence dice. In addition, this operative isn’t affected by the xxx\" Devastating xxx weapon rule (i.e. Devastating with a distance) unless they are the target during that sequence. "
     )
 
     val GunnerGranadeLuncher = Operator(
-        name = "Kasrkin Gunner (Granade Luncher)",
+        name = "Kasrkin Gunner (Grenade Luncher)",
         APL = 2,
         move = 6,
         save = 4,
@@ -219,7 +225,8 @@ object KasrkinSquadOperators
         wounds = 8,
         weapons = listOf(Weapons.KSHotShotLasgun, Weapons.KSGunButt),
         keywords = listOf("##KASRKIN##"),
-        size = 28
+        size = 28,
+        actions = listOf(Actions.KSAuspexScan)
     )
 
     val Sharpshooter = Operator(
@@ -230,7 +237,11 @@ object KasrkinSquadOperators
         wounds = 8,
         weapons = listOf(Weapons.KSHotShotMarksmanRifleConcealed,Weapons.KSHotShotMarksmanRifleMobile,Weapons.KSHotShotMarksmanRifleStationary, Weapons.KSGunButt),
         keywords = listOf("##KASRKIN##"),
-        size = 28
+        size = 28,
+        additionalRules = " **Camo Cloak:** Whenever an operative is shooting this operative:\n" +
+                "\n • Ignore the xxSaturatexx weapon rule.\n" +
+                "\n • If you can retain any cover saves, you can retain one additional cover save, or you can retain one cover save as a critical success instead. This isn’t cumulative with improved cover saves from Vantage terrain.\n\n" +
+                "***Concealed Position:** This operative can only use this weapon the first time it’s performing the Shoot action during the battle. "
     )
 
     val VoxTrooper = Operator(
@@ -241,7 +252,9 @@ object KasrkinSquadOperators
         wounds = 8,
         weapons = listOf(Weapons.KSHotShotLasgun, Weapons.KSGunButt),
         keywords = listOf("##KASRKIN##"),
-        size = 28
+        size = 28,
+        additionalRules = "**Reconnoitre Killzone:** The **Relocate** strategy ploy costs you 0CP if this operative is the selected friendly ##KASRKIN## operative.",
+        actions = listOf(Actions.KSBattleComms)
     )
 
     val Trooper = Operator(
@@ -253,7 +266,12 @@ object KasrkinSquadOperators
         weapons = listOf(Weapons.KSHotShotLasgun, Weapons.KSGunButt),
         keywords = listOf("##KASRKIN##"),
         size = 28,
-        specialist = false
+        specialist = false,
+        additionalRules = "\n" +
+                "**Adaptive Equipment:** You can do each of the following once per turning point:\n" +
+                "\n • One friendly ##KASRKIN## **TROOPER** operative can perform the **Smoke Grenade** action.\n" +
+                "\n • One friendly ##KASRKIN## **TROOPER** operative can perform the **Stun Grenade** action.\n\n" +
+                "The rules for these actions are found in universal equipment. Performing these actions using this rule doesn’t count towards their action limits (i.e. if you also select those grenades from equipment).\n"
     )
 
     val operatorList = listOf(Seargent,Medic,DemoTrooper,GunnerGranadeLuncher,GunnerPlasma,GunnerMelta,ReconTrooper,Sharpshooter,VoxTrooper,Trooper)
@@ -271,7 +289,9 @@ object AngelsOfDeathOperators
         weapons = listOf(Weapons.ADPlasmaPistolStandard,Weapons.ADPlasmaPistolCharged, Weapons.ADPowerFist),
         keywords = listOf("##ANGELS OF DEATH##"),
         size = 40,
-        leader = true
+        leader = true,
+        additionalRules = "**Heroic leader:** Once per turning point, you can use a firefight ploy for 0CP if this is the specified ##ANGEL OF DEATH## operative (excluding Command Re-roll), or the **Adjust Doctrine** firefight ploy for 0CP if this operative is in the killzone and not within control Range of enemy operatives. \n\n" +
+                            "**Iron halo:** Once per battle, when an attack dice inflicts Normal Dmg on this operative, you can ignore that inflicted damage. "
     )
     val Grenadier = Operator(
         name = "Assault Intercessor Grenadier",
@@ -282,6 +302,8 @@ object AngelsOfDeathOperators
         weapons = listOf(Weapons.ADHeavyBoltPistol,Weapons.FragGranadeImproved,Weapons.KrakGranadeImproved, Weapons.ADChainsword),
         keywords = listOf("##ANGELS OF DEATH##"),
         size = 32,
+        additionalRules = "**Grenadier:** This operative can use frag and krak grenades (see universal equipment). Doing so doesn’t count towards any Limited uses you have (i.e. if you also select those grenades from equipment for other operatives). Whenever it’s doing so, improve the Hit stat of that weapon by 1. \n" +
+                        "Note weapons have statistics of grenade with improved 1+ hit stat"
     )
 
     val GunnerBoltRifle = Operator(
@@ -325,7 +347,8 @@ object AngelsOfDeathOperators
         wounds = 12,
         weapons = listOf(Weapons.ADBoltPistol,Weapons.ADBoltSniperRifleExecutioner,Weapons.ADBoltSniperRifleHyperfrag,Weapons.ADBoltSniperRifleMortis,Weapons.ADFists),
         keywords = listOf("##ANGELS OF DEATH##"),
-        size = 40
+        size = 40,
+        actions = listOf(Actions.ADSpot)
     )
 
     val HeavyGunner = Operator(

@@ -12,7 +12,7 @@ object KillTeams
         equipment = DeathKorpsEQ.equipmentList,
         operators = DeathKorpsOperators.operatorList,
         nameKeyword = "Death Korps",
-        minOperators = 2,  //10
+        minOperators = 10,  //10
         maxOperator = 14,
     )
 

@@ -75,5 +75,5 @@ data class Action(
     var name : String,
     var cost : Int,
     var description : String,
-    var limitation : String
+    var limitation : String = " This operative cannot perform this action while within control Range of an enemy operative. "
 )

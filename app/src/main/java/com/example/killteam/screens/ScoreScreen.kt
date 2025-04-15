@@ -311,189 +311,14 @@ fun ScorePoints(
             {
                 Text("Crit",color = Color.White, style = TextStyle(fontSize = 16.sp))
             }
-            Box(
-                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
-                contentAlignment = Alignment.Center
-            )
+            for(i in 0..2)
             {
-                //Text("TP2",color = Color.White, style = TextStyle(fontSize = 16.sp))
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
+                Box(
+                    modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
+                    contentAlignment = Alignment.Center
                 )
                 {
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(2)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(0) },
-                        contentPadding = PaddingValues(0.dp)
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.CRITOP,firstPlayer,0))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,0) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(2)
-                                )
-                            }
-                        }
-                    }
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(2)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(1) }
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.CRITOP,firstPlayer,1))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,1) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(2)
-                                )
-                            }
-                        }
-
-                    }
-                }
-
-            }
-            Box(
-                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
-                contentAlignment = Alignment.Center
-            )
-            {
-                //Text("TP3",color = Color.White, style = TextStyle(fontSize = 16.sp))
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
-                )
-                {
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(3)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(2) }
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.CRITOP,firstPlayer,2))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,2) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(3)
-                                )
-                            }
-                        }
-                    }
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(3)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(3) }
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.CRITOP,firstPlayer,3))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,3) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(3)
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-            Box(
-                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
-                contentAlignment = Alignment.Center
-            )
-            {
-               // Text("TP4",color = Color.White, style = TextStyle(fontSize = 16.sp))
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
-                )
-                {
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(4)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(4) }
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.CRITOP,firstPlayer,4))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,4) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(4)
-                                )
-                            }
-                        }
-                    }
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(4)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(5) }
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.CRITOP,firstPlayer,5))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.CRITOP,5) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(4)
-                                )
-                            }
-                        }
-                    }
+                    ScoreButton(viewModel,color,firstPlayer,2+i,0+2*i, PointType.CRITOP)
                 }
             }
         }
@@ -509,188 +334,14 @@ fun ScorePoints(
             {
                 Text("Tac",color = Color.White, style = TextStyle(fontSize = 16.sp))
             }
-            Box(
-                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
-                contentAlignment = Alignment.Center
-            )
+            for(i in 0..2)
             {
-                //Text("TP2",color = Color.White, style = TextStyle(fontSize = 16.sp))
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
+                Box(
+                    modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
+                    contentAlignment = Alignment.Center
                 )
                 {
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(2)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(0) }
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.TACOP,firstPlayer,0))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,0) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(2)
-                                )
-                            }
-                        }
-                    }
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(2)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(1) }
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.TACOP,firstPlayer,1))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,1) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(2)
-                                )
-                            }
-                        }
-                    }
-                }
-
-            }
-            Box(
-                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
-                contentAlignment = Alignment.Center
-            )
-            {
-                //Text("TP3",color = Color.White, style = TextStyle(fontSize = 16.sp))
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
-                )
-                {
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(3)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(2) }
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.TACOP,firstPlayer,2))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,2) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(3)
-                                )
-                            }
-                        }
-                    }
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(3)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(3) }
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.TACOP,firstPlayer,3))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,3) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(3)
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-            Box(
-                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
-                contentAlignment = Alignment.Center
-            )
-            {
-                // Text("TP4",color = Color.White, style = TextStyle(fontSize = 16.sp))
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
-                )
-                {
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(4)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(4) }
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.TACOP,firstPlayer,4))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,4) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(4)
-                                )
-                            }
-                        }
-                    }
-                    Button(
-                        modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(viewModel.GetAlphaByRound(4)), RectangleShape),
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(5) }
-                    )
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.TACOP,firstPlayer,5))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.TACOP,5) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(4)
-                                )
-                            }
-                        }
-                    }
+                    ScoreButton(viewModel,color,firstPlayer,2+i,0+2*i, PointType.TACOP)
                 }
             }
         }
@@ -718,153 +369,14 @@ fun ScorePoints(
             {
                 Text("Kill",color = Color.White, style = TextStyle(fontSize = 16.sp))
             }
-            Box(
-                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
-                contentAlignment = Alignment.Center
-            )
+            for(i in 0..2)
             {
-                //Text("TP2",color = Color.White, style = TextStyle(fontSize = 16.sp))
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
+                Box(
+                    modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
+                    contentAlignment = Alignment.Center
                 )
                 {
-                    Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.KILLOP,firstPlayer,0))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,0) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(5)
-                                )
-                            }
-                        }
-                    }
-                    Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.KILLOP,firstPlayer,1))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,1) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(5)
-                                )
-                            }
-                        }
-                    }
-                }
-
-            }
-            Box(
-                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
-                contentAlignment = Alignment.Center
-            )
-            {
-                //Text("TP3",color = Color.White, style = TextStyle(fontSize = 16.sp))
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
-                )
-                {
-                    Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.KILLOP,firstPlayer,2))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,2) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(5)
-                                )
-                            }
-                        }
-                    }
-                    Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.KILLOP,firstPlayer,3))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,3) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(5)
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-            Box(
-                modifier = Modifier.background(KTColors.Background).weight(0.2f).fillMaxSize(),
-                contentAlignment = Alignment.Center
-            )
-            {
-                // Text("TP4",color = Color.White, style = TextStyle(fontSize = 16.sp))
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
-                )
-                {
-                    Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.KILLOP,firstPlayer,4))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,4) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(5)
-                                )
-                            }
-                        }
-                    }
-                    Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
-                    {
-                        Box(
-                            modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
-                                PointType.KILLOP,firstPlayer,5))
-                        )
-                        {
-                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,5) == 1)
-                            {
-                                Image(
-                                    modifier = Modifier.fillMaxSize().padding(5.dp),
-                                    contentDescription = "Skull Point",
-                                    painter = painterResource(id = R.drawable.skull),
-                                    alpha = viewModel.GetAlphaByRound(5)
-                                )
-                            }
-                        }
-
-                    }
+                    KillScoreButton(viewModel,color,firstPlayer,0+i*2)
                 }
             }
         }
@@ -1169,5 +681,79 @@ fun EndGameDialogWindow(
 
         }
     )
+}
 
+//Score button with 2 buttons selected to round
+@Composable
+fun ScoreButton(viewModel : ScoreViewModel,color: Color,firstPlayer : Boolean,unlockedRound : Int,pointIndex : Int,type : PointType)
+{
+    Row(
+        modifier = Modifier.fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically
+    )
+    {
+        for (i in 0..1)
+        {
+            Button(
+                modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp)
+                    .border(2.dp, color.copy(viewModel.GetAlphaByRound(unlockedRound)), RectangleShape),
+                shape = RectangleShape,
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                onClick = { if (type == PointType.CRITOP) { viewModel.GetPlayer(firstPlayer).SwitchCritPoints(pointIndex + i) }
+                          else { viewModel.GetPlayer(firstPlayer).SwitchTacPoints(pointIndex + i) } },
+                contentPadding = PaddingValues(0.dp)
+            )
+            {
+                Box(
+                    modifier = Modifier.height(50.dp).fillMaxWidth().background(
+                        viewModel.GetButtonPointColor(
+                            type, firstPlayer, pointIndex + i
+                        )
+                    )
+                )
+                {
+                    if (viewModel.GetPlayer(firstPlayer).GetPoint(type, pointIndex + i) == 1) {
+                        Image(
+                            modifier = Modifier.fillMaxSize().padding(5.dp),
+                            contentDescription = "Skull Point",
+                            painter = painterResource(id = R.drawable.skull),
+                            alpha = viewModel.GetAlphaByRound(unlockedRound)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun KillScoreButton(viewModel : ScoreViewModel,color: Color,firstPlayer : Boolean,pointIndex : Int)
+{
+    Row(
+        modifier = Modifier.fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically
+    )
+    {
+        for(i in 0..1)
+        {
+            Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
+            {
+                Box(
+                    modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
+                        PointType.KILLOP,firstPlayer,pointIndex + i))
+                )
+                {
+                    if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,pointIndex + i) == 1)
+                    {
+                        Image(
+                            modifier = Modifier.fillMaxSize().padding(5.dp),
+                            contentDescription = "Skull Point",
+                            painter = painterResource(id = R.drawable.skull),
+                            alpha = viewModel.GetAlphaByRound(5)
+                        )
+                    }
+                }
+            }
+        }
+    }
 }

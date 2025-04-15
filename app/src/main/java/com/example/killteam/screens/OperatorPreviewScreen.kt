@@ -75,8 +75,7 @@ fun PreviewScreen(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
 {
     LazyColumn(modifier = Modifier.fillMaxSize())
     {
-
-        item() //Operator name label
+        item() //Operator's name label
         {
             Box(
                 modifier = Modifier
@@ -132,6 +131,7 @@ fun OperatorStats(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
             .fillMaxHeight()
             .clip(RoundedCornerShape(topStart = 15.dp)))
         {
+            //APL Label
             Box(modifier =  Modifier
                 .fillMaxSize()
                 .background(KTColors.PreviewOperator)
@@ -140,6 +140,7 @@ fun OperatorStats(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
             {
                 Text("APL",style = TextStyle(fontSize = 14.sp),color = Color.White, textAlign =  TextAlign.Center)
             }
+            //APL Value
             Box(modifier =  Modifier
                 .fillMaxSize()
                 .background(KTColors.PreviewOperator)
@@ -149,11 +150,12 @@ fun OperatorStats(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
                 Text("${viewModel.GetPlayer(firstPlayer).GetTroopByIndex(index).APL}",style = TextStyle(fontSize = 36.sp),color = Color.White, textAlign =  TextAlign.Center)
             }
         }
-        //ATK stat
+        //Move stat
         Column(modifier =  Modifier
             .weight(0.25f)
             .fillMaxHeight())
         {
+            //move label
             Box(modifier =  Modifier
                 .fillMaxSize()
                 .background(KTColors.PreviewOperator)
@@ -162,6 +164,7 @@ fun OperatorStats(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
             {
                 Text("MOVE",style = TextStyle(fontSize = 14.sp),color = Color.White, textAlign =  TextAlign.Center)
             }
+            //move value
             Box(modifier =  Modifier
                 .fillMaxSize()
                 .background(KTColors.PreviewOperator)
@@ -169,14 +172,15 @@ fun OperatorStats(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
                 contentAlignment = Alignment.Center)
             {
                 Text("${InjureWorsenMove(viewModel.GetPlayer(firstPlayer).GetTroopSelectionByIndex(index))}\"",style = TextStyle(fontSize = 36.sp),color = SelectColorByInjuring(Color.White,
-                    KTColors.LightInjured,operator), textAlign =  TextAlign.Center)
+                    KTColors.LightInjured,operator), textAlign =  TextAlign.Center) //if injured value would be lower
             }
         }
-        //Hit stat
+        //Save stat
         Column(modifier =  Modifier
             .weight(0.25f)
             .fillMaxHeight())
         {
+            //Save Label
             Box(modifier =  Modifier
                 .fillMaxSize()
                 .background(KTColors.PreviewOperator)
@@ -185,6 +189,7 @@ fun OperatorStats(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
             {
                 Text("SAVE",style = TextStyle(fontSize = 14.sp),color = Color.White, textAlign =  TextAlign.Center)
             }
+            //save value
             Box(modifier =  Modifier
                 .fillMaxSize()
                 .background(KTColors.PreviewOperator)
@@ -200,6 +205,7 @@ fun OperatorStats(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
             .fillMaxHeight()
             .clip(RoundedCornerShape(topEnd = 15.dp)))
         {
+            //wound label
             Box(modifier =  Modifier
                 .fillMaxSize()
                 .background(KTColors.PreviewOperator)
@@ -214,6 +220,7 @@ fun OperatorStats(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
                 .padding(5.dp),
                 contentAlignment = Alignment.Center)
             {
+                //current wound value / max wounds value
                 Text("${viewModel.GetPlayer(firstPlayer).GetCurrentWounds(index)}/${viewModel.GetPlayer(firstPlayer).GetTroopByIndex(index).wounds}",
                     style = TextStyle(fontSize = 36.sp),
                     color = SelectColorByInjuring(Color.White, KTColors.LightInjured,operator),
@@ -222,7 +229,7 @@ fun OperatorStats(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
         }
     }
 }
-//Create Box with buttons to change some information about operator
+//Create Box with buttons to change some information (values) about operator
 @Composable
 fun OperatorInteractions(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
 {
@@ -234,13 +241,14 @@ fun OperatorInteractions(viewModel: ScoreViewModel, firstPlayer : Boolean, index
             modifier = Modifier.padding(5.dp),
             horizontalArrangement = Arrangement.spacedBy(5.dp))
         {
+            //Box which works like button. It trigger alert dialog to ask user is he sure his action
             Box(modifier = Modifier.weight(0.4f).height(75.dp).background(GetOrderColor(operator,false)).clickable{
                 showDialog = true
             },
                 contentAlignment = Alignment.Center)
             {
                 Text("Kill",style = TextStyle(fontSize = 20.sp), color = Color.White, textAlign = TextAlign.Center)
-                if(showDialog)
+                if(showDialog)  //triggering alert dialog window
                 {
                     ConfirmDialog("Warning!","Are you sure you want to kill this operator?",
                         { showDialog = false},
@@ -248,6 +256,7 @@ fun OperatorInteractions(viewModel: ScoreViewModel, firstPlayer : Boolean, index
                             showDialog = false})
                 }
             }
+            //Switch state of operators readiness
             Box(modifier = Modifier.weight(0.4f).height(75.dp).background(GetOrderColor(operator,false)).clickable{
                 viewModel.GetPlayer(firstPlayer).SwitchOperatorReadiness(index)
             },
@@ -255,6 +264,7 @@ fun OperatorInteractions(viewModel: ScoreViewModel, firstPlayer : Boolean, index
             {
                 Text(if(operator.ready.value) {"Ready"} else {"Expanded"},style = TextStyle(fontSize = 20.sp), color = Color.White, textAlign = TextAlign.Center)
             }
+            //Switch order (state) of operator
             Box(modifier = Modifier.weight(0.2f).height(75.dp).background(GetOrderColor(operator,false)).clickable{
                 viewModel.GetPlayer(firstPlayer).SwitchOperatorOrder(index)
             },
@@ -266,9 +276,9 @@ fun OperatorInteractions(viewModel: ScoreViewModel, firstPlayer : Boolean, index
                     painter = painterResource(id = GetOrderIcon(operator)),
                     contentScale = ContentScale.Fit
                 )
-                //Text("Conceal",style = TextStyle(fontSize = 20.sp), color = Color.White, textAlign = TextAlign.Center)
             }
         }
+        //Used to change values of operators wounds
         Row(modifier = Modifier.padding(5.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically)
@@ -286,7 +296,7 @@ fun OperatorInteractions(viewModel: ScoreViewModel, firstPlayer : Boolean, index
             }
             val focusManager = LocalFocusManager.current
             val focusRequester = remember { FocusRequester() }
-
+            //Text Field for entering value to increament or decreament wounds
             TextField(
                 modifier = Modifier
                     .weight(0.25f)
@@ -341,28 +351,35 @@ fun AddiotionalRules(additionalRules : String)
 @Composable
 fun Actions(actionList : List<Action>)
 {
+    //If empty don't create
     if(actionList.isEmpty())
     {
         return
     }
+    //creating boxes of every action in list
     actionList.forEach { action ->
         Column(modifier = Modifier.fillMaxWidth().padding(5.dp).border(2.dp, KTColors.Orange,
             RectangleShape
         ))
         {
+            //Basic information (name and cost) about action
             Row(modifier = Modifier.fillMaxWidth().background(KTColors.Orange))
             {
+                //label with action name
                 Box(modifier = Modifier.weight(0.8f).fillMaxHeight().padding(5.dp))
                 {
                     Text(action.name,style = TextStyle(fontSize = 24.sp),color = Color.White, textAlign = TextAlign.Start)
                 }
+                //label with cost of action (in APL)
                 Box(modifier = Modifier.weight(0.2f).fillMaxHeight().padding(5.dp))
                 {
                     Text("${action.cost}APL",style = TextStyle(fontSize = 24.sp),color = Color.White, textAlign = TextAlign.End)
                 }
             }
+            //Description of action
             Row(modifier = Modifier.fillMaxWidth())
             {
+                //Image used as list point
                 Box(modifier = Modifier.weight(0.1f).fillMaxHeight().padding(5.dp))
                 {
                     Image(
@@ -372,6 +389,7 @@ fun Actions(actionList : List<Action>)
                         contentScale = ContentScale.FillWidth
                     )
                 }
+                //Formatted description of action
                 Box(modifier = Modifier.weight(0.9f).fillMaxHeight().padding(5.dp))
                 {
                     Text(FormatTextWithMarkers(action.description),style = TextStyle(fontSize = 14.sp), textAlign = TextAlign.Justify)
@@ -379,6 +397,7 @@ fun Actions(actionList : List<Action>)
             }
             Row(modifier = Modifier.fillMaxWidth())
             {
+                //Image used as list point
                 Box(modifier = Modifier.weight(0.1f).fillMaxHeight().padding(5.dp))
                 {
                     Image(
@@ -388,6 +407,7 @@ fun Actions(actionList : List<Action>)
                         contentScale = ContentScale.FillWidth
                     )
                 }
+                //Formated description of action limits
                 Box(modifier = Modifier.weight(0.9f).fillMaxHeight().padding(5.dp))
                 {
                     Text(FormatTextWithMarkers(action.limitation),style = TextStyle(fontSize = 14.sp), textAlign = TextAlign.Justify)
@@ -415,6 +435,7 @@ fun WeaponsList(weapons : List<Weapon>,injured : Boolean)
                 style = TextStyle(fontSize = 16.sp),
                 color = Color.White)
         }
+        //Row with Labels of statistics name
         Row()
         {
             Spacer(modifier = Modifier
@@ -456,14 +477,18 @@ fun WeaponsList(weapons : List<Weapon>,injured : Boolean)
                 Text("WR",style = TextStyle(fontSize = 16.sp))
             }
         }
+        //Little Box to seperate statistics name from weapons
         Box(modifier = Modifier.fillMaxWidth()
             .height(2.dp)
             .background(KTColors.Orange))
+        //Creating table with weapon informations
         weapons.forEach { weapon ->
+            //Row with weapon's statistics
             Row(
                 verticalAlignment = Alignment.CenterVertically
             )
             {
+                //Image of Weapon type (melee or ranged)
                 Box(modifier = Modifier
                     .weight(0.06f)
                     .fillMaxHeight(),
@@ -490,6 +515,7 @@ fun WeaponsList(weapons : List<Weapon>,injured : Boolean)
                 {
                     Text("${weapon.Atk}",style = TextStyle(fontSize = 15.sp))
                 }
+                //Hit stat which can be modified if operator is injured (injuring changes also color)
                 Box(modifier = Modifier
                     .weight(0.09f)
                     .fillMaxHeight(),
@@ -503,6 +529,7 @@ fun WeaponsList(weapons : List<Weapon>,injured : Boolean)
                     .fillMaxHeight(),
                     contentAlignment = Alignment.Center)
                 {
+                    //weapon's dmg/critical damage
                     Text("${weapon.Dmg}/${weapon.CritDmg}",style = TextStyle(fontSize = 15.sp))
                 }
                 Box(modifier = Modifier
@@ -512,9 +539,6 @@ fun WeaponsList(weapons : List<Weapon>,injured : Boolean)
                 {
                     Text("${ConvertWeaponRulesToString(weapon.WeaponRulesList)}",style = TextStyle(fontSize = 15.sp), textAlign = TextAlign.Center)
                 }
-                /*Spacer(modifier = Modifier.fillMaxWidth()
-                    .height(2.dp)
-                    .background(KTColors.Orange))*/
             }
             Box(modifier = Modifier.fillMaxWidth()
                 .height(2.dp)

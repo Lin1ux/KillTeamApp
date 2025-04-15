@@ -403,7 +403,6 @@ class ScoreViewModel : ViewModel()
             CountKillBonus()
         }
     }
-    //ENND
     val RedPlayer = PlayerState()   //First Player - Red
     val BluePlayer = PlayerState()  //Blue Player - Blue
 
@@ -426,7 +425,7 @@ class ScoreViewModel : ViewModel()
         if(currentRound+1 == newRound)
         {
             currentRound += 1
-            //Ressetting ploys
+            //Resetting ploys
             BluePlayer.ploysData = mutableStateListOf<ploySelection>()
             RedPlayer.ploysData = mutableStateListOf<ploySelection>()
             //Seting all operatives to ready state
@@ -604,7 +603,7 @@ class ScoreViewModel : ViewModel()
         }
         return KTColors.Blue
     }
-    //Counts points
+    //Counts kill points
     fun CountKillBonus()
     {
         //Get max amount of operator
