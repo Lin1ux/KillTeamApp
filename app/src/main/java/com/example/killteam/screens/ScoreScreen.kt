@@ -1,4 +1,4 @@
-package com.example.killteam
+package com.example.killteam.screens
 
 import Objects.KillTeams
 import Objects.PointType
@@ -44,11 +44,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.killteam.R
+import com.example.killteam.ScoreViewModel
+import com.example.killteam.Screen
+import com.example.killteam.getMissions
 import com.example.killteam.ui.theme.KTColors
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun ScoreScreen(viewModel: ScoreViewModel,navController : NavController)
+fun ScoreScreen(viewModel: ScoreViewModel, navController : NavController)
 {
     LazyColumn(modifier = Modifier.fillMaxSize().background(KTColors.Background).padding(horizontal = 5.dp))
     {
@@ -256,7 +260,8 @@ fun TeamSelection(
 fun ScorePoints(
     color : Color,
     firstPlayer : Boolean,
-    viewModel: ScoreViewModel)
+    viewModel: ScoreViewModel
+)
 {
     Column(
         modifier = Modifier.fillMaxWidth().padding(top = 5.dp)
@@ -730,6 +735,17 @@ fun ScorePoints(
                             modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
                                 PointType.KILLOP,firstPlayer,0))
                         )
+                        {
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,0) == 1)
+                            {
+                                Image(
+                                    modifier = Modifier.fillMaxSize().padding(5.dp),
+                                    contentDescription = "Skull Point",
+                                    painter = painterResource(id = R.drawable.skull),
+                                    alpha = viewModel.GetAlphaByRound(5)
+                                )
+                            }
+                        }
                     }
                     Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
                     {
@@ -737,6 +753,17 @@ fun ScorePoints(
                             modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
                                 PointType.KILLOP,firstPlayer,1))
                         )
+                        {
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,1) == 1)
+                            {
+                                Image(
+                                    modifier = Modifier.fillMaxSize().padding(5.dp),
+                                    contentDescription = "Skull Point",
+                                    painter = painterResource(id = R.drawable.skull),
+                                    alpha = viewModel.GetAlphaByRound(5)
+                                )
+                            }
+                        }
                     }
                 }
 
@@ -758,6 +785,17 @@ fun ScorePoints(
                             modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
                                 PointType.KILLOP,firstPlayer,2))
                         )
+                        {
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,2) == 1)
+                            {
+                                Image(
+                                    modifier = Modifier.fillMaxSize().padding(5.dp),
+                                    contentDescription = "Skull Point",
+                                    painter = painterResource(id = R.drawable.skull),
+                                    alpha = viewModel.GetAlphaByRound(5)
+                                )
+                            }
+                        }
                     }
                     Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
                     {
@@ -765,6 +803,17 @@ fun ScorePoints(
                             modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
                                 PointType.KILLOP,firstPlayer,3))
                         )
+                        {
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,3) == 1)
+                            {
+                                Image(
+                                    modifier = Modifier.fillMaxSize().padding(5.dp),
+                                    contentDescription = "Skull Point",
+                                    painter = painterResource(id = R.drawable.skull),
+                                    alpha = viewModel.GetAlphaByRound(5)
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -785,6 +834,17 @@ fun ScorePoints(
                             modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
                                 PointType.KILLOP,firstPlayer,4))
                         )
+                        {
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,4) == 1)
+                            {
+                                Image(
+                                    modifier = Modifier.fillMaxSize().padding(5.dp),
+                                    contentDescription = "Skull Point",
+                                    painter = painterResource(id = R.drawable.skull),
+                                    alpha = viewModel.GetAlphaByRound(5)
+                                )
+                            }
+                        }
                     }
                     Box(modifier = Modifier.weight(1.0f).fillMaxWidth().padding(2.dp).border(2.dp, color.copy(alpha = 0.5f), RectangleShape).background(Color.Transparent))
                     {
@@ -792,6 +852,17 @@ fun ScorePoints(
                             modifier = Modifier.height(50.dp).fillMaxWidth().background(viewModel.GetButtonPointColor(
                                 PointType.KILLOP,firstPlayer,5))
                         )
+                        {
+                            if(viewModel.GetPlayer(firstPlayer).GetPoint(PointType.KILLOP,5) == 1)
+                            {
+                                Image(
+                                    modifier = Modifier.fillMaxSize().padding(5.dp),
+                                    contentDescription = "Skull Point",
+                                    painter = painterResource(id = R.drawable.skull),
+                                    alpha = viewModel.GetAlphaByRound(5)
+                                )
+                            }
+                        }
 
                     }
                 }

@@ -19,6 +19,11 @@ object WeaponRules
         description = ""
     )
 
+    val PiercingCrits1 = WeaponRule(
+        name = "Piercing Crits 1",
+        description = ""
+    )
+
     val Piercieng1 = WeaponRule(
         name = "Piercing 1",
         description = ""
@@ -64,6 +69,16 @@ object WeaponRules
         description = ""
     )
 
+    val Torrent1 = WeaponRule(
+        name = "Torrent 1",
+        description = ""
+    )
+
+    val Blast1 = WeaponRule(
+        name = "Blast 1",
+        description = ""
+    )
+
     val Blast2 = WeaponRule(
         name = "Blast 2",
         description = ""
@@ -81,6 +96,21 @@ object WeaponRules
 
     val Shock = WeaponRule(
         name = "Shock",
+        description = ""
+    )
+
+    val Brutal = WeaponRule(
+        name = "Brutal",
+        description = ""
+    )
+
+    val Saturate = WeaponRule(
+        name = "Saturate",
+        description = ""
+    )
+
+    val SeekLight = WeaponRule(
+        name = "Seek Light",
         description = ""
     )
 }

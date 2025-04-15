@@ -1,8 +1,7 @@
-package com.example.killteam
+package com.example.killteam.screens
 
 import Objects.Operator
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,11 +31,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.killteam.RemoveKeyWord
+import com.example.killteam.ScoreViewModel
 import com.example.killteam.ui.theme.KTColors
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun UnitSelectionScreen(navController : NavController,viewModel: ScoreViewModel,firstPlayer : Boolean)
+fun UnitSelectionScreen(navController : NavController, viewModel: ScoreViewModel, firstPlayer : Boolean)
 {
     Column()
     {
@@ -122,7 +123,7 @@ fun UnitSelectionScreen(navController : NavController,viewModel: ScoreViewModel,
 }
 
 @Composable
-fun OperatorButton(viewModel: ScoreViewModel,firstPlayer : Boolean,operator: Operator,Adding : Boolean)
+fun OperatorButton(viewModel: ScoreViewModel, firstPlayer : Boolean, operator: Operator, Adding : Boolean)
 {
     var showDialog by remember { mutableStateOf(false) }
 

@@ -13,7 +13,7 @@ object KillTeams
         operators = DeathKorpsOperators.operatorList,
         nameKeyword = "Death Korps",
         minOperators = 2,  //10
-        maxOperator = 14
+        maxOperator = 14,
     )
 
     val KasrkinSquad = TeamInfo(
@@ -21,6 +21,8 @@ object KillTeams
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
         ploys = KasrkinPloys.ployList,
         equipment = KasrkinEQ.equipmentList,
+        operators = KasrkinSquadOperators.operatorList,
+        nameKeyword = "Kasrkin",
         minOperators = 10,
         maxOperator = 10
     )
@@ -30,6 +32,8 @@ object KillTeams
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
         ploys = AngelsOfDeathPloys.ployList,
         equipment = AngelsOfDeathEQ.equipmentList,
+        operators = AngelsOfDeathOperators.operatorList,
+        nameKeyword = "Intercessor",
         minOperators = 6,
         maxOperator = 6
     )

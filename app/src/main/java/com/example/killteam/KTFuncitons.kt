@@ -4,7 +4,10 @@ import Objects.Operator
 import Objects.Ploy
 import Objects.PloyType
 import Objects.TeamInfo
+import Objects.WeaponRule
+import Objects.WeaponRules
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -160,6 +163,15 @@ fun GetOrderColor(order : Order) : Color
         Order.ENGAGE ->  { return KTColors.Engage }
     }
 }
+//Return icon of order
+fun GetOrderIcon(troop : selectedOperators) : Int
+{
+    when(troop.order.value)
+    {
+        Order.CONCEAL -> { return R.drawable.conceal }
+        Order.ENGAGE ->  { return R.drawable.engage }
+    }
+}
 //Give alpha value dependend on given value
 fun GetReadyAlpha(ready : Boolean) : Float
 {
@@ -170,15 +182,19 @@ fun GetReadyAlpha(ready : Boolean) : Float
     return 0.25f
 }
 //return color for unit
-fun GetOrderColor(operator: selectedOperators) : Color
+fun GetOrderColor(operator: selectedOperators,modifyAlpha : Boolean = true,checkWounds : Boolean = false) : Color
 {
+    if(checkWounds && operator.currentWounds.value == 0)
+    {
+        return KTColors.Incapacitated
+    }
     var alpha : Float = 1.0f
-    if(!operator.ready)
+    if(!operator.ready.value && modifyAlpha)
     {
         alpha = 0.25f
     }
 
-    when(operator.order)
+    when(operator.order.value)
     {
         Order.CONCEAL -> { return KTColors.Conceal.copy(alpha = alpha) }
         Order.ENGAGE ->  { return KTColors.Engage.copy(alpha = alpha) }
@@ -189,4 +205,59 @@ fun GetOrderColor(operator: selectedOperators) : Color
 fun String.RemoveKeyWord(viewModel: ScoreViewModel,firstPlayer : Boolean) :
         String = this.replace(viewModel.GetPlayer(firstPlayer).GetTeam().nameKeyword,"")
 
+//Get List of Weapon rules and build string with them
+fun ConvertWeaponRulesToString(rules : List<WeaponRule>) : String
+{
+    if(rules.isEmpty())
+    {
+        return "-"
+    }
+    var strRules : String = ""
+    rules.forEachIndexed { index, rule ->
+        if(index != 0)
+        {
+            strRules+= ", "
+        }
+        strRules += rule.name
+    }
+    return strRules
+}
+//Return if operator is injured (have less than half wounds)
+fun IsInjured(operator: selectedOperators) : Boolean
+{
+    if(operator.currentWounds.value < ceil(operator.operator.wounds.toFloat()/2) )    // 7/2 = 3.5   8/2 = 4
+    {
+        return true
+    }
+    return false
+}
+//Return color dependend on operators wounds
+fun SelectColorByInjuring(normalColor : Color, injuredColor : Color , operator: selectedOperators) : Color
+{
+    if(IsInjured(operator))
+    {
+        return injuredColor
+    }
+    return normalColor
+}
+//Return color dependend on operators given value
+fun SelectColorByInjuring(normalColor : Color, injuredColor : Color , injured : Boolean) : Color
+{
+    if(injured)
+    {
+        return injuredColor
+    }
+    return normalColor
+}
+//Return worsen Move stat (move - 2)
+fun InjureWorsenMove(operator: selectedOperators) : Int
+{
+    if(IsInjured(operator))
+    {
+        return operator.operator.move - 2
+    }
+    return operator.operator.move
+}
+//Worsen Hit Stat (if true)
+fun Int.WorsenHitStat(worsen : Boolean) : Int = if(worsen) this + 1 else this
 

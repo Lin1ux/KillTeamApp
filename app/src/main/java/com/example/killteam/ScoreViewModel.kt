@@ -1,6 +1,7 @@
 package com.example.killteam
 
 import Objects.Equipment
+import Objects.KillOpPoints.KillOpPointMatrix
 import Objects.KillTeams
 import Objects.Mission
 import Objects.Operator
@@ -33,7 +34,7 @@ class ScoreViewModel : ViewModel()
 
         val critPoints = mutableStateListOf(0,0,0,0,0,0,0)
         val tacPoints = mutableStateListOf(0,0,0,0,0,0,0)
-        val killPoints = mutableStateListOf(0,0,0,0,0,0,0)
+        var killPoints = mutableStateListOf(0,0,0,0,0,0,0)
 
         var commandPoints by mutableStateOf(2)
 
@@ -54,6 +55,7 @@ class ScoreViewModel : ViewModel()
             troopsData.clear()
             troopsSelected = false
             selectedTeam = team
+            killPoints = mutableStateListOf(0,0,0,0,0,0,0)
         }
         //return Information about selected team
         fun GetTeam() : TeamInfo
@@ -221,11 +223,19 @@ class ScoreViewModel : ViewModel()
         //Switch Activation of Ploy
         fun SwitchPloyActivation(Index: Int)
         {
+            if(gameFinished) //block possibility to change value after finishing game
+            {
+                return
+            }
             ploysData[Index].selected = !ploysData[Index].selected
         }
         //Switch Placement of Ploy
         fun SwitchEqPlacement(Index: Int)
         {
+            if(gameFinished) //block possibility to change value after finishing game
+            {
+                return
+            }
             eqData[Index] = eqData[Index].copy(selected = !eqData[Index].selected)
         }
         //Return is player finish making his squad
@@ -310,9 +320,87 @@ class ScoreViewModel : ViewModel()
             }
             return true
         }
+        //Confirm that team is selected
         fun selectTeam()
         {
             troopsSelected = true
+        }
+        //Return current wounds
+        fun GetCurrentWounds(index: Int) : Int
+        {
+            return troopsData[index].currentWounds.value
+        }
+        //Set current operator wounds on 0
+        fun KillOperator(index : Int)
+        {
+            if(gameFinished) //block possibility to change value after finishing game
+            {
+                return
+            }
+            troopsData[index].currentWounds.value = 0
+            CountKillBonus()
+        }
+        //Changes state of readiness
+        fun SwitchOperatorReadiness(index : Int)
+        {
+            if(gameFinished) //block possibility to change value after finishing game
+            {
+                return
+            }
+            troopsData[index].ready.value = !troopsData[index].ready.value
+        }
+        //Return is operator ready
+        fun IsOperatorReady(index : Int) : Boolean
+        {
+            return troopsData[index].ready.value
+        }
+        //Switch order state
+        fun SwitchOperatorOrder(index : Int)
+        {
+            if(gameFinished) //block possibility to change value after finishing game
+            {
+                return
+            }
+            when(troopsData[index].order.value)
+            {
+                Order.CONCEAL -> troopsData[index].order.value = Order.ENGAGE
+                Order.ENGAGE -> troopsData[index].order.value = Order.CONCEAL
+            }
+        }
+        //Make all operators ready
+        fun SetAllOperatorsReady()
+        {
+            troopsData.forEachIndexed { index,troop ->
+                troopsData[index].ready.value = true
+            }
+        }
+        //Increase amount of wounds
+        fun IncreaseWound(value : Int,index : Int)
+        {
+            if(gameFinished) //block possibility to change value after finishing game
+            {
+                return
+            }
+            troopsData[index].currentWounds.value += value
+            if (troopsData[index].currentWounds.value > troopsData[index].operator.wounds)
+            {
+                troopsData[index].currentWounds.value = troopsData[index].operator.wounds
+            }
+            CountKillBonus()
+        }
+        //Deacrease operators Wounds
+        fun DecreaseWound(value : Int,index : Int)
+        {
+            if(gameFinished) //block possibility to change value after finishing game
+            {
+                return
+            }
+            troopsData[index].currentWounds.value -= value
+            if (troopsData[index].currentWounds.value < 0)
+            {
+                troopsData[index].currentWounds.value = 0
+            }
+            CountKillBonus()
         }
     }
     //ENND
@@ -335,11 +423,15 @@ class ScoreViewModel : ViewModel()
         {
             return
         }
-        if(currentRound+1 == newRound)  //Reseting Ploys
+        if(currentRound+1 == newRound)
         {
             currentRound += 1
+            //Ressetting ploys
             BluePlayer.ploysData = mutableStateListOf<ploySelection>()
             RedPlayer.ploysData = mutableStateListOf<ploySelection>()
+            //Seting all operatives to ready state
+            RedPlayer.SetAllOperatorsReady()
+            BluePlayer.SetAllOperatorsReady()
         }
         if(newRound > 5 || newRound < 0)
         {
@@ -512,6 +604,81 @@ class ScoreViewModel : ViewModel()
         }
         return KTColors.Blue
     }
+    //Counts points
+    fun CountKillBonus()
+    {
+        //Get max amount of operator
+        val redOperatorAmount : Int = RedPlayer.GetSelectedTroops().size
+        val blueOperatorAmount : Int = BluePlayer.GetSelectedTroops().size
+
+        var redDead : Int = 0
+        var blueDead : Int = 0
+
+        //Counting dead operators
+        RedPlayer.GetSelectedTroops().forEach { troop ->
+            if(troop.currentWounds.value <= 0)
+            {
+                redDead++
+            }
+        }
+        BluePlayer.GetSelectedTroops().forEach { troop ->
+            if(troop.currentWounds.value <= 0)
+            {
+                blueDead++
+            }
+        }
+        //Getting points from kills
+        var BluePoints = KillOpPointMatrix[redDead]?.get(redOperatorAmount) //Points depend on killed red operators
+        var RedPoints = KillOpPointMatrix[blueDead]?.get(blueOperatorAmount) //Points depend on killed blue operators
+
+        //if null it's change for 0
+        if(BluePoints == null)
+        {
+            BluePoints = 0
+        }
+        if(RedPoints == null)
+        {
+            RedPoints = 0
+        }
+        //Setting red Points
+        RedPlayer.killPoints.forEachIndexed { index,point ->
+            if(index < RedPoints)
+            {
+                RedPlayer.killPoints[index] = 1
+            }
+            else
+            {
+                RedPlayer.killPoints[index] = 0
+            }
+        }
+        //Setting blue Points
+        BluePlayer.killPoints.forEachIndexed { index,point ->
+            if(index < BluePoints)
+            {
+                BluePlayer.killPoints[index] = 1
+            }
+            else
+            {
+                BluePlayer.killPoints[index] = 0
+            }
+        }
+        //Extra point for having more kill points
+        if(BluePoints < RedPoints)
+        {
+            RedPlayer.killPoints[5] = 1
+            BluePlayer.killPoints[5] = 0
+        }
+        else if(RedPoints < BluePoints)
+        {
+            RedPlayer.killPoints[5] = 0
+            BluePlayer.killPoints[5] = 1
+        }
+        else    //Points are equal means no extra points
+        {
+            RedPlayer.killPoints[5] = 0
+            BluePlayer.killPoints[5] = 0
+        }
+    }
     //Finishes game and counts bonus points
     fun FinishGame()
     {
@@ -550,8 +717,8 @@ data class eqSelection(
 data class selectedOperators(
     var operator: Operator,
     var currentWounds : MutableState<Int>,
-    var ready : Boolean = true,
-    var order : Order = Order.CONCEAL
+    var ready : MutableState<Boolean> = mutableStateOf(true),
+    var order : MutableState<Order> = mutableStateOf(Order.CONCEAL)
 )
 
 enum class Order

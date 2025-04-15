@@ -40,10 +40,9 @@ data class Operator(
     var keywords : List<String>,
     var size : Int,
     var leader : Boolean = false,
-    var specialist : Boolean = true
-    //var aditionalRules List<AditionalRules>()
-    //var actions : List<Action>()
-
+    var specialist : Boolean = true,
+    var additionalRules : String = "",
+    var actions : List<Action> = emptyList()
 )
 
 data class Weapon(

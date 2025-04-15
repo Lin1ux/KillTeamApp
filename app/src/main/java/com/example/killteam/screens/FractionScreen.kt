@@ -1,4 +1,4 @@
-package com.example.killteam
+package com.example.killteam.screens
 
 import Objects.PloyType
 import androidx.compose.foundation.background
@@ -31,6 +31,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.killteam.FormatTextWithMarkers
+import com.example.killteam.GetAlphaFromPloySelecion
+import com.example.killteam.GetOneTypePloysSelection
+import com.example.killteam.ScoreViewModel
+import com.example.killteam.eqSelection
+import com.example.killteam.ploySelection
+import com.example.killteam.ployToColor
 import com.example.killteam.ui.theme.KTColors
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -48,8 +55,10 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
         }
         item()  //Strategy Ploys button
         {
-            GetOneTypePloysSelection(viewModel.GetPlayer(firstPlayer).GetPloysBySelection(),
-                PloyType.STRATEGY).forEach { element ->
+            GetOneTypePloysSelection(
+                viewModel.GetPlayer(firstPlayer).GetPloysBySelection(),
+                PloyType.STRATEGY
+            ).forEach { element ->
                 Ploys(viewModel, firstPlayer, element)
             }
         }
@@ -64,8 +73,10 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
         }
         item() //Firefight Ploys button
         {
-            GetOneTypePloysSelection(viewModel.GetPlayer(firstPlayer).GetPloysBySelection(),
-                PloyType.FIREFIGHT).forEach { element ->
+            GetOneTypePloysSelection(
+                viewModel.GetPlayer(firstPlayer).GetPloysBySelection(),
+                PloyType.FIREFIGHT
+            ).forEach { element ->
                 Ploys(viewModel, firstPlayer, element)
             }
         }
@@ -120,9 +131,12 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
 }
 
 @Composable
-fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean,ploySelection: ploySelection)
+fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean, ploySelection: ploySelection)
 {
-    var color by remember { mutableStateOf( ployToColor(ploySelection.ploy.type).copy(alpha = GetAlphaFromPloySelecion(ploySelection))) }
+    var color by remember { mutableStateOf( ployToColor(ploySelection.ploy.type).copy(alpha = GetAlphaFromPloySelecion(
+        ploySelection
+    )
+    )) }
     var showDialog by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxWidth().padding(top = 20.dp, bottom = 10.dp,end = 20.dp,start = 10.dp).drawBehind //top line
@@ -192,7 +206,11 @@ fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean,ploySelection: ploySel
                     { finish -> if(finish)  //On Accept for Free
                         {
                             viewModel.GetPlayer(firstPlayer).SwitchPloyActivation(ploySelection.index)
-                            color =  ployToColor(ploySelection.ploy.type).copy(alpha = GetAlphaFromPloySelecion(viewModel.GetPlayer(firstPlayer).GetPloysBySelection()[ploySelection.index]))
+                            color =  ployToColor(ploySelection.ploy.type).copy(alpha = GetAlphaFromPloySelecion(
+                                viewModel.GetPlayer(firstPlayer)
+                                    .GetPloysBySelection()[ploySelection.index]
+                            )
+                            )
                         }
                         showDialog = false
                     })
@@ -287,7 +305,7 @@ fun PloyInfoDialog(
 
 //Component giving information about selected equipment
 @Composable
-fun Equipment(viewModel: ScoreViewModel, firstPlayer: Boolean,eqSelection: eqSelection)
+fun Equipment(viewModel: ScoreViewModel, firstPlayer: Boolean, eqSelection: eqSelection)
 {
     Box(
         modifier = Modifier.fillMaxWidth().padding(5.dp).border(2.dp, KTColors.Equipment,RectangleShape)

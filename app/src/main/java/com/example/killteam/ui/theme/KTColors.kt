@@ -19,7 +19,11 @@ object KTColors
     val Strategy = Color(0xFF7D857C)
     val Equipment = Color(0xFF424242)
     val Operator = Color(0xFF5F5F5F)
+    val PreviewOperator = Color(0xFF282828)
     val Conceal = Color(0xFF394263)
     val Engage = Color(0xFFB9491B)
+    val Incapacitated = Color(0x65DC1515)
+    val LightInjured = Color(0xFFDC3B3B)
+    val DarkInjured = Color(0xFF830E0E)
 
 }

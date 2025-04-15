@@ -1,5 +1,26 @@
 package Objects
 
+import Objects.AngelsOfDeathEQ.Auspex
+import Objects.AngelsOfDeathEQ.ChapterReliquaries
+import Objects.AngelsOfDeathEQ.PuritySeals
+import Objects.AngelsOfDeathEQ.TiltingShields
+import Objects.DeathKorpsEQ.Chronometer
+import Objects.DeathKorpsEQ.CommBeads
+import Objects.DeathKorpsEQ.GasBombardment
+import Objects.DeathKorpsEQ.HandAxe
+import Objects.KasrkinEQ.CombatDaggers
+import Objects.KasrkinEQ.Foregrip
+import Objects.KasrkinEQ.LongRangeScope
+import Objects.KasrkinEQ.RelicsOfCadia
+import Objects.PlagueMarinesEQ.PlagueBells
+import Objects.PlagueMarinesEQ.PlagueGrenades
+import Objects.PlagueMarinesEQ.PlagueRounds
+import Objects.PlagueMarinesEQ.PoisonVents
+import Objects.VoidscaredCorsairsEQ.DiuturnalMantle
+import Objects.VoidscaredCorsairsEQ.Mistfield
+import Objects.VoidscaredCorsairsEQ.RunesOfGuidance
+import Objects.VoidscaredCorsairsEQ.StarCharts
+
 object UniversalEquipment
 {
     val AmmoCache = Equipment(
@@ -91,125 +112,125 @@ object DeathKorpsEQ
 
 object KasrkinEQ
 {
-    val aaaaaaa = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val Foregrip = Equipment(
+        name = "Foregrip",
+        description = "Whenever a friendly ##KASRKIN## operative is shooting an operative within 3\" of it, ranged weapons on its datacard (excluding weapons that include ‘pistol’ in their name, e.g. hot-shot laspistol, all profiles of a plasma pistol, etc.) have the xxAccurate 1xx weapon rule."
     )
 
-    val bbbbb = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val LongRangeScope = Equipment(
+        name = "Long-Range Scope",
+        description = "Whenever a friendly ##KASRKIN## operative is shooting an operative more than 6\" from it, in the Roll Attack Dice step, if you retain any critical successes, its hot-shot weapons (excluding hot-shot laspistol) have the xxSaturatexx weapon rule."
     )
 
-    val ccccccccccc = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val RelicsOfCadia = Equipment(
+        name = "Relics of Cadia",
+        description = "Once per turning point, when a friendly ##KASRKIN## operative is shooting, if you roll two or more fails, you can discard one of them to retain another as a normal success instead. "
     )
 
-    val ddddddd = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val CombatDaggers = Equipment(
+        name = "Combat Daggers",
+        description = "Friendly ##KASRKIN## operatives have the following melee weapon:"
     )
 
-    val equipmentList = UniversalEquipment.equipmentList//listOf()
+    val equipmentList = listOf(Foregrip,LongRangeScope,RelicsOfCadia,CombatDaggers) + UniversalEquipment.equipmentList
 }
 
 object AngelsOfDeathEQ
 {
-    val aaaaaaa = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val PuritySeals = Equipment(
+        name = "Purity Seals",
+        description = "Once per turning point, when a friendly ##ANGEL OF DEATH## operative is shooting, fighting or retaliating, if you roll two or more fails, you can discard one of them to retain another as a normal success instead."
     )
 
-    val bbbbb = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val TiltingShields = Equipment(
+        name = "Tilting Shields",
+        description = "Once per turning point, when a friendly ##ANGEL OF DEATH## operative is fighting or retaliating, after your opponent rolls their attack dice, you can use this rule. If you do, your opponent cannot retain attack dice results of less than 6 as critical successes during that sequence (e.g., as a result of the Lethal, Rending, or Severe weapon rules)."
     )
 
-    val ccccccccccc = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val ChapterReliquaries = Equipment(
+        name = "Chapter Reliquaries",
+        description = "You can use the **Wrath of Vengeance** firefight ploy for OCP if the specified friendly operative has an **Engage** order."
     )
 
-    val ddddddd = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val Auspex = Equipment(
+        name = "Auspex",
+        description = "Once per turning point, when a friendly ##ANGEL OF DEATH## operative performs the **Shoot** action and you’re selecting a valid target, you can use this rule. If you do, until the end of the activation/counteraction, enemy operatives within 8\" of that friendly operative cannot be **obscured.**"
     )
 
-    val equipmentList = UniversalEquipment.equipmentList//listOf()
+    val equipmentList = listOf(PuritySeals,TiltingShields,ChapterReliquaries,Auspex) + UniversalEquipment.equipmentList
 }
 
 object VoidscaredCorsairsEQ
 {
-    val aaaaaaa = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val DiuturnalMantle = Equipment(
+        name = "Diuturnal Mantle",
+        description = "Whenever an operative is shooting a friendly ##CORSAIR VOIDSCARRED## operative, if the ranged weapon in that sequence has the **Blast** or **Torrent** weapon rule, you can re-roll one of your defense dice. In addition, friendly ##CORSAIR VOIDSCARRED## operatives aren’t affected by the **X\" Devastating X** weapon rule (i.e. Devastating with a distance) unless they are the target during that sequence."
     )
 
-    val bbbbb = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val RunesOfGuidance = Equipment(
+        name = "Runes of Guidance",
+        description = "Once per turning point, when a friendly **VOIDSCARRED WAY SEEKER** or **VOIDSCARRED SOUL WEAVER** operative is performing a **PSYCHIC** action (excluding Warp Fold), you can use this rule. If you do, until the end of that action, add 3\" to its distance requirement. \n\nNote this has no effect on **PSYCHIC** weapons (e.g., the Devastating distance requirement of lightning strike)."
     )
 
-    val ccccccccccc = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val Mistfield = Equipment(
+        name = "Mistfield",
+        description = "Once per turning point, when an operative is shooting a friendly ##CORSAIR VOIDSCARRED## operative more than 3\" away, during the Roll Defense Dice step, worsen the x of the **Piercing** weapon rule by 1 (if any) until the end of that sequence. This may cause **Piercing 1** to be ignored."
     )
 
-    val ddddddd = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val StarCharts = Equipment(
+        name = "Star Charts",
+        description = "**STRATEGIC GAMBIT:** Roll one D3: If the result is higher than the number of the current turning point, you gain 1CP and cannot use this **STRATEGIC GAMBIT** for the rest of the battle."
     )
 
-    val equipmentList = UniversalEquipment.equipmentList//listOf()
+    val equipmentList = listOf(DiuturnalMantle,RunesOfGuidance,Mistfield,StarCharts) + UniversalEquipment.equipmentList
 }
 
 object PlagueMarinesEQ
 {
-    val aaaaaaa = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val PoisonVents = Equipment(
+        name = "Poison Vents",
+        description = "Whenever an enemy operative that has one of your Poison tokens is activated within 3\" of a friendly ##PLAGUE MARINE## operative, inflict D3 damage on it (instead of the normal 1)."
     )
 
-    val bbbbb = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val PlagueRounds = Equipment(
+        name = "Plague Rounds",
+        description = "Friendly ##PLAGUE MARINE## operatives’ boltguns and bolt pistols have the **Poison** and **Severe** weapon rules."
     )
 
-    val ccccccccccc = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val PlagueBells = Equipment(
+        name = "Plague Bells",
+        description = "You can ignore any changes to the stats of friendly ##PLAGUE MARINE## operatives from being injured."
     )
 
-    val ddddddd = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val PlagueGrenades = Equipment(
+        name = "Plague Grenades",
+        description = "Friendly ##PLAGUE MARINE## operatives have the following ranged weapon (you cannot select it for use more than twice during the battle): "
     )
 
-    val equipmentList = UniversalEquipment.equipmentList//listOf()
+    val equipmentList = listOf(PoisonVents,PlagueRounds,PlagueBells,PlagueGrenades) + UniversalEquipment.equipmentList
 }
 
 object HunterCladeEQ
 {
-    val aaaaaaa = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val RadBombardment = Equipment(
+        name = "Rad Bombardment",
+        description = "Once per battle **STRATEGIC GAMBIT** in any turning point after the first. Select one objective marker or your opponent’s drop zone. Roll one D6 for each enemy operative within control range of that selected objective marker or within that drop zone, and subtract 1 from that enemy operative’s APL stat until the end of its next activation on a 4+; on a 6, also inflict D3 damage on it (roll separately for each)."
     )
 
-    val bbbbb = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val RefractorField = Equipment(
+        name = "Refractor Field",
+        description = "Once per turning point, when an operative is shooting a friendly ##HUNTER CLADE## operative, at the start of the Roll Defence Dice step, you can use this rule. If you do, worsen the x of the xxPiercingxx weapon rule by 1 (if any) until the end of that sequence. Note that xxPiercing 1xx would therefore be ignored."
     )
 
-    val ccccccccccc = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val ExtremisMindLink = Equipment(
+        name = "Extremis Mind-Link",
+        description = "Once per battle, you can use the **Control Edict** firefight ploy for 0CP, but instead of activating the selected friendly operatives in succession, activate them at the same time. Complete their activations action by action in any order."
     )
 
-    val ddddddd = Equipment(
-        name = "Explosive Grenades",
-        description = ""
+    val RedundancySystems = Equipment(
+        name = "Redundancy Systems",
+        description = "Once per turning point, when a friendly ##HUNTER CLADE## operative is activated, if it’s not within control range of enemy operatives, you can use this rule. If you do, that friendly operative regains up to D3+2 lost wounds."
     )
 
-    val equipmentList = UniversalEquipment.equipmentList//listOf()
+    val equipmentList = listOf(PoisonVents,PlagueRounds,PlagueBells,PlagueGrenades) + UniversalEquipment.equipmentList
 }
