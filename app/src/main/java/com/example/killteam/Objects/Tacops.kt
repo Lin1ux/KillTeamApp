@@ -1,4 +1,4 @@
-package Objects
+package com.example.killteam.Objects
 
 import androidx.compose.ui.graphics.Color
 import com.example.killteam.ui.theme.KTColors

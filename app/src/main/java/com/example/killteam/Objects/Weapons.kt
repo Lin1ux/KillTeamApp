@@ -1,6 +1,4 @@
-package Objects
-
-import kotlin.String
+package com.example.killteam.Objects
 
 object Weapons
 {
@@ -543,4 +541,171 @@ object Weapons
         CritDmg = 5,
         WeaponRulesList = listOf(WeaponRules.PiercingCrits1)
     )
+
+    //voidscared Corsairs
+    val VCShurikenPistol = Weapon(
+        name = "Shuriken pistol",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range8,WeaponRules.Rending)
+    )
+
+    val VCPowerWeapon = Weapon(
+        name = "Power Sword",
+        type = WeaponType.MELEE,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 6,
+        WeaponRulesList = listOf(WeaponRules.Lethal5)
+    )
+
+    val VCFists = Weapon(
+        name = "Fists",
+        type = WeaponType.MELEE,
+        Atk = 3,
+        Hit = 3,
+        Dmg = 2,
+        CritDmg = 3,
+        WeaponRulesList = listOf()
+    )
+
+    val VCNeuroDisruptor = Weapon(
+        name = "Neuro disruptor",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Range8,WeaponRules.Piercieng1,WeaponRules.Stun)
+    )
+
+    val VCShredder = Weapon(
+        name = "Shredder",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Rending,WeaponRules.Torrent2)
+    )
+
+    val VCBlaster = Weapon(
+        name = "Blaster",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Piercieng2)
+    )
+
+    val VCWraithCannon = Weapon(
+        name = "Wraithcannon",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 6,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Devastating4,WeaponRules.HeavyDash,WeaponRules.Piercieng2)
+    )
+
+    val VCFusionPistol = Weapon(
+        name = "Fusion Pistol",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 5,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Range3,WeaponRules.Devastating3,WeaponRules.Piercieng2)
+    )
+
+    val VCFalchou = Weapon(
+        name = "Falchou",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 1,
+        CritDmg = 2,
+        WeaponRulesList = listOf(WeaponRules.Rending,WeaponRules.Saturate,WeaponRules.SeekLight,WeaponRules.Silent)
+    )
+
+    val VCThrowingBlades = Weapon(
+        name = "Throwing Blades",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 2,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range6,WeaponRules.Silent)
+    )
+
+    val VCDualPowerWeapons = Weapon(
+        name = "Dual power weapons",
+        type = WeaponType.MELEE,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 6,
+        WeaponRulesList = listOf(WeaponRules.Ceaseless,WeaponRules.Lethal5)
+    )
+
+    val VCRangerLongRifleStationary = Weapon(
+        name = "Ranger Long Rifle (Stationary)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 2,
+        Dmg = 3,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Devastating3, WeaponRules.Heavy,WeaponRules.Silent)
+    )
+
+    val VCRangerLongRifleMobile = Weapon(
+        name = "Ranger Long Rifle (Mobile)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf()
+    )
+
+    val VCFreezingGrasp = Weapon(
+        name = "Freezing grasp",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 1,
+        CritDmg = 2,
+        WeaponRulesList = listOf(WeaponRules.Psychic,WeaponRules.Severe, WeaponRules.Silent,WeaponRules.Stun)
+    )
+
+    val VCLightningStrike = Weapon(
+        name = "Lightning strike",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Psychic,WeaponRules.Devastating22)
+    )
+
+    val VCWitchStaff = Weapon(
+        name = "Witch staff",
+        type = WeaponType.MELEE,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Psychic,WeaponRules.Shock)
+    )
+
+
+
+
+
+
 }

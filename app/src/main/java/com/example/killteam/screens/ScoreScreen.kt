@@ -1,7 +1,7 @@
 package com.example.killteam.screens
 
-import Objects.KillTeams
-import Objects.PointType
+import com.example.killteam.Objects.KillTeams
+import com.example.killteam.Objects.PointType
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -122,42 +122,36 @@ fun RoundBar(viewModel: ScoreViewModel)
         )
         {
             var showDialog by remember { mutableStateOf(false) }
-            //Spacer(modifier = Modifier.weight(1.0f).fillMaxWidth())
-            Button(
-                modifier = Modifier.weight(0.75f).fillMaxWidth().fillMaxHeight().padding(vertical = 25.dp, horizontal = 5.dp).border(2.dp, KTColors.Orange),
-                colors = ButtonDefaults.buttonColors(containerColor = viewModel.GetBackgroundRoundColor(1)),
-                shape = RectangleShape,
-                onClick = { viewModel.ChangeRound(1) }
-            )
+            var buttonValue by remember { mutableStateOf(1) }
+            var showInitiativeDialog by remember { mutableStateOf(false) }
+
+            for(i in 1..4)
             {
-                    Text("1", style = TextStyle(color = viewModel.GetTextRoundColor(1), fontSize = 16.sp))
+                Button(
+                    modifier = Modifier.weight(0.75f).fillMaxWidth().fillMaxHeight().padding(vertical = 25.dp, horizontal = 5.dp).border(2.dp, KTColors.Orange),
+                    colors = ButtonDefaults.buttonColors(containerColor = viewModel.GetBackgroundRoundColor(i)),
+                    shape = RectangleShape,
+                    onClick = {
+                        showInitiativeDialog = true
+                        buttonValue = i
+                    }
+                )
+                {
+                    Text("${i}", style = TextStyle(color = viewModel.GetTextRoundColor(i), fontSize = 16.sp))
+                }
             }
-            Button(
-                modifier = Modifier.weight(0.75f).fillMaxWidth().fillMaxHeight().padding(vertical = 25.dp, horizontal = 5.dp).border(2.dp, KTColors.Orange),
-                colors = ButtonDefaults.buttonColors(containerColor = viewModel.GetBackgroundRoundColor(2)),
-                shape = RectangleShape,
-                onClick = { viewModel.ChangeRound(2) }
-            )
+            if(showInitiativeDialog)
             {
-                Text("2",style = TextStyle(color = viewModel.GetTextRoundColor(2), fontSize = 16.sp))
-            }
-            Button(
-                modifier = Modifier.weight(0.75f).fillMaxWidth().fillMaxHeight().padding(vertical = 25.dp, horizontal = 5.dp).border(2.dp, KTColors.Orange),
-                colors = ButtonDefaults.buttonColors(containerColor = viewModel.GetBackgroundRoundColor(3)),
-                shape = RectangleShape,
-                onClick = { viewModel.ChangeRound(3) }
-            )
-            {
-                Text("3",style = TextStyle(color = viewModel.GetTextRoundColor(3), fontSize = 16.sp))
-            }
-            Button(
-                modifier = Modifier.weight(0.75f).fillMaxWidth().fillMaxHeight().padding(vertical = 25.dp, horizontal = 5.dp).border(2.dp, KTColors.Orange),
-                colors = ButtonDefaults.buttonColors(containerColor = viewModel.GetBackgroundRoundColor(4)),
-                shape = RectangleShape,
-                onClick = { viewModel.ChangeRound(4) }
-            )
-            {
-                Text("4",style = TextStyle(color = viewModel.GetTextRoundColor(4), fontSize = 16.sp))
+                InitiativeDialogWindow(viewModel = viewModel, round = buttonValue,
+                    onDismiss =  {
+                        viewModel.ChangeRound(buttonValue)
+                        showInitiativeDialog = false},
+                    onAccept = { finish ->
+                        viewModel.ChangeRound(buttonValue)
+                        viewModel.SetInitiative(finish,buttonValue-1)
+                        showInitiativeDialog = false
+                    }
+                )
             }
             Button(
                 modifier = Modifier.weight(1.0f).fillMaxWidth().fillMaxHeight().padding(vertical = 25.dp, horizontal = 5.dp).border(2.dp, KTColors.Orange),
@@ -682,6 +676,62 @@ fun EndGameDialogWindow(
         }
     )
 }
+
+//Dialog Window which ask player who have initiative
+@Composable
+fun InitiativeDialogWindow(
+    viewModel: ScoreViewModel,
+    round : Int,
+    onDismiss: () -> Unit,
+    onAccept: (Boolean) -> Unit
+)
+{
+    AlertDialog(
+        onDismissRequest = onDismiss ,
+        title = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            )
+            {
+                Text("Who got initiative?")
+            }
+        },
+        text = {
+            Column()
+            {
+                Text("Select team which would have initiative and will make first activation", textAlign = TextAlign.Center)
+                Row()
+                {
+
+                    Button(
+                        modifier = Modifier.weight(1.0f).padding(5.dp),
+                        shape = RectangleShape,
+                        colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = KTColors.Red),
+                        onClick = {onAccept(true)}
+                    )
+                    {
+                        Text(viewModel.GetPlayer(true).GetTeam().name, minLines = 2, textAlign = TextAlign.Center)
+                    }
+                    Button(
+                        modifier = Modifier.weight(1.0f).padding(5.dp),
+                        shape = RectangleShape,
+                        colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = KTColors.Blue),
+                        onClick = {onAccept(false)}
+                    )
+                    {
+                        Text(viewModel.GetPlayer(false).GetTeam().name, minLines = 2, textAlign = TextAlign.Center)
+                    }
+                }
+            }
+        },
+        confirmButton = {
+
+        }
+    )
+}
+
+
 
 //Score button with 2 buttons selected to round
 @Composable

@@ -1,14 +1,14 @@
 package com.example.killteam
 
-import Objects.Equipment
-import Objects.KillOpPoints.KillOpPointMatrix
-import Objects.KillTeams
-import Objects.Mission
-import Objects.Operator
-import Objects.Ploy
-import Objects.PointType
-import Objects.TacOps
-import Objects.TeamInfo
+import com.example.killteam.Objects.Equipment
+import com.example.killteam.Objects.KillOpPoints.KillOpPointMatrix
+import com.example.killteam.Objects.KillTeams
+import com.example.killteam.Objects.Mission
+import com.example.killteam.Objects.Operator
+import com.example.killteam.Objects.Ploy
+import com.example.killteam.Objects.PointType
+import com.example.killteam.Objects.TacOps
+import com.example.killteam.Objects.TeamInfo
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -22,8 +22,9 @@ import kotlin.Int
 class ScoreViewModel : ViewModel()
 {
     var round by mutableStateOf(1)                          //Current round of game
-    var currentRound by mutableStateOf(1)                   //used to reset Ploys
     var gameFinished by mutableStateOf(false)               //Is game finished
+
+    var initiativeSet = mutableStateListOf(true,false,false,false)        //Is initiative set for rounds
 
     //Player State
     inner class PlayerState
@@ -36,7 +37,7 @@ class ScoreViewModel : ViewModel()
         val tacPoints = mutableStateListOf(0,0,0,0,0,0,0)
         var killPoints = mutableStateListOf(0,0,0,0,0,0,0)
 
-        var commandPoints by mutableStateOf(2)
+        var commandPoints by mutableStateOf(3)
 
         var ploysData = mutableStateListOf<ploySelection>()
         var eqData = mutableStateListOf<eqSelection>()
@@ -103,22 +104,22 @@ class ScoreViewModel : ViewModel()
             return commandPoints
         }
         //Increases Players CP
-        fun IncreaseCP()
+        fun IncreaseCP(value : Int = 1)
         {
             if(gameFinished) //block possibility to change value after finishing game
             {
                 return
             }
-            commandPoints++
+            commandPoints += value
         }
         //Decrease Players CP
-        fun DecreaseCP()
+        fun DecreaseCP(value : Int = 1)
         {
             if(gameFinished) //block possibility to change value after finishing game
             {
                 return
             }
-            commandPoints--
+            commandPoints -= value
             if(commandPoints < 0)   //prevent showin values less than 0
             {
                 commandPoints = 0
@@ -422,16 +423,6 @@ class ScoreViewModel : ViewModel()
         {
             return
         }
-        if(currentRound+1 == newRound)
-        {
-            currentRound += 1
-            //Resetting ploys
-            BluePlayer.ploysData = mutableStateListOf<ploySelection>()
-            RedPlayer.ploysData = mutableStateListOf<ploySelection>()
-            //Seting all operatives to ready state
-            RedPlayer.SetAllOperatorsReady()
-            BluePlayer.SetAllOperatorsReady()
-        }
         if(newRound > 5 || newRound < 0)
         {
             round = 1
@@ -439,6 +430,33 @@ class ScoreViewModel : ViewModel()
         }
         round = newRound
     }
+    //Set Initiative
+    fun SetInitiative(isFirstPlayerInits : Boolean, initiativeRound : Int)
+    {
+        if(initiativeSet[initiativeRound])
+        {
+            return
+        }
+        //Saving information about changing initiative in this round
+        initiativeSet[initiativeRound] = true
+        //Resetting ploys
+        BluePlayer.ploysData = mutableStateListOf<ploySelection>()
+        RedPlayer.ploysData = mutableStateListOf<ploySelection>()
+        //Seting all operatives to ready state
+        RedPlayer.SetAllOperatorsReady()
+        BluePlayer.SetAllOperatorsReady()
+        if(isFirstPlayerInits)
+        {
+            RedPlayer.IncreaseCP(1)
+            BluePlayer.IncreaseCP(2)
+            return
+        }
+        RedPlayer.IncreaseCP(2)
+        BluePlayer.IncreaseCP(1)
+    }
+
+
+
     //return background color which depends of round number
     fun GetBackgroundRoundColor(buttonNumber : Int) : Color
     {

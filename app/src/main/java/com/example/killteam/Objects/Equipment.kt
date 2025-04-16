@@ -1,25 +1,9 @@
-package Objects
+package com.example.killteam.Objects
 
-import Objects.AngelsOfDeathEQ.Auspex
-import Objects.AngelsOfDeathEQ.ChapterReliquaries
-import Objects.AngelsOfDeathEQ.PuritySeals
-import Objects.AngelsOfDeathEQ.TiltingShields
-import Objects.DeathKorpsEQ.Chronometer
-import Objects.DeathKorpsEQ.CommBeads
-import Objects.DeathKorpsEQ.GasBombardment
-import Objects.DeathKorpsEQ.HandAxe
-import Objects.KasrkinEQ.CombatDaggers
-import Objects.KasrkinEQ.Foregrip
-import Objects.KasrkinEQ.LongRangeScope
-import Objects.KasrkinEQ.RelicsOfCadia
-import Objects.PlagueMarinesEQ.PlagueBells
-import Objects.PlagueMarinesEQ.PlagueGrenades
-import Objects.PlagueMarinesEQ.PlagueRounds
-import Objects.PlagueMarinesEQ.PoisonVents
-import Objects.VoidscaredCorsairsEQ.DiuturnalMantle
-import Objects.VoidscaredCorsairsEQ.Mistfield
-import Objects.VoidscaredCorsairsEQ.RunesOfGuidance
-import Objects.VoidscaredCorsairsEQ.StarCharts
+import com.example.killteam.Objects.PlagueMarinesEQ.PlagueBells
+import com.example.killteam.Objects.PlagueMarinesEQ.PlagueGrenades
+import com.example.killteam.Objects.PlagueMarinesEQ.PlagueRounds
+import com.example.killteam.Objects.PlagueMarinesEQ.PoisonVents
 
 object UniversalEquipment
 {
@@ -41,7 +25,7 @@ object UniversalEquipment
     val RazorWire = Equipment(
         name = "1x Razor Wire",
         description = "Razor wire is Exposed and Obstructing terrain. Before the battle, you can set it up wholly within your territory, on the killzone floor and more than 2\" from all other equipment terrain features, access points and accesible terrain.\n" +
-                "\n**Obstructing:** Whenever an operative would cross over this terrain feature within 1\" of it, treat the distance as an additional 1\"."
+                "\n **Obstructing:** Whenever an operative would cross over this terrain feature within 1\" of it, treat the distance as an additional 1\"."
     )
 
     val LightBarricades = Equipment(
@@ -67,8 +51,8 @@ object UniversalEquipment
     val PortableBarricade = Equipment(
         name = "1x Portable Barricade",
         description = "A portable barricade is Light, Protective and Portable terrain. Before the battle, you can set it up wholly within your territory, on the killzone floor and more than 2\" from all other equipment terrain features, acess points and accesible terrain.\n" +
-                "\n**Protective:** While an operative is in Cover behind this terrain feature, improve its Save stat by 1 (to a maximum of 2+).\n" +
-                "\n**Portable:** This terrain feature only provides cover while an operative is connected to it and if the shield is intervening (ignore its feet). Operatives connected to the inside of it can perform the following action during the battle."
+                "\n **Protective:** While an operative is in Cover behind this terrain feature, improve its Save stat by 1 (to a maximum of 2+).\n" +
+                "\n **Portable:** This terrain feature only provides cover while an operative is connected to it and if the shield is intervening (ignore its feet). Operatives connected to the inside of it can perform the following action during the battle."
     )
 
     val UtilityGrenades = Equipment(
@@ -179,7 +163,7 @@ object VoidscaredCorsairsEQ
 
     val StarCharts = Equipment(
         name = "Star Charts",
-        description = "**STRATEGIC GAMBIT:** Roll one D3: If the result is higher than the number of the current turning point, you gain 1CP and cannot use this **STRATEGIC GAMBIT** for the rest of the battle."
+        description = "**STRATEGIC GAMBIT:** Roll one **D3:** If the result is higher than the number of the current turning point, you gain 1CP and cannot use this **STRATEGIC GAMBIT** for the rest of the battle."
     )
 
     val equipmentList = listOf(DiuturnalMantle,RunesOfGuidance,Mistfield,StarCharts) + UniversalEquipment.equipmentList
@@ -189,7 +173,7 @@ object PlagueMarinesEQ
 {
     val PoisonVents = Equipment(
         name = "Poison Vents",
-        description = "Whenever an enemy operative that has one of your Poison tokens is activated within 3\" of a friendly ##PLAGUE MARINE## operative, inflict D3 damage on it (instead of the normal 1)."
+        description = "Whenever an enemy operative that has one of your Poison tokens is activated within 3\" of a friendly ##PLAGUE MARINE## operative, inflict **D3** damage on it (instead of the normal 1)."
     )
 
     val PlagueRounds = Equipment(
@@ -214,7 +198,7 @@ object HunterCladeEQ
 {
     val RadBombardment = Equipment(
         name = "Rad Bombardment",
-        description = "Once per battle **STRATEGIC GAMBIT** in any turning point after the first. Select one objective marker or your opponent’s drop zone. Roll one D6 for each enemy operative within control range of that selected objective marker or within that drop zone, and subtract 1 from that enemy operative’s APL stat until the end of its next activation on a 4+; on a 6, also inflict D3 damage on it (roll separately for each)."
+        description = "Once per battle **STRATEGIC GAMBIT** in any turning point after the first. Select one objective marker or your opponent’s drop zone. Roll one D6 for each enemy operative within control range of that selected objective marker or within that drop zone, and subtract 1 from that enemy operative’s APL stat until the end of its next activation on a 4+; on a 6, also inflict **D3** damage on it (roll separately for each)."
     )
 
     val RefractorField = Equipment(
@@ -229,7 +213,7 @@ object HunterCladeEQ
 
     val RedundancySystems = Equipment(
         name = "Redundancy Systems",
-        description = "Once per turning point, when a friendly ##HUNTER CLADE## operative is activated, if it’s not within control range of enemy operatives, you can use this rule. If you do, that friendly operative regains up to D3+2 lost wounds."
+        description = "Once per turning point, when a friendly ##HUNTER CLADE## operative is activated, if it’s not within control range of enemy operatives, you can use this rule. If you do, that friendly operative regains up to **D3+2** lost wounds."
     )
 
     val equipmentList = listOf(PoisonVents,PlagueRounds,PlagueBells,PlagueGrenades) + UniversalEquipment.equipmentList

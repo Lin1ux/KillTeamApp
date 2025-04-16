@@ -1,6 +1,4 @@
-package Objects
-
-import kotlin.Int
+package com.example.killteam.Objects
 
 
 object KillTeams
@@ -32,7 +30,7 @@ object KillTeams
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
         ploys = AngelsOfDeathPloys.ployList,
         equipment = AngelsOfDeathEQ.equipmentList,
-        operators = AngelsOfDeathOperators.operatorList,
+        operators = VoidscaredCorsairsOperator.operatorList,
         nameKeyword = "Intercessor",
         minOperators = 6,
         maxOperator = 6
@@ -43,6 +41,8 @@ object KillTeams
         archetypes = listOf(TacOps.Recon, TacOps.Infiltration),
         ploys = VoidscaredCorsairsPloys.ployList,
         equipment = VoidscaredCorsairsEQ.equipmentList,
+        operators = VoidscaredCorsairsOperator.operatorList,
+        nameKeyword = "",
         minOperators = 9,
         maxOperator = 9
     )

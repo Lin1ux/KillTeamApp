@@ -1,6 +1,6 @@
 package com.example.killteam.screens
 
-import Objects.Operator
+import com.example.killteam.Objects.Operator
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

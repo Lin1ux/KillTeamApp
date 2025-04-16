@@ -1,4 +1,4 @@
-package Objects
+package com.example.killteam.Objects
 
 object KillOpPoints
 {

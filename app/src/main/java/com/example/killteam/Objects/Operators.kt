@@ -1,4 +1,4 @@
-package Objects
+package com.example.killteam.Objects
 
 object DeathKorpsOperators
 {
@@ -44,7 +44,7 @@ object DeathKorpsOperators
         move = 6,
         save = 5,
         wounds = 7,
-        weapons = listOf(Weapons.DKPlasmaGunStandard,Weapons.DKPlasmaPistolCharged, Weapons.DKBayonet),
+        weapons = listOf(Weapons.DKPlasmaGunStandard,Weapons.DKPlasmaGunCharged, Weapons.DKBayonet),
         keywords = listOf("##DEATH KORPS##"),
         size = 25,
     )
@@ -348,6 +348,7 @@ object AngelsOfDeathOperators
         weapons = listOf(Weapons.ADBoltPistol,Weapons.ADBoltSniperRifleExecutioner,Weapons.ADBoltSniperRifleHyperfrag,Weapons.ADBoltSniperRifleMortis,Weapons.ADFists),
         keywords = listOf("##ANGELS OF DEATH##"),
         size = 40,
+        additionalRules = "**Camo Cloak:** Whenever an operative is shooting this operative, ignore the xxSaturatexx weapon rule. This operative has the **CHAPTER TACTIC** Stealthy. If you selected that **CHAPTER TACTIC,** you can do both of its options (i.e. retain two cover saves – one normal and one critical success). ",
         actions = listOf(Actions.ADSpot)
     )
 
@@ -410,4 +411,159 @@ object AngelsOfDeathOperators
 
     val operatorList = listOf(Captain,Grenadier,GunnerAutoBoltRifle,GunnerBoltRifle,GunnerStalkerBoltRifle,EliminatorSniper,HeavyGunner,AssaultWarrior,WarriorAutoRifle,WarriorBoltRifle,WarriorStalkerRifle)
 
+}
+
+object VoidscaredCorsairsOperator
+{
+    val Felarch = Operator(
+        name = "Felarch",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 9,
+        weapons = listOf(Weapons.VCNeuroDisruptor,Weapons.VCPowerWeapon),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+        leader = true,
+        additionalRules = "**Veteran Raider:** This operative can perform a 1AP action for free during their activation as a result of the **Aeldari Raiders** rule (instead of the **Dash** action). \n\n" +
+                    "**One Step Ahead:** Once per battle, after an enemy operative performs an action during its activation, if this operative is ready, you can use this rule. If you do, roll one D6: if the result is higher than that enemy operative’s APL stat, you can interrupt that activation and immediately perform either a free **Shoot** or a free **Fight** action with this operative, but other enemy operatives cannot be selected as a valid target to fight against during that action (note that secondary targets from the xxBlastxx weapon rule can still be targeted). After you perform that action, subtract 1 from this operative’s APL stat until the end of its next activation. "
+    )
+
+    val GunnerBlaster = Operator(
+        name = "Gunner (Blaster)",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.VCBlaster,Weapons.VCFists),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+    )
+
+    val GunnerShredder = Operator(
+        name = "Gunner (Shredder)",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.VCShredder,Weapons.VCFists),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+    )
+
+    val HeavyGunnerWraithCannon = Operator(
+        name = "Heavy Gunner (WraithCannon)",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.VCWraithCannon,Weapons.VCFists),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+    )
+
+    val StarstormDuelist = Operator(
+        name = "Starstorm Duelist",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.VCFusionPistol,Weapons.VCShurikenPistol,Weapons.VCFists),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+        additionalRules = "**Quick on the Trigger:** This operative can perform the **Shoot** action while within control Range of an enemy operative. If it does, when selecting a valid target, you can only select an enemy operative within this operative’s control Range , and can do so even if other friendly operatives are within that enemy operative’s control Range . ",
+        actions = listOf(Actions.VCPistolBarrage)
+    )
+
+    val KurniteHunter = Operator(
+        name = "Kurnite Hunter",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.VCFalchou,Weapons.VCShurikenPistol,Weapons.VCPowerWeapon),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+        additionalRules = "**Faolchu’s Bond:** The first time during each turning point that this operative is **retaliating,** if it hasn’t used its Faolchu ranged weapon during this turning point, in the Resolve Attack Dice step of that sequence, you resolve the first attack dice (i.e. defender instead of attacker). \n\n" +
+        "**Erudite Hunter:** **STRATEGIC GAMBIT.** Select one enemy operative within 9\" of this operative. Once during this turning point, after that enemy operative performs an action in which it moves during its activation, you can interrupt that activation to use this rule. If you do, this operative can immediately perform either a free **Reposition** action (it cannot end that move further from that enemy operative), or a free **Charge** action (you can change its order to do so, and it must end that move within control Range of that enemy operative). "
+    )
+
+    val ShadeRunner = Operator(
+        name = "Shade Runner",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.VCShurikenPistol,Weapons.VCThrowingBlades,Weapons.VCPowerWeapon),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+        additionalRules = "**Blink Pack:** Whenever this operative performs the **Charge,** **Fall Back** or **Reposition** action, it can warp jump. If it does, don’t move it. Instead, remove it from the killzone and set it back up wholly within 7\" of its original location, measuring the horizontal distance only (in Killzone: Gallowdark, this distance can be measured through walls). It must be set up in a location it can be placed, and unless it’s the **Charge** action, it cannot be set up within control Range of an enemy operative.  \n\n" +
+                "**Slicing Attack:** Whenever this operative performs the **Reposition** action with a warp jump (see left), you can use this rule. If you do, after it moves, draw an imaginary line 1mm in diameter and up to 7\" long between it and its previous location. Note this doesn’t have to be a straight line. Inflict **1D3+2** damage on one enemy operative that line crosses. A 28mm round marker can be temporarily placed underneath this operative before it moves to help determine this. "
+    )
+
+    val Kurnati = Operator(
+        name = "Kurnati",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.VCShurikenPistol,Weapons.VCDualPowerWeapons),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+        additionalRules = "**Blademaster:** This operative can perform the **Dash** action during an activation in which it performed the **Charge** action, but can only use any remaining move distance it had from that **Charge** action (to a maximum of 3\").   \n\n" +
+                "**Bladed Stance:** Whenever this operative is fighting or retaliating, you can resolve one of your successes before the normal order. If you do, that success must be used to block. "
+    )
+
+    val FateDealer = Operator(
+        name = "Fate Dealer",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.VCRangerLongRifleStationary,Weapons.VCRangerLongRifleStationary,Weapons.VCShurikenPistol,Weapons.VCFists),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+        additionalRules = " **Camo Cloak:** Whenever an operative is shooting this operative:\n" +
+                "\n • Ignore the xxSaturatexx weapon rule.\n" +
+                "\n • If you can retain any cover saves, you can retain one additional cover save, or you can retain one cover save as a critical success instead. This isn’t cumulative with improved cover saves from Vantage terrain."
+    )
+
+    val WaySeeker = Operator(
+        name = "Way Seeker",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.VCFreezingGrasp,Weapons.VCLightningStrike, Weapons.VCShurikenPistol,Weapons.VCWitchStaff),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+        actions = listOf(Actions.VCWarpFold,Actions.VCWardingShield)
+    )
+
+    val SoulWeaver = Operator(
+        name = "Soul Weaver",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.VCShurikenPistol,Weapons.VCPowerWeapon),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+        actions = listOf(Actions.VCSoulChannel,Actions.VCSoulHeal)
+    )
+
+    val Warrior = Operator(
+        name = "Warrior",
+        APL = 2,
+        move = 7,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.VCShurikenPistol,Weapons.VCPowerWeapon),
+        keywords = listOf("##Corsairs Voidscared"),
+        size = 28,
+        specialist = false,
+        additionalRules = "**Prowling Raiders:** You can use the **Capricious Flight** and **Light Fingers firefight** ploys for OCP each if a friendly **WARRIOR** operative is the specified ##CORSAIR VOIDSCARRED## operative. "
+    )
+
+    val operatorList = listOf(Felarch,GunnerBlaster,GunnerShredder,HeavyGunnerWraithCannon,StarstormDuelist,KurniteHunter,ShadeRunner,Kurnati,FateDealer,WaySeeker,SoulWeaver,Warrior)
 }

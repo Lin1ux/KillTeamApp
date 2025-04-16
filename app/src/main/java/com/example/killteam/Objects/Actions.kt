@@ -1,6 +1,4 @@
-package Objects
-
-import kotlin.String
+package com.example.killteam.Objects
 
 object Actions
 {
@@ -8,7 +6,7 @@ object Actions
     val DKMedikit = Action(
         name = "MEDIKIT",
         cost = 1,
-        description = "Select one friendly ##DEATH KORPS## operative within this operative’s control Range to regain 2D3 lost wounds. It cannot be an operative that the **Medic!** rule was used on during this turning point.",
+        description = "Select one friendly ##DEATH KORPS## operative within this operative’s control Range to regain **2D3** lost wounds. It cannot be an operative that the **Medic!** rule was used on during this turning point.",
     )
 
     val DKSignal = Action(
@@ -36,7 +34,7 @@ object Actions
     val KSMedikit = Action(
         name = "MEDIKIT",
         cost = 1,
-        description = "Select one friendly ##KASRKIN## operative within this operative’s control Range to regain 2D3 lost wounds. It cannot be an operative that the **Medic!** rule was used on during this turning point.",
+        description = "Select one friendly ##KASRKIN## operative within this operative’s control Range to regain **2D3** lost wounds. It cannot be an operative that the **Medic!** rule was used on during this turning point.",
     )
 
     val KSAuspexScan = Action(
@@ -56,5 +54,36 @@ object Actions
         name = "SPOT",
         cost = 1,
         description = " Until the start of this operative’s next activation, whenever it’s shooting, enemy operatives cannot be xxobscured.xx"
+    )
+
+    //Voidscared Corsairs
+    val VCPistolBarrage = Action (
+        name = "PISTOL BARRAGE",
+        cost = 1,
+        description = "Perform two free **Shoot** actions with this operative (this takes precedence over action restrictions). You must select its fusion pistol for one action and its shuriken pistol for the other (in any order).",
+    )
+
+    val VCWarpFold = Action (
+        name = "WARP FOLD",
+        cost = 1,
+        description = "**PSYCHIC:** Select two friendly ##CORSAIR VOIDSCARRED## operatives visible to and within 5\" of this operative. Remove them both from the killzone and set them back up in each other’s previous locations (in other words, swap their positions). If one of them performed the **Charge,** **Fall Back** or **Reposition** action during this turning point and the other is ready, the other cannot perform any of those actions in its activation during this turning point.",
+    )
+
+    val VCWardingShield = Action (
+        name = "WARDING SHIELD",
+        cost = 1,
+        description = "**PSYCHIC:** Select one friendly ##CORSAIR VOIDSCARRED## operative visible to and within 6\" of this operative. Until the start of this operative’s next activation, until it’s incapacitated or until it performs this action again (whichever comes first), the first time an attack dice inflicts damage on that friendly operative, ignore that inflicted damage.",
+    )
+
+    val VCSoulChannel = Action (
+        name = "SOUL CHANNEL",
+        cost = 1,
+        description = "**PSYCHIC:** Select one other friendly ##CORSAIR VOIDSCARRED## operative visible to and within 6\" of this operative. Until the end of that operative’s next activation, add 1 to its APL stat.",
+    )
+
+    val VCSoulHeal = Action (
+        name = "SOUL HEAL",
+        cost = 1,
+        description = "**PSYCHIC:** Select one friendly ##CORSAIR VOIDSCARRED## operative visible to and within 6\" of this operative. That operative regains **2D3** lost wounds.",
     )
 }
