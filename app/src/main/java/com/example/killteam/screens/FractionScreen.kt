@@ -31,10 +31,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.killteam.Actions
 import com.example.killteam.FormatTextWithMarkers
 import com.example.killteam.GetAlphaFromPloySelecion
 import com.example.killteam.GetOneTypePloysSelection
 import com.example.killteam.ScoreViewModel
+import com.example.killteam.WeaponsListSmall
 import com.example.killteam.eqSelection
 import com.example.killteam.ploySelection
 import com.example.killteam.ployToColor
@@ -378,6 +380,16 @@ fun EquipmentInfoDialog(
                     Box(modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp), contentAlignment = Alignment.Center)
                     {
                         Text(FormatTextWithMarkers(eqSelection.eq.description),style = TextStyle(fontSize = 14.sp), textAlign = TextAlign.Justify)
+                    }
+                    //Weapons
+                    if(!eqSelection.eq.weapons.isEmpty())
+                    {
+                        WeaponsListSmall(eqSelection.eq.weapons,false)
+                    }
+                    //Actions
+                    if(!eqSelection.eq.actions.isEmpty())
+                    {
+                        Actions(eqSelection.eq.actions)
                     }
                     if(eqSelection.selected)    //Remove Button
                     {

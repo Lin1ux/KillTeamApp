@@ -32,6 +32,11 @@ object WeaponRules
         description = ""
     )
 
+    val Devastating2 = WeaponRule(
+        name = "Devastating 2",
+        description = ""
+    )
+
     val Devastating22 = WeaponRule(
         name = "2\" Devastating 2",
         description = ""
@@ -54,6 +59,11 @@ object WeaponRules
 
     val HeavyDash = WeaponRule(
         name = "Heavy (Dash only)",
+        description = ""
+    )
+
+    val HeavyReposition = WeaponRule(
+        name = "Heavy (Reposition only)",
         description = ""
     )
 
@@ -87,6 +97,11 @@ object WeaponRules
         description = ""
     )
 
+    val Poison = WeaponRule(
+        name = "Poison*",
+        description = ""
+    )
+
     val Psychic = WeaponRule(
         name = "PSYCHIC",
         description = ""
@@ -99,6 +114,11 @@ object WeaponRules
 
     val Range6 = WeaponRule(
         name = "Range 6",
+        description = "",
+    )
+
+    val Range7 = WeaponRule(
+        name = "Range 7",
         description = "",
     )
 
@@ -149,6 +169,11 @@ object WeaponRules
 
     val Torrent2 = WeaponRule(
         name = "Torrent 2",
+        description = ""
+    )
+
+    val Toxic = WeaponRule(
+        name = "Toxic*",
         description = ""
     )
 }

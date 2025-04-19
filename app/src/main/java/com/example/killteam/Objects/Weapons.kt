@@ -4,7 +4,7 @@ object Weapons
 {
     //Universal
     val FragGranade = Weapon(
-        name = "Frag Granade",
+        name = "Frag Grenade",
         type = WeaponType.RANGED,
         Atk = 4,
         Hit = 4,
@@ -14,7 +14,7 @@ object Weapons
     )
 
     val FragGranadeImproved = Weapon(
-        name = "Frag Granade",
+        name = "Frag Grenade",
         type = WeaponType.RANGED,
         Atk = 4,
         Hit = 3,
@@ -24,7 +24,7 @@ object Weapons
     )
 
     val KrakGranade = Weapon(
-        name = "Krak Granade",
+        name = "Krak Grenade",
         type = WeaponType.RANGED,
         Atk = 4,
         Hit = 4,
@@ -34,7 +34,7 @@ object Weapons
     )
 
     val KrakGranadeImproved = Weapon(
-        name = "Krak Granade",
+        name = "Krak Grenade",
         type = WeaponType.RANGED,
         Atk = 4,
         Hit = 3,
@@ -614,7 +614,7 @@ object Weapons
     )
 
     val VCFusionPistol = Weapon(
-        name = "Fusion Pistol",
+        name = "Fusion pistol",
         type = WeaponType.RANGED,
         Atk = 4,
         Hit = 3,
@@ -634,13 +634,23 @@ object Weapons
     )
 
     val VCThrowingBlades = Weapon(
-        name = "Throwing Blades",
+        name = "Throwing blades",
         type = WeaponType.RANGED,
         Atk = 4,
         Hit = 3,
         Dmg = 2,
         CritDmg = 4,
         WeaponRulesList = listOf(WeaponRules.Range6,WeaponRules.Silent)
+    )
+
+    val VCHekatariiBlades = Weapon(
+        name = "Hekatarii blades",
+        type = WeaponType.MELEE,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Ceaseless,WeaponRules.Lethal5)
     )
 
     val VCDualPowerWeapons = Weapon(
@@ -654,7 +664,7 @@ object Weapons
     )
 
     val VCRangerLongRifleStationary = Weapon(
-        name = "Ranger Long Rifle (Stationary)",
+        name = "Ranger long rifle (Stationary)",
         type = WeaponType.RANGED,
         Atk = 4,
         Hit = 2,
@@ -664,7 +674,7 @@ object Weapons
     )
 
     val VCRangerLongRifleMobile = Weapon(
-        name = "Ranger Long Rifle (Mobile)",
+        name = "Ranger long rifle (Mobile)",
         type = WeaponType.RANGED,
         Atk = 4,
         Hit = 3,
@@ -703,9 +713,259 @@ object Weapons
         WeaponRulesList = listOf(WeaponRules.Psychic,WeaponRules.Shock)
     )
 
+    //Plague Marines
+    val PMPlasmaPistolStandard = Weapon(
+        name = "Plasma pistol (Standard)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Range8, WeaponRules.Piercieng1)
+    )
 
+    val PMPlasmaPistolCharged = Weapon(
+        name = "Plasma pistol (Supercharge)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Range8, WeaponRules.Piercieng1, WeaponRules.Hot,
+            WeaponRules.Lethal5)
+    )
 
+    val PMBoltgun = Weapon(
+        name = "Boltgun",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf()
+    )
 
+    val PMBoltgunToxic = Weapon(
+        name = "Boltgun",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Toxic)
+    )
 
+    val PMPlagueSword = Weapon(
+        name = "Plague sword",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Severe,WeaponRules.Toxic,WeaponRules.Poison)
+    )
 
+    val PMEntropy = Weapon(
+        name = "Entropy",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 7,
+        WeaponRulesList = listOf(WeaponRules.Psychic,WeaponRules.Range7, WeaponRules.Saturate,WeaponRules.Severe,WeaponRules.Poison)
+    )
+
+    val PMPlagueWind = Weapon(
+        name = "Plague wind",
+        type = WeaponType.RANGED,
+        Atk = 6,
+        Hit = 3,
+        Dmg = 2,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Psychic, WeaponRules.Saturate,WeaponRules.Severe,WeaponRules.Torrent1,WeaponRules.Poison)
+    )
+
+    val PMCorruptedStuff = Weapon(
+        name = "Corrupted Stuff",
+        type = WeaponType.MELEE,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Psychic,WeaponRules.Severe,WeaponRules.Shock,WeaponRules.Stun,WeaponRules.Poison)
+    )
+
+    val PMFlailOfCorruption = Weapon(
+        name = "Flail of corruption",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Brutal,WeaponRules.Severe,WeaponRules.Shock,WeaponRules.Poison)
+    )
+
+    val PMPlagueSpewer = Weapon(
+        name = "Plague spewer",
+        type = WeaponType.RANGED,
+        Atk = 5,
+        Hit = 2,
+        Dmg = 3,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Range7,WeaponRules.Saturate,WeaponRules.Severe,WeaponRules.Torrent2,WeaponRules.Poison)
+    )
+
+    val PMFists = Weapon(
+        name = "Fists",
+        type = WeaponType.MELEE,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf()
+    )
+
+    val PMBoltPistol = Weapon(
+        name = "Bolt pistol",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range8)
+    )
+
+    val PMPlagueKnife4 = Weapon(
+        name = "Plague knife",
+        type = WeaponType.MELEE,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Severe,WeaponRules.Toxic)
+    )
+
+    val PMPlagueKnife5 = Weapon(
+        name = "Plague knife",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Severe,WeaponRules.Toxic)
+    )
+
+    val PMBlightGranade = Weapon(
+        name = "Blight grenade",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 4,
+        Dmg = 2,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range6, WeaponRules.Blast2, WeaponRules.Saturate,
+            WeaponRules.Severe,WeaponRules.Poison)
+    )
+
+    val PMBlightGranadeImproved = Weapon(
+        name = "Blight grenade",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 2,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range6, WeaponRules.Blast2, WeaponRules.Saturate,
+            WeaponRules.Severe,WeaponRules.Poison)
+    )
+
+    //Hunter Clade (admech)
+
+    val HCGalvanicRifle = Weapon(
+        name = "Galvanic rifle",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.HeavyReposition, WeaponRules.PiercingCrits1)
+    )
+
+    val HCGunButt = Weapon(
+        name = "Gun Butt",
+        type = WeaponType.MELEE,
+        Atk = 3,
+        Hit = 4,
+        Dmg = 2,
+        CritDmg = 3,
+        WeaponRulesList = listOf()
+    )
+
+    val HCArcPistol = Weapon(
+        name = "Arc pistol",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Range8, WeaponRules.Piercieng1,WeaponRules.Stun)
+    )
+
+    val HCArcMaul = Weapon(
+        name = "Arc maul",
+        type = WeaponType.MELEE,
+        Atk = 4,
+        Hit = 4,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Shock)
+    )
+
+    val HCArcRifle = Weapon(
+        name = "Arc rifle",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Piercieng1,WeaponRules.Stun)
+    )
+
+    val HCPlasmaCaliverStandard = Weapon(
+        name = "Plasma caliver (Standard)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 6,
+        WeaponRulesList = listOf(WeaponRules.Piercieng1)
+    )
+
+    val HCPlasmaCaliverCharged = Weapon(
+        name = "Plasma caliver (Supercharged)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 5,
+        CritDmg = 6,
+        WeaponRulesList = listOf(WeaponRules.Hot,WeaponRules.Lethal5,WeaponRules.Piercieng1)
+    )
+
+    val HCTransuanicArquebuseMobile = Weapon(
+        name = "Transuranic arquebus (Mobile)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Devastating2,WeaponRules.HeavyDash,WeaponRules.Piercieng1)
+    )
+
+    val HCTransuanicArquebuseStationary = Weapon(
+        name = "Transuranic arquebus (Stationary)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 2,
+        Dmg = 4,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Devastating3,WeaponRules.Heavy,WeaponRules.Piercieng1,WeaponRules.Severe)
+    )
 }

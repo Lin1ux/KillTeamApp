@@ -49,6 +49,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.killteam.Actions
 import com.example.killteam.ConfirmDialog
 import com.example.killteam.ConvertWeaponRulesToString
 import com.example.killteam.FormatTextWithMarkers
@@ -60,6 +61,8 @@ import com.example.killteam.R
 import com.example.killteam.RemoveKeyWord
 import com.example.killteam.ScoreViewModel
 import com.example.killteam.SelectColorByInjuring
+import com.example.killteam.WeaponsList
+import com.example.killteam.WeaponsListSmall
 import com.example.killteam.WorsenHitStat
 import com.example.killteam.ui.theme.KTColors
 
@@ -80,7 +83,8 @@ fun PreviewScreen(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
             {
                 Text("${viewModel.GetPlayer(firstPlayer).GetTroopByIndex(index).name.RemoveKeyWord(viewModel,firstPlayer)}",
                     style = TextStyle(fontSize = 32.sp),
-                    color = Color.White)
+                    color = Color.White,
+                    textAlign = TextAlign.Center)
             }
         }
         item() //Operator interactions
@@ -93,7 +97,8 @@ fun PreviewScreen(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
         }
         item() //Operator's Weapons
         {
-            WeaponsList(viewModel.GetPlayer(firstPlayer).GetTroopByIndex(index).weapons,IsInjured(viewModel.GetPlayer(firstPlayer).GetTroopSelectionByIndex(index)))
+            //WeaponsList(viewModel.GetPlayer(firstPlayer).GetTroopByIndex(index).weapons,IsInjured(viewModel.GetPlayer(firstPlayer).GetTroopSelectionByIndex(index)))
+            WeaponsListSmall(viewModel.GetPlayer(firstPlayer).GetTroopByIndex(index).weapons,IsInjured(viewModel.GetPlayer(firstPlayer).GetTroopSelectionByIndex(index)))
         }
         item() //Operator's Additional rules
         {
@@ -341,204 +346,6 @@ fun AddiotionalRules(additionalRules : String)
     }
 }
 
-//Create Box which show action and it's rules
-@Composable
-fun Actions(actionList : List<Action>)
-{
-    //If empty don't create
-    if(actionList.isEmpty())
-    {
-        return
-    }
-    //creating boxes of every action in list
-    actionList.forEach { action ->
-        Column(modifier = Modifier.fillMaxWidth().padding(5.dp).border(2.dp, KTColors.Orange,
-            RectangleShape
-        ))
-        {
-            //Basic information (name and cost) about action
-            Row(modifier = Modifier.fillMaxWidth().background(KTColors.Orange))
-            {
-                //label with action name
-                Box(modifier = Modifier.weight(0.8f).fillMaxHeight().padding(5.dp))
-                {
-                    Text(action.name,style = TextStyle(fontSize = 24.sp),color = Color.White, textAlign = TextAlign.Start)
-                }
-                //label with cost of action (in APL)
-                Box(modifier = Modifier.weight(0.2f).fillMaxHeight().padding(5.dp))
-                {
-                    Text("${action.cost}APL",style = TextStyle(fontSize = 24.sp),color = Color.White, textAlign = TextAlign.End)
-                }
-            }
-            //Description of action
-            Row(modifier = Modifier.fillMaxWidth())
-            {
-                //Image used as list point
-                Box(modifier = Modifier.weight(0.1f).fillMaxHeight().padding(5.dp))
-                {
-                    Image(
-                        modifier = Modifier.align(Alignment.Center),
-                        contentDescription = "Correct Image",
-                        painter = painterResource(id = R.drawable.correct),
-                        contentScale = ContentScale.FillWidth
-                    )
-                }
-                //Formatted description of action
-                Box(modifier = Modifier.weight(0.9f).fillMaxHeight().padding(5.dp))
-                {
-                    Text(FormatTextWithMarkers(action.description),style = TextStyle(fontSize = 14.sp), textAlign = TextAlign.Justify)
-                }
-            }
-            Row(modifier = Modifier.fillMaxWidth())
-            {
-                //Image used as list point
-                Box(modifier = Modifier.weight(0.1f).fillMaxHeight().padding(5.dp))
-                {
-                    Image(
-                        modifier = Modifier.align(Alignment.Center),
-                        contentDescription = "Wrong image",
-                        painter = painterResource(id = R.drawable.wrong),
-                        contentScale = ContentScale.FillWidth
-                    )
-                }
-                //Formated description of action limits
-                Box(modifier = Modifier.weight(0.9f).fillMaxHeight().padding(5.dp))
-                {
-                    Text(FormatTextWithMarkers(action.limitation),style = TextStyle(fontSize = 14.sp), textAlign = TextAlign.Justify)
-                }
-            }
-        }
-    }
 
-}
-
-//Create table with weapons and it's statistics
-@Composable
-fun WeaponsList(weapons : List<Weapon>,injured : Boolean)
-{
-    Column(modifier = Modifier.fillMaxWidth())
-    {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(KTColors.Orange)
-                .padding(vertical = 5.dp),
-            contentAlignment = Alignment.Center)
-        {
-            Text("Weapons",
-                style = TextStyle(fontSize = 16.sp),
-                color = Color.White)
-        }
-        //Row with Labels of statistics name
-        Row()
-        {
-            Spacer(modifier = Modifier
-                .weight(0.06f)
-                .fillMaxHeight())
-            Box(modifier = Modifier
-                .weight(0.25f)
-                .fillMaxHeight(),
-                contentAlignment = Alignment.Center)
-            {
-                Text("Name",style = TextStyle(fontSize = 16.sp))
-            }
-            Box(modifier = Modifier
-                .weight(0.09f)
-                .fillMaxHeight(),
-                contentAlignment = Alignment.Center)
-            {
-                Text("Atk",style = TextStyle(fontSize = 16.sp))
-            }
-            Box(modifier = Modifier
-                .weight(0.09f)
-                .fillMaxHeight(),
-                contentAlignment = Alignment.Center)
-            {
-                Text("Hit",style = TextStyle(fontSize = 16.sp))
-            }
-            Box(modifier = Modifier
-                .weight(0.11f)
-                .fillMaxHeight(),
-                contentAlignment = Alignment.Center)
-            {
-                Text("Dmg",style = TextStyle(fontSize = 16.sp))
-            }
-            Box(modifier = Modifier
-                .weight(0.48f)
-                .fillMaxHeight(),
-                contentAlignment = Alignment.Center)
-            {
-                Text("WR",style = TextStyle(fontSize = 16.sp))
-            }
-        }
-        //Little Box to seperate statistics name from weapons
-        Box(modifier = Modifier.fillMaxWidth()
-            .height(2.dp)
-            .background(KTColors.Orange))
-        //Creating table with weapon informations
-        weapons.forEach { weapon ->
-            //Row with weapon's statistics
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            )
-            {
-                //Image of Weapon type (melee or ranged)
-                Box(modifier = Modifier
-                    .weight(0.06f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
-                {
-                    Image(
-                        modifier = Modifier.align(Alignment.Center),
-                        contentDescription = "Weapon Type",
-                        painter = painterResource(id = if (weapon.type == WeaponType.RANGED) {R.drawable.ranged} else {R.drawable.melee}),
-                        contentScale = ContentScale.FillWidth
-                    )
-                }
-                Box(modifier = Modifier
-                    .weight(0.25f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
-                {
-                    Text("${weapon.name}",style = TextStyle(fontSize = 15.sp), textAlign = TextAlign.Center)
-                }
-                Box(modifier = Modifier
-                    .weight(0.09f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
-                {
-                    Text("${weapon.Atk}",style = TextStyle(fontSize = 15.sp))
-                }
-                //Hit stat which can be modified if operator is injured (injuring changes also color)
-                Box(modifier = Modifier
-                    .weight(0.09f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
-                {
-                    Text("${weapon.Hit.WorsenHitStat(injured)}+",style = TextStyle(fontSize = 15.sp),color = SelectColorByInjuring(Color.Black,
-                        KTColors.DarkInjured,injured))
-                }
-                Box(modifier = Modifier
-                    .weight(0.11f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
-                {
-                    //weapon's dmg/critical damage
-                    Text("${weapon.Dmg}/${weapon.CritDmg}",style = TextStyle(fontSize = 15.sp))
-                }
-                Box(modifier = Modifier
-                    .weight(0.48f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
-                {
-                    Text("${ConvertWeaponRulesToString(weapon.WeaponRulesList)}",style = TextStyle(fontSize = 15.sp), textAlign = TextAlign.Center)
-                }
-            }
-            Box(modifier = Modifier.fillMaxWidth()
-                .height(2.dp)
-                .background(KTColors.Orange))
-        }
-    }
-}
 
 

@@ -1,8 +1,11 @@
 package com.example.killteam
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,7 +31,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -105,17 +110,15 @@ fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel)
     val activity = context as ComponentActivity
     val windowSizeClass = calculateWindowSizeClass(activity)
     Scaffold(
-
         topBar = {
             TopAppBar(
-                modifier = Modifier.height(75.dp),
+                modifier = Modifier.height(100.dp),
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = KTColors.Infiltration,
                     titleContentColor = Color.White
                 ),
-                title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
-                {
-                    Text("Score Screen")}
+                title = {
+                    navBar(navController,"Score Screen",false)
                 }
             )
         }
@@ -139,14 +142,13 @@ fun ShowFractionScreen(navController : NavController,viewModel: ScoreViewModel,f
 
         topBar = {
             TopAppBar(
-                modifier = Modifier.height(75.dp),
+                modifier = Modifier.height(100.dp),
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = KTColors.Infiltration,
                     titleContentColor = Color.White
                 ),
-                title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
-                {
-                    Text("${viewModel.GetPlayer(firstPlayer).GetTeam().name}")}
+                title = {
+                    navBar(navController,viewModel.GetPlayer(firstPlayer).GetTeam().name)
                 }
             )
         }
@@ -172,14 +174,13 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
 
             topBar = {
                 TopAppBar(
-                    modifier = Modifier.height(75.dp),
+                    modifier = Modifier.height(100.dp),
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = KTColors.Infiltration,
                         titleContentColor = Color.White
                     ),
-                    title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
-                    {
-                        Text("${viewModel.GetPlayer(firstPlayer).GetTeam().name}")}
+                    title = {
+                        navBar(navController,viewModel.GetPlayer(firstPlayer).GetTeam().name)
                     }
                 )
             }
@@ -196,14 +197,13 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
 
             topBar = {
                 TopAppBar(
-                    modifier = Modifier.height(75.dp),
+                    modifier = Modifier.height(100.dp),
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = KTColors.Infiltration,
                         titleContentColor = Color.White
                     ),
-                    title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
-                    {
-                        Text("${viewModel.GetPlayer(firstPlayer).GetTeam().name}")}
+                    title = {
+                        navBar(navController,viewModel.GetPlayer(firstPlayer).GetTeam().name)
                     }
                 )
             }
@@ -226,14 +226,12 @@ fun ShowPreviewScreen(navController : NavController,viewModel: ScoreViewModel,fi
     Scaffold(
         topBar = {
             TopAppBar(
-                modifier = Modifier.height(75.dp),
+                modifier = Modifier.height(100.dp),
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = KTColors.Infiltration,
                     titleContentColor = Color.White
                 ),
-                title = { Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
-                {
-                    Text("${viewModel.GetPlayer(firstPlayer).GetTeam().name}")}
+                title = { navBar(navController,viewModel.GetPlayer(firstPlayer).GetTeam().name)
                 }
             )
         },

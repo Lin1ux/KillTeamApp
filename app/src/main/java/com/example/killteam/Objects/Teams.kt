@@ -30,7 +30,7 @@ object KillTeams
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
         ploys = AngelsOfDeathPloys.ployList,
         equipment = AngelsOfDeathEQ.equipmentList,
-        operators = VoidscaredCorsairsOperator.operatorList,
+        operators = AngelsOfDeathOperators.operatorList,
         nameKeyword = "Intercessor",
         minOperators = 6,
         maxOperator = 6
@@ -52,6 +52,8 @@ object KillTeams
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
         ploys = PlagueMarinesPloys.ployList,
         equipment = PlagueMarinesEQ.equipmentList,
+        operators = PlagueMarinesOperators.operatorList,
+        nameKeyword = "Plague Marine",
         minOperators = 6,
         maxOperator = 6
     )
@@ -61,9 +63,10 @@ object KillTeams
         archetypes = listOf(TacOps.Recon, TacOps.SeekDestroy),
         ploys = HunterCladePloys.ployList,
         equipment = HunterCladeEQ.equipmentList,
+        operators = HunterCladeOperators.operatorList,
         minOperators = 10,
         maxOperator = 10
     )
 
-    val teamList = listOf(DeathKorps,KasrkinSquad,AngelsOfDeath,VoidscaredCorsairs,PlagueMarines,HunterClade)
+    val teamList = listOf(AngelsOfDeath,DeathKorps,HunterClade,KasrkinSquad,PlagueMarines,VoidscaredCorsairs)
 }

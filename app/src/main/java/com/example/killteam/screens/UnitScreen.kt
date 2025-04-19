@@ -75,7 +75,7 @@ fun SelectedOperatorButton(navController: NavController,
         GetOrderColor(operator = operator, checkWounds = true),RectangleShape)
         .clickable { navController.navigate(Screen.UnitPreview.UnitPreviewRoute(firstPlayer,index)) })
     {
-        Row(modifier = Modifier.fillMaxSize())
+        Row(modifier = Modifier.fillMaxSize().padding(start = 5.dp))
         {
             //Name of Operator
             Box(modifier = Modifier.weight(0.9f).fillMaxHeight().padding(vertical = 5.dp))

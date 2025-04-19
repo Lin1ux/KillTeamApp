@@ -9,7 +9,8 @@ object UniversalEquipment
 {
     val AmmoCache = Equipment(
         name = "1x Ammo Cache",
-        description = "Before the battle, you can set up one of your Ammo Cache markers wholly within your territory. Friendly operatives can perform the following mission action during the battle."
+        description = "Before the battle, you can set up one of your Ammo Cache markers wholly within your territory. Friendly operatives can perform the following mission action during the battle.",
+        actions = listOf(Actions.AmmoResupply)
     )
 
     val CommsDevice = Equipment(
@@ -52,17 +53,20 @@ object UniversalEquipment
         name = "1x Portable Barricade",
         description = "A portable barricade is Light, Protective and Portable terrain. Before the battle, you can set it up wholly within your territory, on the killzone floor and more than 2\" from all other equipment terrain features, acess points and accesible terrain.\n" +
                 "\n **Protective:** While an operative is in Cover behind this terrain feature, improve its Save stat by 1 (to a maximum of 2+).\n" +
-                "\n **Portable:** This terrain feature only provides cover while an operative is connected to it and if the shield is intervening (ignore its feet). Operatives connected to the inside of it can perform the following action during the battle."
+                "\n **Portable:** This terrain feature only provides cover while an operative is connected to it and if the shield is intervening (ignore its feet). Operatives connected to the inside of it can perform the following action during the battle.",
+        actions = listOf(Actions.MoveWithBarricade)
     )
 
     val UtilityGrenades = Equipment(
         name = "Utility Grenades",
-        description = "When you select this equipment, select two utility grenades (2 smoke, 2 stun, or 1 smoke and 1 stun). Each selection is a unique action your operatives can perform, but your kill team can only use that weapon a total number of times during the battle equal to your selection."
+        description = "When you select this equipment, select two utility grenades (2 smoke, 2 stun, or 1 smoke and 1 stun). Each selection is a unique action your operatives can perform, but your kill team can only use that weapon a total number of times during the battle equal to your selection.",
+        actions = listOf(Actions.SmokeGrenade, Actions.StunGrenade)
     )
 
     val ExplosiveGrenades = Equipment(
         name = "Explosive Grenades",
-        description = "When you select this equipment, select two explosive grenades (2 frag, 2 krak, or 1 frag and 1 krak). Each selection is a unique weapon your operatives can use, but your kill team can only use that weapon a total number of times during the battle equal to your selection."
+        description = "When you select this equipment, select two explosive grenades (2 frag, 2 krak, or 1 frag and 1 krak). Each selection is a unique weapon your operatives can use, but your kill team can only use that weapon a total number of times during the battle equal to your selection.",
+        weapons = listOf(Weapons.FragGranade, Weapons.KrakGranade)
     )
 
     val equipmentList = listOf(AmmoCache,CommsDevice,Mines,RazorWire,LightBarricades,HeavyBarricade,Ladders,PortableBarricade,UtilityGrenades,ExplosiveGrenades)
@@ -72,7 +76,8 @@ object DeathKorpsEQ
 {
     val HandAxe = Equipment(
         name = "Hand Axe",
-        description = "Friendly ##DEATH KORPS## operatives have the following melee weapon: "
+        description = "Friendly ##DEATH KORPS## operatives have the following melee weapon: ",
+        weapons = listOf(Weapons.DKHandAxe)
     )
 
     val Chronometer = Equipment(
@@ -113,7 +118,8 @@ object KasrkinEQ
 
     val CombatDaggers = Equipment(
         name = "Combat Daggers",
-        description = "Friendly ##KASRKIN## operatives have the following melee weapon:"
+        description = "Friendly ##KASRKIN## operatives have the following melee weapon:",
+        weapons = listOf(Weapons.KSCombatDaggers)
     )
 
     val equipmentList = listOf(Foregrip,LongRangeScope,RelicsOfCadia,CombatDaggers) + UniversalEquipment.equipmentList
@@ -188,7 +194,8 @@ object PlagueMarinesEQ
 
     val PlagueGrenades = Equipment(
         name = "Plague Grenades",
-        description = "Friendly ##PLAGUE MARINE## operatives have the following ranged weapon (you cannot select it for use more than twice during the battle): "
+        description = "Friendly ##PLAGUE MARINE## operatives have the following ranged weapon (you cannot select it for use more than twice during the battle): ",
+        weapons = listOf(Weapons.PMBlightGranade)
     )
 
     val equipmentList = listOf(PoisonVents,PlagueRounds,PlagueBells,PlagueGrenades) + UniversalEquipment.equipmentList
