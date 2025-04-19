@@ -6,6 +6,7 @@ object KillTeams
     val DeathKorps = TeamInfo(
         name = "Death Korps",
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
+        teamRules = DeathKorpsRules.teamRulesList,
         ploys = DeathKorpsPloys.ployList,
         equipment = DeathKorpsEQ.equipmentList,
         operators = DeathKorpsOperators.operatorList,
@@ -17,6 +18,7 @@ object KillTeams
     val KasrkinSquad = TeamInfo(
         name = "Kasrkin Squad",
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
+        teamRules = KasrkinSquadRules.teamRulesList,
         ploys = KasrkinPloys.ployList,
         equipment = KasrkinEQ.equipmentList,
         operators = KasrkinSquadOperators.operatorList,
@@ -28,6 +30,7 @@ object KillTeams
     val AngelsOfDeath = TeamInfo(
         name = "Angels Of Death",
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
+        teamRules = AngelsOfDeathRules.teamRulesList,
         ploys = AngelsOfDeathPloys.ployList,
         equipment = AngelsOfDeathEQ.equipmentList,
         operators = AngelsOfDeathOperators.operatorList,
@@ -39,6 +42,7 @@ object KillTeams
     val VoidscaredCorsairs = TeamInfo(
         name = "Corsairs Voidscared",
         archetypes = listOf(TacOps.Recon, TacOps.Infiltration),
+        teamRules = VoidscaredCorsairsRules.teamRulesList,
         ploys = VoidscaredCorsairsPloys.ployList,
         equipment = VoidscaredCorsairsEQ.equipmentList,
         operators = VoidscaredCorsairsOperator.operatorList,
@@ -50,6 +54,7 @@ object KillTeams
     val PlagueMarines = TeamInfo(
         name = "Plague Marines",
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
+        teamRules = PlagueMarinesRules.teamRulesList,
         ploys = PlagueMarinesPloys.ployList,
         equipment = PlagueMarinesEQ.equipmentList,
         operators = PlagueMarinesOperators.operatorList,
@@ -61,6 +66,7 @@ object KillTeams
     val HunterClade = TeamInfo(
         name = "Hunter Clade",
         archetypes = listOf(TacOps.Recon, TacOps.SeekDestroy),
+        teamRules = HunterCladeRules.teamRulesList,
         ploys = HunterCladePloys.ployList,
         equipment = HunterCladeEQ.equipmentList,
         operators = HunterCladeOperators.operatorList,

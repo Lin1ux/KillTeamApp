@@ -16,6 +16,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.compose.ui.graphics.Color
+import com.example.killteam.Objects.SelectionRuleList
+import com.example.killteam.Objects.SelectionRuleListChapterTactics
+import com.example.killteam.Objects.SelectionRuleListWithPrimary
+import com.example.killteam.Objects.TeamRule
 import com.example.killteam.ui.theme.KTColors
 import kotlin.Int
 
@@ -39,6 +43,8 @@ class ScoreViewModel : ViewModel()
 
         var commandPoints by mutableStateOf(3)
 
+        var teamRulesData = mutableStateListOf<teamRulesState>()
+
         var ploysData = mutableStateListOf<ploySelection>()
         var eqData = mutableStateListOf<eqSelection>()
         var troopsData = mutableStateListOf<selectedOperators>()
@@ -51,6 +57,7 @@ class ScoreViewModel : ViewModel()
             {
                 return
             }
+            teamRulesData.clear()
             ploysData.clear()
             eqData.clear()
             troopsData.clear()
@@ -197,6 +204,45 @@ class ScoreViewModel : ViewModel()
             }
         }
 
+        //Return team rules of player
+        fun GetTeamRulesData() : List<teamRulesState>
+        {
+            if(teamRulesData.isEmpty())
+            {
+                selectedTeam.teamRules.forEachIndexed { index, rule ->
+                    teamRulesData.add(teamRulesState(rule.deepCopy(),index))
+                    teamRulesData[index].rule.ruleIndex = index
+                }
+            }
+            return teamRulesData
+        }
+
+        fun GetTeamRule(index : Int) : TeamRule
+        {
+            return teamRulesData[index].rule
+        }
+        //Set selected Index
+        fun SetTeamRuleActiveIndex(value : Int,index : Int)
+        {
+            (teamRulesData[index].rule as? SelectionRuleList)?.SelectIndex(value)
+            (teamRulesData[index].rule as? SelectionRuleListWithPrimary)?.SelectIndex(value)
+            (teamRulesData[index].rule as? SelectionRuleListChapterTactics)?.SelectIndex(value)
+
+        }
+        //Set Primary Index
+        fun SetTeamRulePrimaryIndex(value : Int,index : Int)
+        {
+            (teamRulesData[index].rule as? SelectionRuleListWithPrimary)?.SelectPrimaryIndex(value)
+            (teamRulesData[index].rule as? SelectionRuleListChapterTactics)?.SelectPrimaryIndex(value)
+        }
+        //Reset Selected Index
+        fun ResetSelection()
+        {
+            teamRulesData.forEachIndexed { index, rule ->
+                (teamRulesData[index].rule as? SelectionRuleList)?.SelectIndex(-1)
+                (teamRulesData[index].rule as? SelectionRuleListWithPrimary)?.SelectIndex(-1)
+            }
+        }
         //Return ploy Selection of player
         fun GetPloysBySelection() : List<ploySelection>
         {
@@ -442,9 +488,12 @@ class ScoreViewModel : ViewModel()
         //Resetting ploys
         BluePlayer.ploysData = mutableStateListOf<ploySelection>()
         RedPlayer.ploysData = mutableStateListOf<ploySelection>()
-        //Seting all operatives to ready state
+        //Setting all operatives to ready state
         RedPlayer.SetAllOperatorsReady()
         BluePlayer.SetAllOperatorsReady()
+        //Resetting selected fraction rules
+        RedPlayer.ResetSelection()
+        BluePlayer.ResetSelection()
         if(isFirstPlayerInits)
         {
             RedPlayer.IncreaseCP(1)
@@ -743,4 +792,10 @@ enum class Order
     CONCEAL,
     ENGAGE
 }
+
+data class teamRulesState(
+    var rule : TeamRule,
+    var index : Int
+)
+
 

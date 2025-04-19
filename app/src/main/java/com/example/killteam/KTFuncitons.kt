@@ -258,3 +258,5 @@ fun InjureWorsenMove(operator: selectedOperators) : Int
 //Worsen Hit Stat (if true)
 fun Int.WorsenHitStat(worsen : Boolean) : Int = if(worsen) this + 1 else this
 
+fun String.FormatPrimary(primary : Boolean) : String = if(primary) this.uppercase() else this
+

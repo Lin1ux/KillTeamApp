@@ -1,10 +1,12 @@
 package com.example.killteam.Objects
 
 import androidx.compose.runtime.Composable
+import com.example.killteam.ScoreViewModel
 
 data class TeamInfo(
     var name : String,
     var archetypes : List<Archetype>,
+    var teamRules : List<TeamRule> = VoidscaredCorsairsRules.teamRulesList,
     var ploys : List<Ploy>,
     var equipment: List<Equipment>,
     var operators: List<Operator> = DeathKorpsOperators.operatorList,
@@ -82,22 +84,24 @@ data class Action(
     var limitation : String = " This operative cannot perform this action while within control Range of an enemy operative. "
 )
 
-abstract class TeamRules(
+abstract class TeamRule(
     val name: String,
     val description: String = "",
-    val team : TeamType
-
+    var ruleIndex : Int = 0
 )
 {
     @Composable
-    open fun draw()
+    open fun Draw(viewModel: ScoreViewModel,firstPlayer : Boolean)
     {
 
     }
+
+    abstract fun deepCopy(): TeamRule
 }
 
 //Enum of weapon types
 enum class TeamType{
+    UNKNOWN,
     ANGELS_OF_DEATH,
     CORSAIRS_VOIDSCARED,
     DEATH_KORPS,

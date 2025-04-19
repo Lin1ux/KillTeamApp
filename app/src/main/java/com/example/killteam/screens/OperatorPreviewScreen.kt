@@ -97,7 +97,6 @@ fun PreviewScreen(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
         }
         item() //Operator's Weapons
         {
-            //WeaponsList(viewModel.GetPlayer(firstPlayer).GetTroopByIndex(index).weapons,IsInjured(viewModel.GetPlayer(firstPlayer).GetTroopSelectionByIndex(index)))
             WeaponsListSmall(viewModel.GetPlayer(firstPlayer).GetTroopByIndex(index).weapons,IsInjured(viewModel.GetPlayer(firstPlayer).GetTroopSelectionByIndex(index)))
         }
         item() //Operator's Additional rules

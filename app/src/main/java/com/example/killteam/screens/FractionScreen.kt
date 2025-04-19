@@ -46,6 +46,22 @@ import com.example.killteam.ui.theme.KTColors
 @Composable
 fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
     LazyColumn(modifier = Modifier.fillMaxSize().background(KTColors.Background)) {
+
+        item()  //Strategy Ploy Label
+        {
+            Box(
+                modifier = Modifier.fillMaxWidth().background(KTColors.Orange).padding(vertical = 10.dp),
+                contentAlignment = Alignment.Center)
+            {
+                Text("Fraction Rules",style = TextStyle(fontSize = 32.sp),color = Color.White)
+            }
+        }
+        item()
+        {
+            viewModel.GetPlayer(firstPlayer).GetTeamRulesData().forEach { teamRule ->
+                teamRule.rule.Draw(viewModel,firstPlayer)
+            }
+        }
         item()  //Strategy Ploy Label
         {
             Box(
@@ -338,9 +354,9 @@ fun Equipment(viewModel: ScoreViewModel, firstPlayer: Boolean, eqSelection: eqSe
                     KTColors.Orange,firstPlayer, eqSelection,viewModel,
                     {showDialog = false},   //On Dismiss
                     { finish -> if(finish)  //On Accept
-                    {
-                        viewModel.GetPlayer(firstPlayer).SwitchEqPlacement(eqSelection.index)
-                    }
+                        {
+                            viewModel.GetPlayer(firstPlayer).SwitchEqPlacement(eqSelection.index)
+                        }
                         showDialog = false
                     })
 
@@ -349,7 +365,7 @@ fun Equipment(viewModel: ScoreViewModel, firstPlayer: Boolean, eqSelection: eqSe
     }
 }
 
-//Dialog Window which ask player is game should be ended
+//Dialog Window which allows player to take or remove equipment
 @Composable
 fun EquipmentInfoDialog(
     color : Color,

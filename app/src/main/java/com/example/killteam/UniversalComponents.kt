@@ -20,7 +20,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,8 +37,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.killteam.Objects.Action
+import com.example.killteam.Objects.Passive
+import com.example.killteam.Objects.SelectionRuleList
+import com.example.killteam.Objects.TeamRule
 import com.example.killteam.Objects.Weapon
 import com.example.killteam.Objects.WeaponType
+import com.example.killteam.RuleSelectionInfoDialog
 import com.example.killteam.ui.theme.KTColors
 import kotlin.collections.forEach
 
@@ -457,4 +464,41 @@ fun navBar(navController : NavController, text : String, backButton : Boolean = 
             Spacer(modifier = Modifier.weight(0.25f).fillMaxHeight())
         }
     }
+}
+
+@Composable
+fun InfoPopUp(
+    title: String,
+    description: String,
+    onDismiss: () -> Unit
+)
+{
+    AlertDialog(
+        onDismissRequest = onDismiss ,
+        title = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            )
+            {
+                Text(title, textAlign = TextAlign.Center)
+            }
+        },
+        text = {
+            LazyColumn(horizontalAlignment = Alignment.CenterHorizontally)
+            {
+                item()
+                {
+                    //Description
+                    Box(modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp), contentAlignment = Alignment.Center)
+                    {
+                        Text(FormatTextWithMarkers(description),style = TextStyle(fontSize = 14.sp), textAlign = TextAlign.Justify)
+                    }
+                }
+            }
+        },
+        confirmButton = {
+
+        }
+    )
 }
