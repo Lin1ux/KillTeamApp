@@ -638,7 +638,7 @@ object PlagueMarinesOperators{
         move = 5,
         save = 3,
         wounds = 14,
-        weapons = listOf(Weapons.PMBoltPistol,Weapons.PMFists),
+        weapons = listOf(Weapons.PMBoltPistol,Weapons.PMPlagueKnife5),
         keywords = listOf("##Plague Marine##"),
         size = 32,
         additionalRules = " **Icon Bearer:** Whenever determining control of a marker, treat this operative’s APL stat as 1 higher. Note this isn’t a change to its APL stat, so any changes are cumulative with this. \n\n " +
@@ -754,4 +754,167 @@ object HunterCladeOperators{
     )
 
     val operatorList = listOf(RangerAlpha,RangerDiktat,RangerArcRifle,RangerPlasmaCaliver,RangerArquebues,RangerSurveyor,Ranger)
+}
+
+object LegionairesOperators
+{
+
+    val Champion = Operator(
+        name = "Champion",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 15,
+        weapons = listOf(Weapons.LPlasmaPistolStandard,Weapons.LPlasmaPistolCharged,Weapons.LPowerFist),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+        leader = true,
+        additionalRules = "**In the Eyes of the Gods:** Once during each of this operative’s activations, if it incapacitates an enemy operative, add 1 to its APL stat until the end of that activation. "
+    )
+
+    val Chosen = Operator(
+        name = "Chosen",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 15,
+        weapons = listOf(Weapons.LPlasmaPistolStandard,Weapons.LPlasmaPistolCharged,Weapons.LDaemonBlade),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+        leader = true,
+        additionalRules = " **Daemonic Aura:** Whenever an enemy operative performs the **Fall Back** action while within control Range of this operative, you can use this rule. If you do, roll one **D6:** on a 3+, that enemy operative cannot perform that action during that activation or counteraction (the AP spent on it is refunded). \n\n" +
+            " **Soul Gorge:** After this operative fights or retaliates, if it isn’t incapacitated, but it incapacitated an enemy operative during that sequence, it regains **D3+1** lost wounds. "
+    )
+
+    val GunnerMelta = Operator(
+        name = "Gunner (Melta gun)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.LBoltPistol,Weapons.LMeltaGun,Weapons.LFists),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+    )
+
+    val HeavyGunnerMissileLuncher = Operator(
+        name = "Heavy Gunner (Missile luncher)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.LBoltPistol,Weapons.LMissileLuncherFrag,Weapons.LMissileLuncherKrak,Weapons.LFists),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+    )
+
+    val Anoited = Operator(
+        name = "Anoited",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.LBoltPistol,Weapons.LDaemonicClaw),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+        additionalRules = "**Unleash Daemon:** Once per battle, when this operative is activated, you can use this rule. If you do, until the end of the battle:" +
+                "\n • This operative cannot perform the **Pick Up Marker** or mission actions (excluding Operate Hatch). If it’s carrying a marker, it must immediately perform the **Place Marker** action for 0AP (this takes precedence over all other rules)." +
+                "\n • Normal and Critical Dmg of 4 or more inflicts 1 less damage on this operative. If this operative has the **NURGLE** keyword, you cannot reduce the damage of an attack dice by more than 1. In other words, you cannot use both rules to reduce Normal Dmg of 4 or more by 2." +
+                "\n • Its daemonic claw has the xxCeaselessxx and xxLethal 5+xx weapon rules."
+    )
+
+    val Butcher = Operator(
+        name = "Butcher",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.LBoltPistol,Weapons.LDoubleHandedChainAxe),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+        additionalRules = "**Devastating Onslaught:** " +
+                "\n • Whenever this operative is fighting or retaliating, enemy operatives cannot assist." +
+                "\n • At the end of each enemy operative’s activation or counteraction, you can select an enemy operative within 2\" of this operative. This operative can perform a free **Charge** action (you can change its order to **Engage** to do so), but it cannot move more than 2\" and must end that move within control Range of that selected operative."
+    )
+
+    val Shrivetalon = Operator(
+        name = "Shrivetalon",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.LBoltPistol,Weapons.LFlensingBlades),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+        additionalRules = "**Vicious Reflexes:** Whenever this operative is retaliating, you resolve the first attack dice (i.e. defender instead of attacker). \n\n" +
+                        "**Horrifying Dismemberment:** Whenever this operative incapacitates an enemy operative while fighting or retaliating, select one other enemy operative visible to and within 3\" of either this operative or the incapacitated enemy operative. Subtract 1 from that enemy operative’s APL stat until the end of its next activation. ",
+        actions = listOf(Actions.LGrislyMark)
+    )
+
+    val IconBearerChainsword = Operator(
+        name = "Icon Bearer (Chainsword)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.LBoltPistol,Weapons.LChainsword),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+        additionalRules = "**Icon Bearer:** Whenever determining control of a marker, treat this operative’s APL stat as 1 higher. Note this isn’t a change to its APL stat, so any changes are cumulative with this.  \n\n" +
+                "**Favoured of the Dark Gods:** In the Ready step of each Strategy phase, if this operative controls an objective marker that isn’t tainted, that objective marker is tainted for the battle and you gain 1CP. Note that if any operative (including enemy operatives) has tainted an objective marker, you cannot taint that objective marker. "
+    )
+
+    val IconBearerBoltgun = Operator(
+        name = "Icon Bearer (Bolt gun)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.LBoltgun,Weapons.LFists),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+        additionalRules = "**Icon Bearer:** Whenever determining control of a marker, treat this operative’s APL stat as 1 higher. Note this isn’t a change to its APL stat, so any changes are cumulative with this.  \n\n" +
+                "**Favoured of the Dark Gods:** In the Ready step of each Strategy phase, if this operative controls an objective marker that isn’t tainted, that objective marker is tainted for the battle and you gain 1CP. Note that if any operative (including enemy operatives) has tainted an objective marker, you cannot taint that objective marker. "
+    )
+
+    val BaleFireAcolyte = Operator(
+        name = "Bale Fire Acolyte",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.LBoltPistol,Weapons.LFireBlast,Weapons.LLifeSiphon,Weapons.LFellDagger),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+        additionalRules = "***Siphon Life:** When you select this weapon, you can use this rule. If you do, at the start of the Resolve Attack Dice step, you can select one friendly ##LEGIONARY## operative visible to and within 6\" of this operative. For each attack dice you resolve during that step that inflicts damage, that friendly operative regains 1 lost wound, or **D3** lost wounds if it was a critical success. You cannot use this weapon rule more than once per turning point."
+    )
+
+    val WarriorChainsword = Operator(
+        name = "Warrior (Chainsword)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.LBoltPistol,Weapons.LChainsword),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+        specialist = false,
+        additionalRules = "**Infernal pact:** Once per battle, when a friendly ##LEGIONARY## **WARRIOR** operative is activated, you can use this rule. If you do, change that operative’s **Marks of Chaos** keyword. "
+    )
+
+    val WarriorBoltgun = Operator(
+        name = "Warrior (Bolt gun)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.LBoltgun,Weapons.LFists),
+        keywords = listOf("##Legionary##"),
+        size = 32,
+        specialist = false,
+        additionalRules = "**Infernal pact:** Once per battle, when a friendly ##LEGIONARY## **WARRIOR** operative is activated, you can use this rule. If you do, change that operative’s **Marks of Chaos** keyword. "
+    )
+
+
+    val operatorList = listOf(Champion,Chosen,GunnerMelta,HeavyGunnerMissileLuncher,Anoited,Butcher,Shrivetalon,IconBearerChainsword,IconBearerBoltgun,BaleFireAcolyte,WarriorBoltgun,WarriorChainsword)
 }

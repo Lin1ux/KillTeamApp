@@ -4,6 +4,7 @@ import com.example.killteam.Objects.PlagueMarinesEQ.PlagueBells
 import com.example.killteam.Objects.PlagueMarinesEQ.PlagueGrenades
 import com.example.killteam.Objects.PlagueMarinesEQ.PlagueRounds
 import com.example.killteam.Objects.PlagueMarinesEQ.PoisonVents
+import kotlin.collections.listOf
 
 object UniversalEquipment
 {
@@ -224,4 +225,32 @@ object HunterCladeEQ
     )
 
     val equipmentList = listOf(PoisonVents,PlagueRounds,PlagueBells,PlagueGrenades) + UniversalEquipment.equipmentList
+}
+
+object LegionairesEQ
+{
+    val WardedArmour = Equipment(
+        name = "Warded Armour",
+        description = "**Strategic Gambit.** Select one friendly ##LEGIONARY## operative. Until the Ready step of the next Strategy phase, change that operative’s Save stat to 2+."
+    )
+
+    val TaintedRounds = Equipment(
+        name = "Tainted Rounds",
+        description = "Once per turning point, when a friendly ##LEGIONARY## operative is performing the **Shoot** action and you select a bolt pistol or boltgun, you can use this rule.\n\n" +
+                    "If you do, until the end of that action, that weapon has the xxRendingxx weapon rule."
+    )
+
+    val ChaosTalismans = Equipment(
+        name = "Chaos Talismans",
+        description = "**Strategic Gambit.** Select one Marks of Chaos keyword. Once during each of their activations, when a friendly ##LEGIONARY## operative that has that keyword is shooting, fighting or retaliating, if you roll two or more fails, you can inflict **D3** damage on that friendly operative to discard one of them and retain the other as a normal success instead.\n\n" +
+                "Note that if it’s the **Shoot** action and that damage incapacitates that friendly operative, the action doesn’t end (continue the sequence with your successful attack dice)."
+    )
+
+    val MaleficBlades = Equipment(
+        name = "Malefic Blades",
+        description = "Friendly ##LEGIONARY## operatives have the following melee weapon for the battle:",
+        weapons = listOf(Weapons.LMaleficBlades)
+    )
+
+    val equipmentList = listOf(WardedArmour,TaintedRounds,ChaosTalismans,MaleficBlades) + UniversalEquipment.equipmentList
 }

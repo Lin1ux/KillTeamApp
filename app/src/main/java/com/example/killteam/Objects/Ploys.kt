@@ -398,3 +398,74 @@ object HunterCladePloys
 
     val ployList = listOf(DebilitatingIrradiation,ScoutingProtocol,NeurostaticInterference,AccelerantAgents,ControlEdict,OmnissiahsImperative,ScrapcodeOverload,CommandOverride)
 }
+
+//Legionaires
+object LegionairesPloys
+{
+    val BloodForTheBloodGod = Ploy(
+        name = "Blood For The Blood God",
+        description = "Whenever a friendly ##LEGIONARY## operative ( excluding **KHORNE** ) is fighting, the first time you strike during that sequence, inflict 1 additional damage.\n\n" +
+                "Add 1 to both Dmg stats of friendly ##LEGIONARY## **KHORNE** operatives’ melee weapons.\n",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val Implacable = Ploy(
+        name = "Implacable",
+        description = "You can ignore any changes to the stats of friendly ##LEGIONARY## operatives from being injured.\n\n" +
+                "Whenever an operative is shooting a friendly ##LEGIONARY## **NURGLE** operative, weapons with the xxPiercing 1xx weapon rule have the xxPiercing Crits 1xx weapon rule instead.\n",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val QuicksilverSpeed = Ploy(
+        name = "Quicksilver Speed",
+        description = "Whenever a friendly ##LEGIONARY## operative that performed an action in which it moved during this turning point is fighting worsen the Hit stat of the enemy operative’s melee weapons by 1.\n\n" +
+                "Whenever an operative is shooting a friendly ##LEGIONARY## **SLAANESH** operative more than 6\" from it that performed an action in which it moved during this turning point, worsen the Hit stat of the enemy operative’s weapons by 1.\n\n" +
+                "In all cases for this ploy, this isn’t cumulative with being injured",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val FickleFates = Ploy(
+        name = "Fickle Fates",
+        description = "Whenever a friendly ##LEGIONARY## operative is shooting a ready enemy operative, that friendly operative’s ranged weapons have the xxCeaselessxx weapon rule; if the weapon already has that weapon rule (e.g., reaper chaincannon), it has the xxRelentlessxx weapon rule.\n\n" +
+                "Whenever an operative is shooting a ready friendly ##LEGIONARY## **TZEENTCH** operative, in the Roll Defence Dice step, if you retain any critical successes, you can retain one of your fails as a normal success instead of discarding it.",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val UnendingBloodshed = Ploy(
+        name = "Unending Bloodshed",
+        description = "Use this firefight ploy when a friendly ##LEGIONARY## **KHORNE** operative is incapacitated while fighting or retaliating.\n\n" +
+                "You can strike the enemy operative in that sequence with one of your unresolved successes before it’s removed from the killzone.",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP"
+    )
+
+    val MutabilityAndChange = Ploy(
+        name = "Mutability And Change",
+        description = "Use this firefight ploy when a friendly ##LEGIONARY## **TZEENTCH** operative is activated.\n\n" +
+                "Until the end of that operative’s activation, add 1 to its APL stat. If it’s a **WARRIOR** operative, that operative’s Marks of Chaos keyword cannot be changed during this turning point (see Infernal Pact additional rule).",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP"
+    )
+
+    val MalignantAura = Ploy(
+        name = "Malignant Aura",
+        description = "Use this firefight ploy when a friendly ##LEGIONARY## **NURGLE** operative is performing the Shoot action, when you select a valid target.\n\n" +
+                "Until the end of that action, whenever that operative is shooting an enemy operative within 3\" of it (i.e. including secondary targets, if any), its ranged weapons have the xxPiercing 1xx weapon rule.",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP"
+    )
+
+    val SickeningCaptivation = Ploy(
+        name = "Sickening Captivation",
+        description = "Use this firefight ploy during a friendly ##LEGIONARY## **SLAANESH** operative’s activation, before or after it performs an action.\n\n" +
+                "Select one enemy operative visible to and within 4\" of that friendly operative. Until the end of that enemy operative’s next activation, subtract 1 from its APL stat.",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP"
+    )
+
+    val ployList = listOf(BloodForTheBloodGod,Implacable,QuicksilverSpeed,FickleFates,UnendingBloodshed,MutabilityAndChange,MalignantAura,SickeningCaptivation)
+}

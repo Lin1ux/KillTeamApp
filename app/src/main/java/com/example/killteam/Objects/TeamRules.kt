@@ -316,7 +316,7 @@ object PlagueMarinesRules
     val Poison = Passive(
         name = "Poison",
         description = "Some weapons in this team’s rules have the xxPoisonxx weapon rule.\n\n" +
-                "***Poison:** In the Resolve Attack Dice step, if you inflict damage with any successes, the operative this weapon is being used against (excluding friendly ##PLAGUE MARINE## operatives) gains one of your Poison tokens (if it doesn’t already have one). Whenever an operative that has one of your Poison tokens is activated, inflict 1 damage on it.",
+                " ***Poison:** In the Resolve Attack Dice step, if you inflict damage with any successes, the operative this weapon is being used against (excluding friendly ##PLAGUE MARINE## operatives) gains one of your Poison tokens (if it doesn’t already have one). Whenever an operative that has one of your Poison tokens is activated, inflict 1 damage on it.",
     )
 
     val DisgustinglyResilient = Passive(
@@ -333,22 +333,46 @@ object PlagueMarinesRules
     val teamRulesList = listOf<TeamRule>(Poison,DisgustinglyResilient,Astartes)
 }
 
-
-
-/*//Death Korps
-class DKGuardsmanOrderRule() : TeamRules(
-    name = "Guardsmen Orders",
-    description = "**STRATEGIC GAMBIT** and **SUPPORT.** A friendly **WATCHMASTER** ##DEATH KORPS## operative can issue a **GUARDSMAN ORDER.** Whenever it does so, select one **GUARDSMAN ORDER** for all friendly ##DEATH KORPS## operatives within 6\" of it to receive.\n\n" +
-            "Whenever a friendly operative receives a **GUARDSMAN ORDER,** apply its rules until the end of the turning point. Operatives cannot benefit from more than one **GUARDSMAN ORDER** at a time; they only benefit from the most recent order they received during the turning point.",
-    team = TeamType.DEATH_KORPS
-)
+object LegionairesRules
 {
+    val Khorne = Passive(
+        name = "Khorne - Wrathful Onslaught",
+        description = "This operative’s melee weapons have the xxSeverexx weapon rule.",
+    )
 
+    val Nurgle = Passive(
+        name = "Nurgle - Disgusting Vigour",
+        description = "Whenever Normal Dmg of 3 or more is inflicted on this operative, roll one **D6:** on a 5+, subtract 1 from that inflicted damage.",
+    )
+
+    val Slaanesh = Passive(
+        name = "Slaanesh - Unnatural Agility",
+        description = "Add 1” to this operative’s Movement Stat.",
+    )
+
+    val Tzeentch = Passive(
+        name = "Tzeentch - Empyreal Guidance",
+        description = "This operative’s shoot weapons have the xxSeverexx weapon rule.",
+    )
+
+    val Undivided = Passive(
+        name = "Undivided - Vicious Reavers",
+        description = "Whenever this operative is shooting against, fighting against or retaliating against an enemy operative within 6” of it, this operative’s weapons have the xxCeaselessxx weapon rule.",
+    )
+
+    val MarkOfChaos = SelectionRuleList(
+        name = "Mark Of Chaos",
+        description = "When selecting a ##LEGIONARY## operative for the battle, you must choose one of the following keywords for it to have for that battle: **KHORNE, NURGLE, SLAANESH, TZEENTCH, UNDIVIDED.** Each operative’s keyword can be different, but a **BALEFIRE ACOLYTE** operative cannot have the **KHORNE** keyword.\n\n" +
+                "Friendly ##LEGIONARY## operatives have an additional rule determined by this keyword. In addition, ##LEGIONARY## ploys have additional benefits for operatives with the relevant keyword.\n\n" +
+                "This operative gains one ability from those listed below. The ability it gains depends on its keyword.",
+        ruleList = listOf(Khorne,Nurgle,Slaanesh,Tzeentch,Undivided)
+    )
+
+    val Astartes = Passive(
+        name = "Astartes",
+        description = "During each friendly ##LEGIONARY## operative’s activation, it can perform either two **Shoot** actions or two **Fight** actions. If it’s two **Shoot** actions, a bolt pistol, boltgun or tainted bolt pistol must be selected for at least one of them.\n\n" +
+                "Each friendly ##LEGIONARY## operative can Counteract regardless of its order.\n",
+    )
+
+    val teamRulesList = listOf<TeamRule>(MarkOfChaos,Astartes)
 }
-
-//Voidscared Corsairds
-class VCAeldariRaiders() : TeamRules(
-    name = "Aeldari Raiders",
-    description = "Each friendly ##CORSAIR VOIDSCARRED## operative can perform a free **Dash** action during their activation.",
-    team = TeamType.CORSAIRS_VOIDSCARED
-)*/

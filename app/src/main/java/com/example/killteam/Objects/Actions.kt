@@ -136,4 +136,14 @@ object Actions
                 "\n • That friendly operative’s ranged weapons gain the xxSeek Lightxx weapon rule." +
                 "\n • That enemy operative cannot be xxobscured.xx",
     )
+
+    val LGrislyMark = Action(
+        name = "GRISLY MARK",
+        description = "Place your Grisly marker within this operative’s control Range .\n\n" +
+                "\n • Whenever an enemy operative is within 3\" of your Grisly marker, your opponent must spend 1 additional AP for that enemy operative to perform the **Pick Up Marker** and mission actions.\n" +
+                "\n • Whenever determining control of a marker, treat the total APL stat of enemy operatives that contest it as 1 lower if at least one of those enemy operatives is within 3\" of your Grisly marker. Note this isn’t a change to the APL stat, so any changes are cumulative with this.",
+        limitation = "This operative can only perform this action once per battle, and cannot perform it while within control Range of an enemy operative.",
+        cost = 2
+
+        )
 }

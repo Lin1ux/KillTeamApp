@@ -968,4 +968,186 @@ object Weapons
         CritDmg = 3,
         WeaponRulesList = listOf(WeaponRules.Devastating3,WeaponRules.Heavy,WeaponRules.Piercieng1,WeaponRules.Severe)
     )
+
+    val LPlasmaPistolStandard = Weapon(
+        name = "Plasma pistol (Standard)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Range8, WeaponRules.Piercieng1)
+    )
+
+    val LPlasmaPistolCharged = Weapon(
+        name = "Plasma pistol (Supercharge)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Range8, WeaponRules.Piercieng1, WeaponRules.Hot,
+            WeaponRules.Lethal5)
+    )
+
+    val LPowerFist = Weapon(
+        name = "Power fist",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 4,
+        Dmg = 5,
+        CritDmg = 7,
+        WeaponRulesList = listOf(WeaponRules.Brutal)
+    )
+
+    val LDaemonBlade = Weapon(
+        name = "Daemon blade",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 7,
+        WeaponRulesList = listOf(WeaponRules.Lethal5)
+    )
+
+    val LMeltaGun = Weapon(
+        name = " Melta gun",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 6,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Range6, WeaponRules.Devastating4,WeaponRules.Piercieng2)
+    )
+
+    val LMissileLuncherFrag = Weapon(
+        name = "Missile launcher (Frag)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Blast2, WeaponRules.HeavyReposition)
+    )
+
+    val LMissileLuncherKrak = Weapon(
+        name = "Missile launcher (Krak)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 5,
+        CritDmg = 7,
+        WeaponRulesList = listOf(WeaponRules.Piercieng1, WeaponRules.HeavyReposition)
+    )
+
+    val LBoltPistol = Weapon(
+        name = "Bolt pistol",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range8)
+    )
+
+    val LDaemonicClaw = Weapon(
+        name = "Daemonic claw",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Rending)
+    )
+
+    val LDoubleHandedChainAxe = Weapon(
+        name = "Double-handed chain axe",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 4,
+        Dmg = 5,
+        CritDmg = 7,
+        WeaponRulesList = listOf(WeaponRules.Brutal)
+    )
+
+    val LFlensingBlades = Weapon(
+        name = "Flensing blades",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Lethal5)
+    )
+
+    val LBoltgun = Weapon(
+        name = "Boltgun",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf()
+    )
+
+    val LChainsword = Weapon(
+        name = "Chainsword",
+        type = WeaponType.MELEE,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf()
+    )
+
+    val LFists = Weapon(
+        name = "Fists",
+        type = WeaponType.MELEE,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf()
+    )
+
+    val LMaleficBlades = Weapon(
+        name = "MaleficBlades",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf()
+    )
+
+    val LFireBlast = Weapon(
+        name = "Fire Blast",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Psychic,WeaponRules.Blast2, WeaponRules.Devastating11,
+            WeaponRules.Saturate)
+    )
+
+    val LLifeSiphon = Weapon(
+        name = "Life Siphon",
+        type = WeaponType.RANGED,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Psychic,WeaponRules.Saturate, WeaponRules.LifeSyphon)
+    )
+
+    val LFellDagger = Weapon(
+        name = "Fell dagger",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Psychic,WeaponRules.Rending,WeaponRules.LifeSyphon)
+    )
 }

@@ -32,6 +32,11 @@ object WeaponRules
         description = ""
     )
 
+    val Devastating11 = WeaponRule(
+        name = "1\" Devastating 1",
+        description = ""
+    )
+
     val Devastating2 = WeaponRule(
         name = "Devastating 2",
         description = ""
@@ -74,6 +79,11 @@ object WeaponRules
 
     val Lethal5 = WeaponRule(
         name = "Lethal 5+",
+        description = ""
+    )
+
+    val LifeSyphon = WeaponRule(
+        name = "Life Syphon*",
         description = ""
     )
 

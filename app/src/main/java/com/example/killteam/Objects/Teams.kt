@@ -74,5 +74,16 @@ object KillTeams
         maxOperator = 10
     )
 
-    val teamList = listOf(AngelsOfDeath,DeathKorps,HunterClade,KasrkinSquad,PlagueMarines,VoidscaredCorsairs)
+    val Legionaires = TeamInfo(
+        name = "Legionary",
+        archetypes = listOf(TacOps.SeekDestroy, TacOps.Security),
+        teamRules = LegionairesRules.teamRulesList,
+        ploys = LegionairesPloys.ployList,
+        equipment = LegionairesEQ.equipmentList,
+        operators = LegionairesOperators.operatorList,
+        minOperators = 6,
+        maxOperator = 6
+    )
+
+    val teamList = listOf(AngelsOfDeath,DeathKorps,HunterClade,KasrkinSquad,PlagueMarines,VoidscaredCorsairs,Legionaires)
 }
