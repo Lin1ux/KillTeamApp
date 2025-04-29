@@ -224,7 +224,7 @@ object HunterCladeEQ
         description = "Once per turning point, when a friendly ##HUNTER CLADE## operative is activated, if it’s not within control range of enemy operatives, you can use this rule. If you do, that friendly operative regains up to **D3+2** lost wounds."
     )
 
-    val equipmentList = listOf(PoisonVents,PlagueRounds,PlagueBells,PlagueGrenades) + UniversalEquipment.equipmentList
+    val equipmentList = listOf(RadBombardment,RefractorField,ExtremisMindLink,RedundancySystems) + UniversalEquipment.equipmentList
 }
 
 object LegionairesEQ
@@ -253,4 +253,30 @@ object LegionairesEQ
     )
 
     val equipmentList = listOf(WardedArmour,TaintedRounds,ChaosTalismans,MaleficBlades) + UniversalEquipment.equipmentList
+}
+
+object NemesisClawEQ
+{
+    val FlayedSkin = Equipment(
+        name = "Flayed Skin",
+        description = "**Flayed Skin:** Whenever an enemy operative is shooting against, fighting against or retaliating against a friendly ##NEMESIS CLAW## operative within 2\" of it, your opponent cannot **re-roll** their attack dice results of 1."
+    )
+
+    val ChainSnare = Equipment(
+        name = "Chain Snare",
+        description = "Whenever an enemy operative would perform the **Fall Back** action while within control range of a friendly ##NEMESIS CLAW## operative, if no other enemy operatives are within that friendly operative’s control range, you can use this rule. If you do, roll two **D6,** or one **D6** if that enemy operative has a higher Wounds stat than that friendly operative. If any result is a 4+, that enemy operative cannot perform that action during that activation or counteraction (no AP are spent on it)."
+    )
+
+    val GrislyTrophy = Equipment(
+        name = "Grisly Trophy",
+        description = "**Grisly Trophy:** Once per battle, when a friendly ##NEMESIS CLAW## operative incapacitates an enemy operative within 2\" of it, it gains one of your Grisly Trophy tokens (if it doesn’t already have one). Whenever a friendly ##NEMESIS CLAW## operative that has one of your Grisly Trophy tokens is visible to and within 2\" of an enemy operative, subtract 1 from the Atk stat of that enemy operative’s weapons."
+    )
+
+    val CommsJammers = Equipment(
+        name = "Comms Jammers",
+        description = "**Comms Jammers:** Whenever an enemy operative is within 3\" of a friendly ##NEMESIS CLAW## operative, that enemy operative’s APL stat cannot be added to. Note that this doesn’t affect APL stats that have already been changed.",
+        weapons = listOf(Weapons.LMaleficBlades)
+    )
+
+    val equipmentList = listOf(FlayedSkin,ChainSnare,GrislyTrophy,CommsJammers) + UniversalEquipment.equipmentList
 }

@@ -172,6 +172,11 @@ object WeaponRules
         description = ""
     )
 
+    val Terrorchem = WeaponRule(
+        name = "Terrorchem*",
+        description = ""
+    )
+
     val Torrent1 = WeaponRule(
         name = "Torrent 1",
         description = ""

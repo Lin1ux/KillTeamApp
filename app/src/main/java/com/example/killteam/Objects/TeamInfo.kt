@@ -20,7 +20,8 @@ data class Ploy(
     var name : String,
     var description : String,
     var type : PloyType,
-    var cost : String
+    var cost : String,
+    var changable_cost : Boolean = false
 )
 
 //Enum of ploy types
@@ -107,5 +108,7 @@ enum class TeamType{
     DEATH_KORPS,
     HUNTER_CLADE,
     KASRKIN_SQUAD,
-    PLAGUE_MARINE
+    PLAGUE_MARINE,
+    LEGIONARY,
+    NEMESIS_CLAW
 }

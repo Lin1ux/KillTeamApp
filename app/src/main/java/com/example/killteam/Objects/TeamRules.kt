@@ -376,3 +376,21 @@ object LegionairesRules
 
     val teamRulesList = listOf<TeamRule>(MarkOfChaos,Astartes)
 }
+
+object NemesisClawRules
+{
+    val InMidnightClad = Passive(
+        name = "In Midnight Clad",
+        description = "Whenever an enemy operative is shooting a friendly ##NEMESIS CLAW## operative, that friendly operative is **obscured** if both of the following are true:\n" +
+                "\n • It’s more than 6\" from enemy operatives it’s visible to.\n" +
+                "\n • It has Heavy terrain within its control range, or any part of its base is underneath Vantage terrain.",
+    )
+
+    val Astartes = Passive(
+        name = "Astartes",
+        description = "During each friendly ##NEMESIS CLAW## operative’s activation, it can perform either two **Shoot** actions or two **Fight** actions. If it’s two **Shoot** actions, a bolt pistol, boltgun or scoped bolt pistol must be selected for at least one of them.\n\n" +
+                "Each friendly ##NEMESIS CLAW## operative can counteract regardless of its order.",
+    )
+
+    val teamRulesList = listOf<TeamRule>(InMidnightClad,Astartes)
+}

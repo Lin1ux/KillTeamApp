@@ -74,7 +74,7 @@ object KillTeams
         maxOperator = 10
     )
 
-    val Legionaires = TeamInfo(
+    val Legionary = TeamInfo(
         name = "Legionary",
         archetypes = listOf(TacOps.SeekDestroy, TacOps.Security),
         teamRules = LegionairesRules.teamRulesList,
@@ -85,5 +85,16 @@ object KillTeams
         maxOperator = 6
     )
 
-    val teamList = listOf(AngelsOfDeath,DeathKorps,HunterClade,KasrkinSquad,PlagueMarines,VoidscaredCorsairs,Legionaires)
+    val NemesisClaw = TeamInfo(
+        name = "Nemesis Claw",
+        archetypes = listOf(TacOps.SeekDestroy, TacOps.Infiltration),
+        teamRules = NemesisClawRules.teamRulesList,
+        ploys = NemesisClawPloys.ployList,
+        equipment = NemesisClawEQ.equipmentList,
+        operators = NemesiClawOperators.operatorList,
+        minOperators = 6,
+        maxOperator = 6
+    )
+
+    val teamList = listOf(AngelsOfDeath,DeathKorps,HunterClade,KasrkinSquad,Legionary,NemesisClaw,PlagueMarines,VoidscaredCorsairs,)
 }

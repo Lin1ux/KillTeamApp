@@ -213,7 +213,7 @@ fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean, ploySelection: ploySe
                     contentAlignment = Alignment.CenterEnd
                 )
                 {
-                    Text("${ploySelection.ploy.cost}",style = TextStyle(fontSize = 16.sp),color = Color.White, textAlign = TextAlign.End,)
+                    Text("${ploySelection.ploy.cost} ${if(ploySelection.ploy.changable_cost) {"+"} else {""}}",style = TextStyle(fontSize = 16.sp),color = Color.White, textAlign = TextAlign.End,)
                 }
             }
             if(showDialog)

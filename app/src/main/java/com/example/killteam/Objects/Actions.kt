@@ -137,6 +137,7 @@ object Actions
                 "\n • That enemy operative cannot be xxobscured.xx",
     )
 
+    //Legionary
     val LGrislyMark = Action(
         name = "GRISLY MARK",
         description = "Place your Grisly marker within this operative’s control Range .\n\n" +
@@ -144,6 +145,24 @@ object Actions
                 "\n • Whenever determining control of a marker, treat the total APL stat of enemy operatives that contest it as 1 lower if at least one of those enemy operatives is within 3\" of your Grisly marker. Note this isn’t a change to the APL stat, so any changes are cumulative with this.",
         limitation = "This operative can only perform this action once per battle, and cannot perform it while within control Range of an enemy operative.",
         cost = 2
-
         )
+    //Nemesis Claw
+    val NCPremonition = Action(
+        name = "PREMONITION",
+        description = "**PSYCHIC.** Spend 1 of your Prescience points to gain 1CP.",
+        limitation = "This operative cannot perform this action while within control Range of an enemy operative, or more than once per turning point."
+    )
+
+    val NCPoisonObjective = Action(
+        name = "POISON OBJECTIVE",
+        description = "Select one objective marker this operative controls to gain one of your Terrorchem tokens. It cannot be an objective marker within control Range of an enemy operative, or one that already has one of your Terrorchem tokens. The first time that objective marker is within control Range of an enemy operative that doesn’t have one of your Terrorchem tokens, that operative gains that Terrorchem token, then inflict **2D3** damage on it (if it’s during an action, at the end of that action).",
+    )
+
+    val DisconcertingMimicry = Action(
+        name = "Disconcerting Mimicry",
+        description = "**PSYCHIC.** Select one enemy operative within 6” of this operative, then select one of the following for that enemy operative (you can only select each option once per battle): " +
+                "\n • Until the end of its next activation, subtract 1 from its APL stat.\n" +
+                "\n • Change its order.\n" +
+                "\n • Perform a free **Dash** action with it (specify the location for your opponent to move it to)."
+    )
 }

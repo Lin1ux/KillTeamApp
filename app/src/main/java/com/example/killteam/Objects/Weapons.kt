@@ -1111,7 +1111,7 @@ object Weapons
     )
 
     val LMaleficBlades = Weapon(
-        name = "MaleficBlades",
+        name = "Malefic Blades",
         type = WeaponType.MELEE,
         Atk = 5,
         Hit = 3,
@@ -1150,4 +1150,201 @@ object Weapons
         CritDmg = 5,
         WeaponRulesList = listOf(WeaponRules.Psychic,WeaponRules.Rending,WeaponRules.LifeSyphon)
     )
+
+    //Nemesis Claw
+    val NCPlasmaPistolStandard = Weapon(
+        name = "Plasma pistol (Standard)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Range8, WeaponRules.Piercieng1)
+    )
+
+    val NCPlasmaPistolCharged = Weapon(
+        name = "Plasma pistol (Supercharge)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Range8, WeaponRules.Piercieng1, WeaponRules.Hot,
+            WeaponRules.Lethal5)
+    )
+
+    val NCNostramanChainsword = Weapon(
+        name = "Nostraman chainsword",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Rending)
+    )
+
+    val NCScopedBoltPistolShort = Weapon(
+        name = "Scoped bolt pistol (Short Range)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range8, WeaponRules.Lethal5)
+    )
+
+    val NCScopedBoltPistolLong = Weapon(
+        name = "Scoped bolt pistol (Long Range)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf()
+    )
+
+    val NCTerrochemVial = Weapon(
+        name = "Terrochem vial",
+        type = WeaponType.RANGED,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 2,
+        CritDmg = 0,
+        WeaponRulesList = listOf(WeaponRules.Range6, WeaponRules.Blast2,WeaponRules.Devastating3,
+            WeaponRules.Limited1, WeaponRules.Saturate, WeaponRules.Terrorchem)
+    )
+
+    val NCTaintedBlade = Weapon(
+        name = "Tainted blade",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Terrorchem)
+    )
+
+    val NCLightningClaws = Weapon(
+        name = "Lightning claws",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Ceaseless, WeaponRules.Lethal5)
+    )
+
+    val NCBoltPistol = Weapon(
+        name = "Bolt pistol",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range8)
+    )
+
+    val NCNostramanChaingaive = Weapon(
+        name = "Nostraman chaingaive",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 6,
+        WeaponRulesList = listOf(WeaponRules.Rending)
+    )
+
+    val NCChainsword = Weapon(
+        name = "Chainsword",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf()
+    )
+
+    val NCMissileLuncherFrag = Weapon(
+        name = "Missile launcher (Frag)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Blast2, WeaponRules.HeavyReposition)
+    )
+
+    val NCMissileLuncherKrak = Weapon(
+        name = "Missile launcher (Krak)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 5,
+        CritDmg = 7,
+        WeaponRulesList = listOf(WeaponRules.Piercieng1, WeaponRules.HeavyReposition)
+    )
+
+    val NCFists = Weapon(
+        name = "Fists",
+        type = WeaponType.MELEE,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf()
+    )
+
+    val NCMeltaGun = Weapon(
+        name = " Melta gun",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 6,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Range6, WeaponRules.Devastating4,WeaponRules.Piercieng2)
+    )
+
+    val NCPlasmaGunStandard = Weapon(
+        name = "Plasma gun (Standard)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 6,
+        WeaponRulesList = listOf(WeaponRules.Piercieng1)
+    )
+
+    val NCPlasmaGunCharged = Weapon(
+        name = "Plasma gun (Supercharge)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 5,
+        CritDmg = 6,
+        WeaponRulesList = listOf(WeaponRules.Hot,WeaponRules.Lethal5, WeaponRules.Piercieng1 )
+    )
+
+    val NCFlamer = Weapon(
+        name = "Flamer",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 2,
+        Dmg = 3,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Range8,WeaponRules.Saturate, WeaponRules.Torrent2 )
+    )
+
+    val NCBoltgun = Weapon(
+        name = "Boltgun",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf()
+    )
+
+
+
+
 }

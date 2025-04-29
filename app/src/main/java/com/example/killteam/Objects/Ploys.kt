@@ -399,7 +399,7 @@ object HunterCladePloys
     val ployList = listOf(DebilitatingIrradiation,ScoutingProtocol,NeurostaticInterference,AccelerantAgents,ControlEdict,OmnissiahsImperative,ScrapcodeOverload,CommandOverride)
 }
 
-//Legionaires
+//Legionary
 object LegionairesPloys
 {
     val BloodForTheBloodGod = Ploy(
@@ -468,4 +468,66 @@ object LegionairesPloys
     )
 
     val ployList = listOf(BloodForTheBloodGod,Implacable,QuicksilverSpeed,FickleFates,UnendingBloodshed,MutabilityAndChange,MalignantAura,SickeningCaptivation)
+}
+
+object NemesisClawPloys
+{
+    val WeHaveComeForYou = Ploy(
+        name = "We Have Come for you",
+        description = "Whenever a friendly ##NEMESIS CLAW## operative is activated, if the first action it performs during that activation is the **Charge** action, when it ends its move during that action, you can inflict **D3** damage on one enemy operative within its control range.",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val TheBlackHunt = Ploy(
+        name = "The Black Hunt",
+        description = "Whenever a friendly ##NEMESIS CLAW## operative is shooting against, fighting against or retaliating against a wounded enemy operative, you can **re-roll** one of your attack dice.",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val Preysight = Ploy(
+        name = "Preysight",
+        description = "Whenever you’re selecting a valid target for a friendly ##NEMESIS CLAW## operative, enemy operatives within 6\" of it cannot use Light terrain for cover. While this can allow such operatives to be targeted (assuming they’re visible), it doesn’t remove their cover save (if any).",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val ReturnToDarkness = Ploy(
+        name = "Return To Darkness",
+        description = "One friendly ##NEMESIS CLAW## operative can immediately perform a free **Fall Back** or **Reposition** action, but it must end that move with Heavy terrain within its control range, or any part of its base underneath Vantage terrain. In addition, it cannot end that move closer to enemy operatives.",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val VoxScream = Ploy(
+        name = "Vox Scream",
+        description = "Use this firefight ploy when your opponent would activate an enemy operative. Your opponent cannot activate that operative during this activation. If there are no other enemy operatives eligible to be activated, this ploy has no effect. This ploy costs you 1 additional CP for each previous time you’ve used it during the battle (e.g. 1CP the first time you would use it, 2CP the second time, etc.).",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP",
+        changable_cost = true
+    )
+
+    val DeathToTheFalseEmperor = Ploy(
+        name = "Death To The False Emperor",
+        description = "Use this firefight ploy after rolling your attack dice for a friendly ##NEMESIS CLAW## operative, if it's shooting against, fighting against or retaliating against an operative that has the **IMPERIUM** keyword. That friendly operative’s weapons have the xxCeaselessxx weapon rule until the end of that sequence; if that enemy operative also has the **ADEPTUS ASTARTES** keyword, that friendly operative’s weapons have the xxRelentlessxx weapon rule until the end of that sequence instead.",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP"
+    )
+
+    val ProclivityForMurder = Ploy(
+        name = "Proclivity For Murder",
+        description = "Use this firefight ploy after a friendly ##NEMESIS CLAW## operative incapacitates an enemy operative within its control range. That friendly operative can immediately perform a free **Charge** or **Dash** action (for the former, it cannot move more than 3\"), even if it’s performed an action that prevents it from performing those actions.",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP"
+    )
+
+    val DirtyFighter = Ploy(
+        name = "Dirty Fighter",
+        description = "Use this firefight ploy when a friendly ##NEMESIS CLAW## operative is retaliating, at the start of the Resolve Attack Dice step. You can resolve one of your successes before the normal order. If you do, you cannot resolve any other successes during that sequence.",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP"
+    )
+
+    val ployList = listOf(WeHaveComeForYou,TheBlackHunt,Preysight,ReturnToDarkness,VoxScream,DeathToTheFalseEmperor,ProclivityForMurder,DirtyFighter)
 }

@@ -31,12 +31,12 @@ object TacOps
         color = KTColors.Recon
     )
     val RecoverItems = Mission(
-        name = "Confirm Kill",
+        name = "Recover Items",
         description = "",
         color = KTColors.Recon
     )
     val PlantBeacons = Mission(
-        name = "Confirm Kill",
+        name = "Plant Beacons",
         description = "",
         color = KTColors.Recon
     )

@@ -50,7 +50,7 @@ object DeathKorpsOperators
     )
 
     val GunnerMelta = Operator(
-        name = "Death Korps Gunner (Melta gun)",
+        name = "Death Korps Gunner (Meltagun)",
         APL = 2,
         move = 6,
         save = 5,
@@ -758,7 +758,6 @@ object HunterCladeOperators{
 
 object LegionairesOperators
 {
-
     val Champion = Operator(
         name = "Champion",
         APL = 3,
@@ -787,7 +786,7 @@ object LegionairesOperators
     )
 
     val GunnerMelta = Operator(
-        name = "Gunner (Melta gun)",
+        name = "Gunner (Meltagun)",
         APL = 3,
         move = 6,
         save = 3,
@@ -917,4 +916,140 @@ object LegionairesOperators
 
 
     val operatorList = listOf(Champion,Chosen,GunnerMelta,HeavyGunnerMissileLuncher,Anoited,Butcher,Shrivetalon,IconBearerChainsword,IconBearerBoltgun,BaleFireAcolyte,WarriorBoltgun,WarriorChainsword)
+}
+
+object NemesiClawOperators{
+
+    val Visionary = Operator(
+        name = "Visionary",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 15,
+        weapons = listOf(Weapons.NCPlasmaPistolStandard,Weapons.NCPlasmaPistolCharged,Weapons.NCNostramanChainsword),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+        leader = true,
+        additionalRules = "**Prescience: PSYCHIC.** In the Ready step of each Strategy phase, you gain **D3** Prescience points. You can spend your Prescience points in the Firefight phase as follows (you cannot use each of the following rules more than once per turning point):\n\n" +
+                "\n • **Foreboding: PSYCHIC.** Whenever it’s your turn to activate a friendly operative, you can spend 1 of your Prescience points to skip that activation.\n" +
+                "\n • **Portent: PSYCHIC.** Whenever an attack dice inflicts Normal Dmg on this operative, you can spend 1 of your Prescience points to ignore that inflicted damage.\n\n" +
+                "You cannot gain or spend your Prescience points if this operative is incapacitated.. ",
+        actions = listOf(Actions.NCPremonition)
+
+    )
+
+    val Fearmonger = Operator(
+        name = "Fearmonger",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.NCScopedBoltPistolShort,Weapons.NCScopedBoltPistolLong,Weapons.NCTerrochemVial,
+            Weapons.NCTaintedBlade),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+        additionalRules = " ***Terrorchem:** In the Resolve Attack Dice step, if you inflict damage with any critical successes, the operative this weapon is being used against gains one of your Terrorchem tokens (if it doesn’t already have one). \n\n" +
+                            " **Terrorchem Poison:** Whenever an operative that has one of your Terrorchem tokens is activated, inflict **D3** damage on it. ",
+        actions = listOf(Actions.NCPoisonObjective)
+    )
+
+    val Screecher = Operator(
+        name = "Screecher",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.NCLightningClaws),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+        additionalRules = "**Screecher:** Whenever an enemy operative within 3” of this operative is shooting, fighting, or retaliating, your opponent cannot **re-roll** their attack dice. \n\n" +
+                " **Appetite for Cruelty:** Whenever this operative is fighting against a wounded enemy operative, this operative’s lightning claws have the xxLethal 4+xx weapon rule. "
+    )
+
+    val Skinthief = Operator(
+        name = "Skinthief",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.NCBoltPistol,Weapons.NCNostramanChaingaive),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+        additionalRules = "**Flay Them Alive:** Once per turning point, when this operative incapacitates an enemy operative within its control Range , you can select one other enemy operative visible to and within 6” of either this operative or the incapacitated enemy operative. Until the start of the next turning point, that other enemy operative cannot control markers or perform the **Pick Up Marker** or mission actions.  \n\n" +
+                " **Tyrant of the Skinning Pits:** Whenever this operative is fighting or retaliating, Normal and Critical Dmg of 3 or more inflicts 1 less damage on it.  "
+    )
+
+    val Ventrilokar = Operator(
+        name = "Ventrilokar",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.NCBoltPistol,Weapons.NCChainsword),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+        additionalRules = " **Icon Bearer:** Whenever determining control of a marker, treat this operative’s APL stat as 1 higher. Note this isn’t a change to its APL stat, so any changes are cumulative with this. ",
+        actions = listOf(Actions.DisconcertingMimicry)
+    )
+
+    val HeavyGunnerMissile = Operator(
+        name = "Heavy Gunner (Missile luncher)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.NCMissileLuncherFrag,Weapons.NCMissileLuncherKrak,Weapons.NCFists),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+    )
+
+    val GunnerMelta = Operator(
+        name = "Gunner (Meltagun)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.NCMeltaGun,Weapons.NCFists),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+    )
+
+    val GunnerPlasma = Operator(
+        name = "Gunner (Plasma gun)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.NCPlasmaGunStandard,Weapons.NCPlasmaGunCharged,Weapons.NCFists),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+    )
+
+    val GunnerFlamer = Operator(
+        name = "Gunner (Flamer)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.NCFlamer,Weapons.NCFists),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+    )
+
+    val WarriorBolter = Operator(
+        name = "Warrior (Bolt gun)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.NCBoltgun,Weapons.NCFists),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+        additionalRules = "**Cruel Tormenter:** Whenever this operative is shooting against, fighting against or retaliating against an injured enemy operative, or an enemy operative that has a Wounds stat of 7 or less, its weapons have the xxLethal 5+xx weapon rule. "
+    )
+
+
+
+
+    val operatorList = listOf(Visionary,Fearmonger,Screecher,Skinthief,Ventrilokar,HeavyGunnerMissile,GunnerMelta,GunnerPlasma,WarriorBolter)
 }
