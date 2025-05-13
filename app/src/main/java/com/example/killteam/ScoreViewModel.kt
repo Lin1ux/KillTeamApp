@@ -20,6 +20,7 @@ import com.example.killteam.Objects.SelectionRuleList
 import com.example.killteam.Objects.SelectionRuleListChapterTactics
 import com.example.killteam.Objects.SelectionRuleListWithPrimary
 import com.example.killteam.Objects.TeamRule
+import com.example.killteam.Objects.Weapon
 import com.example.killteam.ui.theme.KTColors
 import kotlin.Int
 
@@ -33,23 +34,23 @@ class ScoreViewModel : ViewModel()
     //Player State
     inner class PlayerState
     {
-        var selectedTeam by mutableStateOf(KillTeams.teamList[0])
-        var selectedTacop by mutableStateOf(TacOps.Unknown)
-        var primaryTacop by mutableStateOf(PointType.UNKNOWN)
+        var selectedTeam by mutableStateOf(KillTeams.teamList[0])       //Selected Kill Team
+        var selectedTacop by mutableStateOf(TacOps.Unknown)             //Selected Tacop
+        var primaryOp by mutableStateOf(PointType.UNKNOWN)              //Selected Primary OP
 
-        val critPoints = mutableStateListOf(0,0,0,0,0,0,0)
-        val tacPoints = mutableStateListOf(0,0,0,0,0,0,0)
-        var killPoints = mutableStateListOf(0,0,0,0,0,0,0)
+        val critPoints = mutableStateListOf(0,0,0,0,0,0,0)              //Points from CritOp
+        val tacPoints = mutableStateListOf(0,0,0,0,0,0,0)               //Points from TacOp
+        var killPoints = mutableStateListOf(0,0,0,0,0,0,0)              //Points from KillOp
 
-        var commandPoints by mutableStateOf(3)
+        var commandPoints by mutableStateOf(3)                          //Amount of Command points (CP)
 
-        var teamRulesData = mutableStateListOf<teamRulesState>()
+        var teamRulesData = mutableStateListOf<teamRulesState>()        //List of Team rules
 
-        var ploysData = mutableStateListOf<ploySelection>()
-        var eqData = mutableStateListOf<eqSelection>()
-        var troopsData = mutableStateListOf<selectedOperators>()
+        var ploysData = mutableStateListOf<ploySelection>()             //List of information about ploys
+        var eqData = mutableStateListOf<eqSelection>()                  //List of selected equipment
+        var troopsData = mutableStateListOf<selectedOperators>()        //List of selected operators
 
-        var troopsSelected by mutableStateOf(false)
+        var troopsSelected by mutableStateOf(false)                     //Are operators selected
 
         fun SetTeam(team : TeamInfo)
         {
@@ -176,17 +177,17 @@ class ScoreViewModel : ViewModel()
             {
                 return
             }
-            primaryTacop = type
+            primaryOp = type
         }
         //Return is Primary op selected
         fun IsPrimaryOpSelected() : Boolean
         {
-            return primaryTacop != PointType.UNKNOWN
+            return primaryOp != PointType.UNKNOWN
         }
         //Give information about Selected Tacop
         fun GetPrimaryInfo() : String
         {
-            if(primaryTacop == PointType.UNKNOWN) //If player don't select primary op
+            if(primaryOp == PointType.UNKNOWN) //If player don't select primary op
             {
                 return "Select Primary Op!"
             }
@@ -195,7 +196,7 @@ class ScoreViewModel : ViewModel()
                 return "Primary Op Selected"
             }
             //If game finishes tac op is revealed
-            when(primaryTacop)
+            when(primaryOp)
             {
                 PointType.CRITOP -> { return "Crit Op: "+critPoints.last().toString() }
                 PointType.TACOP -> { return "Tac Op: "+tacPoints.last().toString() }
@@ -448,6 +449,11 @@ class ScoreViewModel : ViewModel()
                 troopsData[index].currentWounds.value = 0
             }
             CountKillBonus()
+        }
+        //Get Weapon by index from operator's index and
+        fun GetWeaponById(unitIndex : Int, weaponIndex : Int) : Weapon
+        {
+            return troopsData[unitIndex].operator.weapons[weaponIndex]
         }
     }
     val RedPlayer = PlayerState()   //First Player - Red
@@ -750,7 +756,7 @@ class ScoreViewModel : ViewModel()
     {
         gameFinished = true
         //Counting Primary Ops points for Red Player
-        when(RedPlayer.primaryTacop)
+        when(RedPlayer.primaryOp)
         {
             PointType.CRITOP -> { RedPlayer.critPoints[RedPlayer.critPoints.size-1] = countBonus(RedPlayer.critPoints) }
             PointType.TACOP -> { RedPlayer.tacPoints[RedPlayer.tacPoints.size-1] = countBonus(RedPlayer.tacPoints) }
@@ -758,7 +764,7 @@ class ScoreViewModel : ViewModel()
             PointType.UNKNOWN -> { }
         }
         //Counting Primary Ops points for Blue Player
-        when(BluePlayer.primaryTacop)
+        when(BluePlayer.primaryOp)
         {
             PointType.CRITOP -> { BluePlayer.critPoints[BluePlayer.critPoints.size-1] = countBonus(BluePlayer.critPoints) }
             PointType.TACOP -> { BluePlayer.tacPoints[BluePlayer.tacPoints.size-1] = countBonus(BluePlayer.tacPoints) }

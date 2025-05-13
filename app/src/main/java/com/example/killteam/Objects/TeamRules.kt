@@ -284,7 +284,10 @@ object KasrkinSquadRules
 {
     val LightEmUp = Passive(
         name = "Light 'Em Up",
-        description = "Whenever a friendly ##KASRKIN## operative is shooting a ready enemy operative, that friendly operative’s ranged weapons have the xxSeverexx weapon rule.",
+        description = "Whenever a friendly ##KASRKIN## operative is shooting, its ranged weapons have the xxSeverexx weapon rule if any of the following are true for the target:\n" +
+                "\n • It’s ready.\n" +
+                "\n • It’s not in cover.\n" +
+                "\n • It’s being scanned (see **RECON-TROOPER).**"
     )
 
     val StrikeFast = Passive(
@@ -294,12 +297,12 @@ object KasrkinSquadRules
 
     val IceInYourVeins = Passive(
         name = "Ice In Your Veins",
-        description = "Whenever a friendly ##KASRKIN## operative is fighting or retaliating, or an operative is shooting it, the first time an attack dice inflicts Normal Dmg of 4 or more on this operative during that sequence, that dice inflicts 1 less damage on it.",
+        description = "Whenever a friendly ##KASRKIN## operative is fighting or retaliating, or an operative is shooting it, the first time an attack dice inflicts Normal Dmg of 3 or more on this operative during that sequence, that dice inflicts 1 less damage on it.",
     )
 
     val ForCadia = Passive(
         name = "For Cadia!",
-        description = "Add 1 to the Atk stat of friendly ##KASRKIN## operatives’ melee weapons (to a maximum of 4).",
+        description = "Add 1 to the Atk stat of friendly ##KASRKIN## operatives’ melee weapons (to a maximum of 4). Whenever a friendly ##KASRKIN## operative is fighting, the first time you strike during that sequence, inflict 1 additional damage.",
     )
 
     val SkillAtArms = SelectionRuleList(

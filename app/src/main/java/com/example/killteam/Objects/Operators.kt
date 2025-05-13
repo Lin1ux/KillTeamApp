@@ -484,7 +484,7 @@ object VoidscaredCorsairsOperator
         weapons = listOf(Weapons.VCFalchou,Weapons.VCShurikenPistol,Weapons.VCPowerWeapon),
         keywords = listOf("##Corsairs Voidscared"),
         size = 28,
-        additionalRules = " **Faolchu’s Bond:** The first time during each turning point that this operative is **retaliating,** if it hasn’t used its Faolchu ranged weapon during this turning point, in the Resolve Attack Dice step of that sequence, you resolve the first attack dice (i.e. defender instead of attacker). \n\n " +
+        additionalRules = "**Faolchú’s Bond:** The first time during each turning point that this operative is retaliating, if it’s ready, in the Resolve Attack Dice step of that sequence, you resolve the first attack dice (i.e. defender instead of attacker). \n\n " +
         "**Erudite Hunter:** **STRATEGIC GAMBIT.** Select one enemy operative within 9\" of this operative. Once during this turning point, after that enemy operative performs an action in which it moves during its activation, you can interrupt that activation to use this rule. If you do, this operative can immediately perform either a free **Reposition** action (it cannot end that move further from that enemy operative), or a free **Charge** action (you can change its order to do so, and it must end that move within control Range of that enemy operative). "
     )
 
@@ -497,8 +497,8 @@ object VoidscaredCorsairsOperator
         weapons = listOf(Weapons.VCShurikenPistol,Weapons.VCThrowingBlades,Weapons.VCHekatariiBlades),
         keywords = listOf("##Corsairs Voidscared"),
         size = 28,
-        additionalRules = " **Blink Pack:** Whenever this operative performs the **Charge,** **Fall Back** or **Reposition** action, it can warp jump. If it does, don’t move it. Instead, remove it from the killzone and set it back up wholly within 7\" of its original location, measuring the horizontal distance only (in Killzone: Gallowdark, this distance can be measured through walls). It must be set up in a location it can be placed, and unless it’s the **Charge** action, it cannot be set up within control Range of an enemy operative.  \n\n " +
-                "**Slicing Attack:** Whenever this operative performs the **Reposition** action with a warp jump (see left), you can use this rule. If you do, after it moves, draw an imaginary line 1mm in diameter and up to 7\" long between it and its previous location. Note this doesn’t have to be a straight line. Inflict **1D3+2** damage on one enemy operative that line crosses. A 28mm round marker can be temporarily placed underneath this operative before it moves to help determine this. "
+        additionalRules = " **Blink Pack:** Whenever this operative performs the **Charge,** **Fall Back** or **Reposition** action, it can warp jump. If it does, don’t move it. Instead, remove it from the killzone and set it back up wholly within 7\" of its original location, measuring the horizontal distance only (in Killzone: Gallowdark, this distance can be measured through walls). It must be set up in a location it can be placed, and unless it’s the **Charge** action, it cannot be set up within control Range of an enemy operative. This operative cannot warp jump during the same activation in which it performed the **Dash** action (or vice versa).  \n\n " +
+                "**Slicing Attack:** Whenever this operative performs the **Reposition** action with a warp jump (see left), you can use this rule. If you do, after it moves, draw an imaginary line 1mm in diameter and up to 7\" long between it and its previous location. Note this doesn’t have to be a straight line. Inflict **1D3+2** damage on one enemy operative that line crosses. You cannot inflict damage on an enemy operative that was not visible to this operative at the start of that action. A 28mm round marker can be temporarily placed underneath this operative before it moves to help determine this. "
     )
 
     val Kurnati = Operator(
@@ -675,7 +675,8 @@ object HunterCladeOperators{
         size = 25,
         leader = true,
         additionalRules = " **Canticle of Elimination:** Whenever a friendly ##HUNTER CLADE## **RANGER** operative is within 3\" of this operative, that friendly operative's ranged weapons have the xxPunishingxx weapon rule. \n\n " +
-            "**Targeting Protocol:** Whenever this operative is shooting, if it hasn’t moved during the activation, or if it’s a counteraction, ranged weapons on its datacard have the xxLethal 5+xx weapon rule. Note this operative isn’t restricted from moving after shooting. "
+            "**Targeting Protocol:** Whenever this operative is shooting, if it hasn’t moved during the activation, or if it’s a counteraction, ranged weapons on its datacard have the xxLethal 5+xx weapon rule. Note this operative isn’t restricted from moving after shooting. \n\n " +
+            "**Control Protocol:** You can use the **Command Override** firefight ploy for 0CP if the specified friendly ##HUNTER CLADE## operative is visible to this operative."
     )
 
     val RangerArcRifle  = Operator(

@@ -35,6 +35,7 @@ import com.example.killteam.RemoveKeyWord
 import com.example.killteam.ScoreViewModel
 import com.example.killteam.ui.theme.KTColors
 
+//Componet for selecting and removing operators
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun UnitSelectionScreen(navController : NavController, viewModel: ScoreViewModel, firstPlayer : Boolean)
@@ -172,7 +173,7 @@ fun OperatorButton(viewModel: ScoreViewModel, firstPlayer : Boolean, operator: O
     }
 }
 
-//Dialog Window which ask player is game should be ended
+//Dialog Window which ask player is he want to confirm selected troops
 @Composable
 fun TroopSelectionInfoDialog(
     color : Color,

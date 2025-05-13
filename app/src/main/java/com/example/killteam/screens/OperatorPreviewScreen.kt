@@ -49,6 +49,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.killteam.Actions
 import com.example.killteam.ConfirmDialog
 import com.example.killteam.ConvertWeaponRulesToString
@@ -56,6 +57,7 @@ import com.example.killteam.FormatTextWithMarkers
 import com.example.killteam.GetOrderColor
 import com.example.killteam.GetOrderIcon
 import com.example.killteam.InjureWorsenMove
+import com.example.killteam.InteractableWeaponsList
 import com.example.killteam.IsInjured
 import com.example.killteam.R
 import com.example.killteam.RemoveKeyWord
@@ -68,7 +70,7 @@ import com.example.killteam.ui.theme.KTColors
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun PreviewScreen(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
+fun PreviewScreen(navController: NavController,viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
 {
     LazyColumn(modifier = Modifier.fillMaxSize())
     {
@@ -97,7 +99,7 @@ fun PreviewScreen(viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
         }
         item() //Operator's Weapons
         {
-            WeaponsListSmall(viewModel.GetPlayer(firstPlayer).GetTroopByIndex(index).weapons,IsInjured(viewModel.GetPlayer(firstPlayer).GetTroopSelectionByIndex(index)))
+            InteractableWeaponsList(navController,viewModel.GetPlayer(firstPlayer).GetTroopByIndex(index).weapons,IsInjured(viewModel.GetPlayer(firstPlayer).GetTroopSelectionByIndex(index)),firstPlayer,index)
         }
         item() //Operator's Additional rules
         {

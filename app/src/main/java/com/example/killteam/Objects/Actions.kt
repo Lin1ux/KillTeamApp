@@ -54,7 +54,7 @@ object Actions
     val KSTacticalCommand = Action(
         name = "TACTICAL COMMAND",
         cost = 0,
-        description = "Select one friendly ##KASRKIN## operative. Select a **SKILL AT ARMS** for that operative to have (instead of any it currently has) until the Ready step of the next Strategy phase.\n" +
+        description = "Select one friendly ##KASRKIN## operative, then select one **SKILL AT ARMS** for that operative to have until the Ready step of the next Strategy phase. This can be in addition to any **SKILL AT ARMS** it already has, but they cannot be the same.\n" +
                 "\nAlternatively, instead of resolving the above effect, if your Clearance Sweep marker is in the killzone, you can remove it and place it again. ",
     )
 
@@ -65,7 +65,7 @@ object Actions
 
     val KSAuspexScan = Action(
         name = "AUSPEX SCAN",
-        description = "Until the start of this operative’s next activation or until it’s incapacitated (whichever comes first), whenever a friendly ##KASRKIN## operative is shooting an enemy operative within 8\" of this operative, that enemy operative cannot be xxobscured.xx "
+        description = "Until the start of this operative’s next activation or until it’s incapacitated (whichever comes first), whenever an enemy operative is within 8\" of this operative, that enemy operative is being scanned. Whenever a friendly ##KASRKIN## operative is shooting an enemy operative that’s being scanned, that enemy operative cannot be xxobscured.xx "
     )
 
     val KSBattleComms = Action (
@@ -92,7 +92,7 @@ object Actions
 
     val VCWardingShield = Action (
         name = "WARDING SHIELD",
-        description = "**PSYCHIC:** Select one friendly ##CORSAIR VOIDSCARRED## operative visible to and within 6\" of this operative. Until the start of this operative’s next activation, until it’s incapacitated or until it performs this action again (whichever comes first), the first time an attack dice inflicts damage on that friendly operative, ignore that inflicted damage.",
+        description = "**PSYCHIC:** Select one friendly ##CORSAIR VOIDSCARRED## operative visible to and within 6\" of this operative. Until the start of this operative’s next activation, until it’s incapacitated or until it performs this action again (whichever comes first), the first time an attack dice inflicts Normal Damage on that friendly operative, ignore that inflicted damage.",
     )
 
     val VCSoulChannel = Action (

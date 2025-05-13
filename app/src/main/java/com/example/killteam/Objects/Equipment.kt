@@ -109,7 +109,7 @@ object KasrkinEQ
 
     val LongRangeScope = Equipment(
         name = "Long-Range Scope",
-        description = "Whenever a friendly ##KASRKIN## operative is shooting an operative more than 6\" from it, in the Roll Attack Dice step, if you retain any critical successes, its hot-shot weapons (excluding hot-shot laspistol) have the xxSaturatexx weapon rule."
+        description = "Whenever a friendly ##KASRKIN## operative is shooting an operative more than 6\" from it, that friendly operative’s hot-shot weapons have the xxSaturatexx weapon rule."
     )
 
     val RelicsOfCadia = Equipment(

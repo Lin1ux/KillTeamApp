@@ -351,7 +351,7 @@ fun Equipment(viewModel: ScoreViewModel, firstPlayer: Boolean, eqSelection: eqSe
             if(showDialog)
             {
                 EquipmentInfoDialog(
-                    KTColors.Orange,firstPlayer, eqSelection,viewModel,
+                    KTColors.Orange, eqSelection,
                     {showDialog = false},   //On Dismiss
                     { finish -> if(finish)  //On Accept
                         {
@@ -369,9 +369,7 @@ fun Equipment(viewModel: ScoreViewModel, firstPlayer: Boolean, eqSelection: eqSe
 @Composable
 fun EquipmentInfoDialog(
     color : Color,
-    firstPlayer : Boolean,
     eqSelection: eqSelection,
-    viewModel: ScoreViewModel,
     onDismiss: () -> Unit,
     onAccept: (Boolean) -> Unit
 )

@@ -19,7 +19,7 @@ object DeathKorpsPloys
 
     val ClearTheLine = Ploy(
         name = "Clear The Line",
-        description = "When a friendly ##DEATH KORPS## operative is fighting within your territory, contesting an objective marker, or retaliating, its melee weapons gain the xxAccurate 1xx weapon rule.",
+        description = "Friendly ##DEATH KORPS## operatives’ melee weapons have the xxAccurate 1xx weapon rule. Whenever a friendly ##DEATH KORPS## operative is fighting wholly within your territory, or whenever it’s retaliating, its melee weapons also have the xxSeverexx weapon rule.",
         type = PloyType.STRATEGY,
         cost = "1CP"
     )
@@ -70,7 +70,7 @@ object KasrkinPloys
 {
     val EliminationPattern = Ploy(
         name = "Elimination Pattern",
-        description = "Whenever a friendly ##KASRKIN## operative is shooting with a hot-shot weapon against a target that’s not in cover, that weapon has the xxPiercing Crits 1xx weapon rule, or xxPiercing 1xx instead if it’s a hot-shot volley gun.",
+        description = "Whenever a friendly ##KASRKIN## operative is shooting with a hot-shot weapon against a target that’s not in cover or is being scanned (see **RECON-TROOPER),** that weapon has the xxPiercing Crits 1xx weapon rule, or xxPiercing 1xx instead if it’s a hot-shot volley gun.",
         type = PloyType.STRATEGY,
         cost = "1CP"
     )
@@ -84,7 +84,7 @@ object KasrkinPloys
 
     val ClearanceSweep = Ploy(
         name = "Clearance Sweep",
-        description = "Place your Clearance Sweep marker in the killzone. Whenever a friendly ##KASRKIN## operative within 5\" horizontally of that marker is shooting an operative also within 5\" horizontally of that marker, that friendly operative’s weapons have the xxBalancedxx weapon rule. In the Ready step of the next Strategy phase, remove that marker.",
+        description = "Place your Clearance Sweep marker in the killzone. Whenever a friendly ##KASRKIN## operative within 5\" horizontally of that marker is shooting an operative also within 5\" horizontally of that marker, that friendly operative’s weapons have the xxCeaselessxx weapon rule. In the Ready step of the next Strategy phase, remove that marker.",
         type = PloyType.STRATEGY,
         cost = "1CP"
     )
@@ -114,7 +114,7 @@ object KasrkinPloys
 
     val NeutriliseTarget = Ploy(
         name = "Neutralise Target",
-        description = "Use this firefight ploy when a friendly ##KASRKIN## operative is shooting, after rolling your attack dice. If the target is **expended** and not in **cover,** you can **re-roll** any of your attack dice.",
+        description = "Use this firefight ploy when a friendly ##KASRKIN## operative if it’s shooting an operative that’s expended and is either not in cover or is being scanned (see **RECON-TROOPER).** You can **re-roll** any of your attack dice.",
         type = PloyType.FIREFIGHT,
         cost = "1CP"
     )
@@ -245,7 +245,7 @@ object VoidscaredCorsairsPloys
 
     val CapriciousFlight = Ploy(
         name = "Capricious Flight",
-        description = "Use this firefight ploy during a friendly ##CORSAIR VOIDSCARRED## operative’s activation. During that activation, that operative can perform the **Fall Back** action for 1 less AP.",
+        description = "Use this firefight ploy during a friendly ##CORSAIR VOIDSCARRED## operative’s activation, before or after it performs an action. During that activation, that operative can perform the **Fall Back** action for 1 less AP.",
         type = PloyType.FIREFIGHT,
         cost = "1CP"
     )
@@ -276,7 +276,7 @@ object PlagueMarinesPloys
 
     val CloudOfFlies = Ploy(
         name = "Cloud Of Flies",
-        description = "Place one of your Cloud of Flies markers in the killzone. Whenever an operative is shooting a friendly ##PLAGUE MARINE## operative that’s more than 3\" from it, if that friendly operative is wholly within 3\" of that marker, that friendly operative is **obscured.** In the Ready step of the next Strategy phase, remove that marker.",
+        description = "Place one of your Cloud of Flies markers in the killzone. Whenever an operative is shooting a friendly ##PLAGUE MARINE## operative that’s more than 3\" from it, if that friendly operative is wholly within 1\" of that marker, that friendly operative is **obscured.** In the Ready step of the next Strategy phase, remove that marker.",
         type = PloyType.STRATEGY,
         cost = "1CP"
     )
@@ -495,7 +495,7 @@ object NemesisClawPloys
 
     val ReturnToDarkness = Ploy(
         name = "Return To Darkness",
-        description = "One friendly ##NEMESIS CLAW## operative can immediately perform a free **Fall Back** or **Reposition** action, but it must end that move with Heavy terrain within its control range, or any part of its base underneath Vantage terrain. In addition, it cannot end that move closer to enemy operatives.",
+        description = "One friendly ##NEMESIS CLAW## operative can immediately perform a free **Fall Back** or **Reposition** action, but it must end that move with Heavy terrain within its control range, or any part of its base underneath Vantage terrain. In addition, it cannot end that move closer to enemy operatives. (in a killzone that uses the close quarters rules, e.g. Killzone: Gallowdark, ignore Wall terrain when determining this).",
         type = PloyType.STRATEGY,
         cost = "1CP"
     )

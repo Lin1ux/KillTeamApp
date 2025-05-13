@@ -39,6 +39,7 @@ import com.example.killteam.Screen
 import com.example.killteam.selectedOperators
 import com.example.killteam.ui.theme.KTColors
 
+//List of selected operators
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun UnitScreen(navController: NavController, viewModel: ScoreViewModel, firstPlayer : Boolean)
@@ -63,6 +64,7 @@ fun UnitScreen(navController: NavController, viewModel: ScoreViewModel, firstPla
     }
 }
 
+//Button which show basic information about operator
 @Composable
 fun SelectedOperatorButton(navController: NavController,
                            viewModel: ScoreViewModel,
