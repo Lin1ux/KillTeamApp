@@ -3,12 +3,15 @@ package com.example.killteam
 sealed class Screen(val route: String)
 {
     object ScoreScreen : Screen("score_screen")
+    object DiceScreen : Screen("dice_screen")
     object FractionScreen : Screen("fraction_screen/{RedPlayer}")
     object UnitScreen : Screen("unit_screen/{RedPlayer}")
     object UnitPreview : Screen("preview_screen/{RedPlayer}/{index}")
     object UnitAttack : Screen("attack_screen/{RedPlayer}/{index}/{weaponIndex}")
 
     fun ScoreScreenRoute() = "score_screen"
+
+    fun DiceRoute() = "dice_screen"
 
     fun FractionRoute(RedPlayer : Boolean) = "fraction_screen/$RedPlayer"
 

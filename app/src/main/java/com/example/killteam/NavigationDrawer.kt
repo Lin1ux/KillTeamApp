@@ -142,6 +142,7 @@ fun NavigationMenu(
         { Log.d("Akcja","Akcja 1") },
         { Log.d("Akcja","Akcja 2") },
         { Log.d("Akcja","Akcja 3") },
+        { navController.navigate(Screen.DiceScreen.DiceRoute()) },
         { navController.navigate(Screen.ScoreScreen.ScoreScreenRoute()) },
     )
 
@@ -194,7 +195,8 @@ fun getMenuItem() : List<MenuItem>
     return listOf(
         MenuItem(1,"Rule Set","1"),
         MenuItem(2,"Login",""),
-        MenuItem(3,"Dice Roller","",Icons.Default.Casino),
-        MenuItem(4,"Score Screen","",Icons.Outlined.Star)
+        MenuItem(3,"Weapon Rules",""),
+        MenuItem(4,"Dice Roller","",Icons.Default.Casino),
+        MenuItem(5,"Score Screen","",Icons.Outlined.Star)
     )
 }

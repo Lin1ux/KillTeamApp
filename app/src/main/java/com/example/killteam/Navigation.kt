@@ -22,8 +22,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+//import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+//import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,6 +44,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.killteam.screens.AttackScreen
+import com.example.killteam.screens.DiceScreen
 import com.example.killteam.screens.FractionScreen
 import com.example.killteam.screens.PreviewScreen
 import com.example.killteam.screens.ScoreScreen
@@ -63,6 +64,10 @@ fun Navigation()
         composable(route = Screen.ScoreScreen.route)
         {
             ShowScoreScreen(navController = navController,viewModel = viewModel)
+        }
+        composable(route = Screen.DiceScreen.route)
+        {
+            ShowDiceScreen(navController)
         }
         composable(route = Screen.FractionScreen.route, //route to Fraction Screen
             arguments = listOf(navArgument("RedPlayer") //It requires boolean argument is Red Player
@@ -129,16 +134,16 @@ fun Navigation()
     }
 }
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
+//@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
 @Composable
 fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel)
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
-    val windowSizeClass = calculateWindowSizeClass(activity)
+    //val windowSizeClass = calculateWindowSizeClass(activity)
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope() // Dodaj scope dla korutyn
+    val scope = rememberCoroutineScope()
     var selectedIndex = remember {mutableStateOf(0)}
 
     ModalNavigationDrawer(
@@ -159,17 +164,45 @@ fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel)
     }
 }
 
+//@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
+@Composable
+fun ShowDiceScreen(navController : NavController)
+{
+    val context = LocalContext.current
+    val activity = context as ComponentActivity
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            NavigationMenu(navController,getMenuItem())
+        }) {
+        Scaffold(
+            topBar = {
+                AppBar(navController,"Dice Roller",false,{ scope.launch { drawerState.open()}})
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                DiceScreen()
+            }
+        }
+    }
+}
+
+
+//@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
 @Composable
 fun ShowFractionScreen(navController : NavController,viewModel: ScoreViewModel,firstPlayer : Boolean)
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
-    val windowSizeClass = calculateWindowSizeClass(activity)
+    //val windowSizeClass = calculateWindowSizeClass(activity)
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope() // Dodaj scope dla korutyn
+    val scope = rememberCoroutineScope()
     var selectedIndex = remember {mutableStateOf(0)}
 
     ModalNavigationDrawer(
@@ -186,25 +219,25 @@ fun ShowFractionScreen(navController : NavController,viewModel: ScoreViewModel,f
         )
         { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                FractionScreen(viewModel, firstPlayer)
+                FractionScreen(navController,viewModel, firstPlayer)
             }
         }
     }
 
 }
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
+//@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
 @Composable
 fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,firstPlayer : Boolean)
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
-    val windowSizeClass = calculateWindowSizeClass(activity)
+    //val windowSizeClass = calculateWindowSizeClass(activity)
 
     if(viewModel.GetPlayer(firstPlayer).IsTroopsSelected())
     {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-        val scope = rememberCoroutineScope() // Dodaj scope dla korutyn
+        val scope = rememberCoroutineScope()
         var selectedIndex = remember {mutableStateOf(0)}
 
         ModalNavigationDrawer(
@@ -228,7 +261,7 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
     else
     {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-        val scope = rememberCoroutineScope() // Dodaj scope dla korutyn
+        val scope = rememberCoroutineScope()
         var selectedIndex = remember {mutableStateOf(0)}
 
         ModalNavigationDrawer(
@@ -252,16 +285,16 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
     }
 }
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
+//@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
 @Composable
 fun ShowPreviewScreen(navController : NavController,viewModel: ScoreViewModel,firstPlayer : Boolean,index : Int)
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
-    val windowSizeClass = calculateWindowSizeClass(activity)
+    //val windowSizeClass = calculateWindowSizeClass(activity)
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope() // Dodaj scope dla korutyn
+    val scope = rememberCoroutineScope()
     var selectedIndex = remember {mutableStateOf(0)}
 
     ModalNavigationDrawer(
@@ -362,16 +395,16 @@ fun ShowPreviewScreen(navController : NavController,viewModel: ScoreViewModel,fi
     }
 }
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
+//@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
 @Composable
 fun ShowAttackScreen(navController : NavController,viewModel: ScoreViewModel,firstPlayer : Boolean, unitIndex : Int, weaponIndex : Int)
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
-    val windowSizeClass = calculateWindowSizeClass(activity)
+    //val windowSizeClass = calculateWindowSizeClass(activity)
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope() // Dodaj scope dla korutyn
+    val scope = rememberCoroutineScope()
     var selectedIndex = remember {mutableStateOf(0)}
 
     ModalNavigationDrawer(

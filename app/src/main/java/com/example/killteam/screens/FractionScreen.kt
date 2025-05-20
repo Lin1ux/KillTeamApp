@@ -31,10 +31,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.killteam.Actions
 import com.example.killteam.FormatTextWithMarkers
 import com.example.killteam.GetAlphaFromPloySelecion
 import com.example.killteam.GetOneTypePloysSelection
+import com.example.killteam.InteractableWeaponsList
+import com.example.killteam.IsInjured
 import com.example.killteam.ScoreViewModel
 import com.example.killteam.WeaponsListSmall
 import com.example.killteam.eqSelection
@@ -44,7 +47,7 @@ import com.example.killteam.ui.theme.KTColors
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
+fun FractionScreen(navController : NavController,viewModel: ScoreViewModel, firstPlayer: Boolean) {
     LazyColumn(modifier = Modifier.fillMaxSize().background(KTColors.Background)) {
 
         item()  //Strategy Ploy Label
@@ -115,7 +118,7 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
                 if(element.selected)
                 {
                     selectedAmount++
-                    Equipment(viewModel, firstPlayer, element)
+                    Equipment(navController,viewModel, firstPlayer, element)
                 }
             }
             if(selectedAmount == 0) //Spacer to prevent merging of to labels
@@ -137,7 +140,7 @@ fun FractionScreen(viewModel: ScoreViewModel, firstPlayer: Boolean) {
             viewModel.GetPlayer(firstPlayer).GetEqBySelection().forEach { element ->
                 if(!element.selected)
                 {
-                    Equipment(viewModel, firstPlayer, element)
+                    Equipment(navController,viewModel, firstPlayer, element)
                 }
             }
         }
@@ -323,7 +326,7 @@ fun PloyInfoDialog(
 
 //Component giving information about selected equipment
 @Composable
-fun Equipment(viewModel: ScoreViewModel, firstPlayer: Boolean, eqSelection: eqSelection)
+fun Equipment(navController: NavController,viewModel: ScoreViewModel, firstPlayer: Boolean, eqSelection: eqSelection)
 {
     Box(
         modifier = Modifier.fillMaxWidth().padding(5.dp).border(2.dp, KTColors.Equipment,RectangleShape)
@@ -351,15 +354,18 @@ fun Equipment(viewModel: ScoreViewModel, firstPlayer: Boolean, eqSelection: eqSe
             if(showDialog)
             {
                 EquipmentInfoDialog(
-                    KTColors.Orange, eqSelection,
-                    {showDialog = false},   //On Dismiss
-                    { finish -> if(finish)  //On Accept
+                    color = KTColors.Orange,
+                    eqSelection = eqSelection,
+                    onDismiss =  {showDialog = false},   //On Dismiss
+                    onAccept =  { finish -> if(finish)  //On Accept
                         {
                             viewModel.GetPlayer(firstPlayer).SwitchEqPlacement(eqSelection.index)
                         }
                         showDialog = false
-                    })
-
+                    },
+                    /*viewModel = viewModel,
+                    navController = navController,
+                    firstPlayer = firstPlayer*/)
             }
         }
     }
@@ -371,7 +377,10 @@ fun EquipmentInfoDialog(
     color : Color,
     eqSelection: eqSelection,
     onDismiss: () -> Unit,
-    onAccept: (Boolean) -> Unit
+    onAccept: (Boolean) -> Unit,
+    /*navController: NavController,
+    viewModel: ScoreViewModel,
+    firstPlayer: Boolean,*/
 )
 {
     AlertDialog(
@@ -399,6 +408,17 @@ fun EquipmentInfoDialog(
                     if(!eqSelection.eq.weapons.isEmpty())
                     {
                         WeaponsListSmall(eqSelection.eq.weapons,false)
+                        //Check if team was selected
+                        /*if(viewModel.GetPlayer(firstPlayer).troopsSelected)
+                        {
+                            InteractableWeaponsList(navController,eqSelection.eq.weapons,false,firstPlayer,0)
+                        }
+                        else
+                        {
+
+                        }*/
+
+                        //
                     }
                     //Actions
                     if(!eqSelection.eq.actions.isEmpty())

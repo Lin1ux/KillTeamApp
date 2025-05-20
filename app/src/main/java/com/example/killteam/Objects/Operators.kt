@@ -1004,6 +1004,17 @@ object NemesiClawOperators{
         size = 32,
     )
 
+    val HeavyGunnerBolter = Operator(
+        name = "Heavy Gunner (Heavy bolter)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.NCHeavyBolterFocused,Weapons.NCHeavyBolterSweeping,Weapons.NCFists),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+    )
+
     val GunnerMelta = Operator(
         name = "Gunner (Meltagun)",
         APL = 3,
@@ -1038,7 +1049,7 @@ object NemesiClawOperators{
     )
 
     val WarriorBolter = Operator(
-        name = "Warrior (Bolt gun)",
+        name = "Warrior (Boltgun)",
         APL = 3,
         move = 6,
         save = 3,
@@ -1046,11 +1057,26 @@ object NemesiClawOperators{
         weapons = listOf(Weapons.NCBoltgun,Weapons.NCFists),
         keywords = listOf("##Nemesis Claw##"),
         size = 32,
+        specialist = false,
+        additionalRules = "**Cruel Tormenter:** Whenever this operative is shooting against, fighting against or retaliating against an injured enemy operative, or an enemy operative that has a Wounds stat of 7 or less, its weapons have the xxLethal 5+xx weapon rule. "
+
+    )
+
+    val WarriorChainsword = Operator(
+        name = "Warrior (Chainsword)",
+        APL = 3,
+        move = 6,
+        save = 3,
+        wounds = 14,
+        weapons = listOf(Weapons.NCBoltPistol,Weapons.NCChainsword,Weapons.NCFists),
+        keywords = listOf("##Nemesis Claw##"),
+        size = 32,
+        specialist = false,
         additionalRules = "**Cruel Tormenter:** Whenever this operative is shooting against, fighting against or retaliating against an injured enemy operative, or an enemy operative that has a Wounds stat of 7 or less, its weapons have the xxLethal 5+xx weapon rule. "
     )
 
 
 
 
-    val operatorList = listOf(Visionary,Fearmonger,Screecher,Skinthief,Ventrilokar,HeavyGunnerMissile,GunnerMelta,GunnerPlasma,WarriorBolter)
+    val operatorList = listOf(Visionary,Fearmonger,Screecher,Skinthief,Ventrilokar,HeavyGunnerMissile,HeavyGunnerBolter,GunnerMelta,GunnerPlasma,WarriorBolter,WarriorChainsword)
 }

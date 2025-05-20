@@ -189,8 +189,8 @@ object Weapons
     val DKRemoteMine = Weapon(
         name = "Remote mine",
         type = WeaponType.RANGED,
-        Atk = 2,
-        Hit = 4,
+        Atk = 4,
+        Hit = 2,
         Dmg = 5,
         CritDmg = 6,
         WeaponRulesList = listOf(WeaponRules.HeavyDash,WeaponRules.Limited1, WeaponRules.Piercieng1,
@@ -311,7 +311,7 @@ object Weapons
     )
 
     val KSGranadeLuncherFrag = Weapon(
-        name = " Grenade launcher (Frag)",
+        name = "Grenade launcher (Frag)",
         type = WeaponType.RANGED,
         Atk = 4,
         Hit = 3,
@@ -321,7 +321,7 @@ object Weapons
     )
 
     val KSGranadeLuncherKrak = Weapon(
-        name = " Grenade launcher (Krak)",
+        name = "Grenade launcher (Krak)",
         type = WeaponType.RANGED,
         Atk = 4,
         Hit = 3,
@@ -1282,6 +1282,26 @@ object Weapons
         Dmg = 5,
         CritDmg = 7,
         WeaponRulesList = listOf(WeaponRules.Piercieng1, WeaponRules.HeavyReposition)
+    )
+
+    val NCHeavyBolterFocused = Weapon(
+        name = "Heavy bolter (Focused)",
+        type = WeaponType.RANGED,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.HeavyReposition, WeaponRules.PiercingCrits1)
+    )
+
+    val NCHeavyBolterSweeping = Weapon(
+        name = "Heavy bolter (Sweeping)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.HeavyReposition, WeaponRules.PiercingCrits1, WeaponRules.Torrent1)
     )
 
     val NCFists = Weapon(

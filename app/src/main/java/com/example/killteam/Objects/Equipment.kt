@@ -275,7 +275,6 @@ object NemesisClawEQ
     val CommsJammers = Equipment(
         name = "Comms Jammers",
         description = "**Comms Jammers:** Whenever an enemy operative is within 3\" of a friendly ##NEMESIS CLAW## operative, that enemy operative’s APL stat cannot be added to. Note that this doesn’t affect APL stats that have already been changed.",
-        weapons = listOf(Weapons.LMaleficBlades)
     )
 
     val equipmentList = listOf(FlayedSkin,ChainSnare,GrislyTrophy,CommsJammers) + UniversalEquipment.equipmentList
