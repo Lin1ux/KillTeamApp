@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    //id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -54,10 +56,25 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation("androidx.navigation:navigation-compose:2.9.0")
     implementation("androidx.compose.material3:material3-window-size-class:1.3.2")
-    implementation("androidx.compose.ui:ui:1.7.8")
+    implementation("androidx.compose.ui:ui:1.8.2")
     implementation("androidx.compose.material:material-icons-core:1.7.8")
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
     implementation("androidx.compose.material:material:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation ("com.google.android.gms:play-services-auth:20.4.1")
+
+    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+
+
     //implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

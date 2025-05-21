@@ -1,6 +1,11 @@
 package com.example.killteam
 
+import android.app.Activity.RESULT_OK
+import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -25,6 +30,7 @@ import androidx.compose.material3.rememberDrawerState
 //import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 //import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,6 +42,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavType
@@ -43,20 +50,27 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.killteam.firebase.GoogleAuthUIClient
+import com.example.killteam.firebase.SignInViewModel
+import com.example.killteam.firebase.UserData
 import com.example.killteam.screens.AttackScreen
 import com.example.killteam.screens.DiceScreen
 import com.example.killteam.screens.FractionScreen
 import com.example.killteam.screens.PreviewScreen
+import com.example.killteam.screens.ProfileScreen
 import com.example.killteam.screens.ScoreScreen
+import com.example.killteam.screens.SignInScreen
 import com.example.killteam.screens.UnitScreen
 import com.example.killteam.screens.UnitSelectionScreen
 import com.example.killteam.ui.theme.KTColors
+import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
 
 @Composable
 fun Navigation()
 {
     val viewModel: ScoreViewModel = viewModel()
+    val loginViewModel = viewModel<SignInViewModel>()
 
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.ScoreScreen.route)
@@ -68,6 +82,14 @@ fun Navigation()
         composable(route = Screen.DiceScreen.route)
         {
             ShowDiceScreen(navController)
+        }
+        composable(route = Screen.LoginScreen.route)
+        {
+            ShowLoginScreen(navController,loginViewModel)
+        }
+        composable(route = Screen.ProfileScreen.route)
+        {
+            ShowProfileScreen(navController,loginViewModel)
         }
         composable(route = Screen.FractionScreen.route, //route to Fraction Screen
             arguments = listOf(navArgument("RedPlayer") //It requires boolean argument is Red Player
@@ -192,6 +214,141 @@ fun ShowDiceScreen(navController : NavController)
     }
 }
 
+@Composable
+fun ShowLoginScreen(navController : NavController,loginViewModel: SignInViewModel)
+{
+    //Google Login
+    val context = LocalContext.current
+    val state by loginViewModel.state.collectAsStateWithLifecycle()
+
+    val launcherScope = rememberCoroutineScope()
+
+    val googleAuthUiClient by lazy {
+        GoogleAuthUIClient(context = context.applicationContext, oneTapClient = Identity.getSignInClient(context.applicationContext))
+    }
+
+    LaunchedEffect(key1 = Unit)
+    {
+        if(googleAuthUiClient.getSignedInUser() != null)
+        {
+            navController.navigate(Screen.ProfileScreen.route)
+        }
+    }
+
+    val loginScope = rememberCoroutineScope()
+    //Menu Drawer
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartIntentSenderForResult(),
+        onResult = { result ->
+            if(result.resultCode == RESULT_OK) {
+                loginScope.launch {
+                    val signInResult = googleAuthUiClient.SignInWithIntent(
+                        intent = result.data ?: return@launch
+                    )
+                    loginViewModel.onSignInResult(signInResult)
+                }
+            }
+        }
+    )
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            NavigationMenu(navController,getMenuItem())
+        }) {
+        Scaffold(
+            topBar = {
+                AppBar(navController,"Login",false,{ scope.launch { drawerState.open()}})
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                LaunchedEffect(key1 = state.isSignInSuccessful)
+                {
+                    if(state.isSignInSuccessful)
+                    {
+                        Toast.makeText(context, "Sign in successful", Toast.LENGTH_LONG).show()
+                        navController.navigate(Screen.ProfileScreen.route)
+                    }
+                }
+                SignInScreen(state = state,
+                            onSignInClick = {
+                                launcherScope.launch {
+                                    val signInIntentSender = googleAuthUiClient.signIn()
+                                    launcher.launch(
+                                        IntentSenderRequest.Builder(signInIntentSender?: return@launch).build())
+                                }
+                            })
+            }
+        }
+    }
+}
+
+@Composable
+fun ShowProfileScreen(navController : NavController,loginViewModel: SignInViewModel)
+{
+    val context = LocalContext.current
+
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+    val launcherScope = rememberCoroutineScope()
+
+    val googleAuthUiClient by lazy {
+        GoogleAuthUIClient(context = context.applicationContext, oneTapClient = Identity.getSignInClient(context.applicationContext))
+    }
+    val loginScope = rememberCoroutineScope()
+
+    val state by loginViewModel.state.collectAsStateWithLifecycle()
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartIntentSenderForResult(),
+        onResult = { result ->
+            if(result.resultCode == RESULT_OK) {
+                loginScope.launch {
+                    val signInResult = googleAuthUiClient.SignInWithIntent(
+                        intent = result.data ?: return@launch
+                    )
+                    loginViewModel.onSignInResult(signInResult)
+                    navController.navigate(Screen.ProfileScreen.route)
+                }
+            }
+        }
+    )
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            NavigationMenu(navController,getMenuItem())
+        }) {
+        Scaffold(
+            topBar = {
+                AppBar(navController,"Login",false,{ scope.launch { drawerState.open()}})
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                LaunchedEffect(key1 = state.isSignInSuccessful)
+                {
+                    Toast.makeText(context, "Sign in successful", Toast.LENGTH_LONG).show()
+                }
+                ProfileScreen(
+                    userData = googleAuthUiClient.getSignedInUser(),
+                    onSignOutClick = {
+                        launcherScope.launch {
+                            googleAuthUiClient.signOut()
+                            Toast.makeText(context, "Sign out", Toast.LENGTH_LONG).show()
+                            navController.navigate(Screen.LoginScreen.route)
+                            loginViewModel.resetState()
+                        }
+                    }
+                )
+            }
+        }
+    }
+}
+
 
 //@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
 @Composable
@@ -199,6 +356,7 @@ fun ShowFractionScreen(navController : NavController,viewModel: ScoreViewModel,f
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
+
     //val windowSizeClass = calculateWindowSizeClass(activity)
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)

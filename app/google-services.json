@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "462425593915",
+    "project_id": "killteamapp",
+    "storage_bucket": "killteamapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462425593915:android:6c2b3d7353abfa80e7e41e",
+        "android_client_info": {
+          "package_name": "com.example.killteam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb9ySRxVgD_mF2Hw2nfYHkdaxk6zl1NRU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
