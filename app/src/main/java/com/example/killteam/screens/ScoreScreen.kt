@@ -38,6 +38,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -47,12 +48,15 @@ import androidx.navigation.NavController
 import com.example.killteam.R
 import com.example.killteam.ScoreViewModel
 import com.example.killteam.Screen
+import com.example.killteam.firebase.DatabaseViewModel
+import com.example.killteam.firebase.GoogleAuthUIClient
 import com.example.killteam.getMissions
 import com.example.killteam.ui.theme.KTColors
+import com.google.android.gms.auth.api.identity.Identity
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun ScoreScreen(viewModel: ScoreViewModel, navController : NavController)
+fun ScoreScreen(viewModel: ScoreViewModel,dbViewModel: DatabaseViewModel, navController : NavController)
 {
     LazyColumn(modifier = Modifier.fillMaxSize().background(KTColors.Background).padding(horizontal = 5.dp))
     {
@@ -63,7 +67,7 @@ fun ScoreScreen(viewModel: ScoreViewModel, navController : NavController)
         }
         item()
         {
-            RoundBar(viewModel)    //Show which is current round
+            RoundBar(viewModel,dbViewModel)    //Show which is current round
         }
         item()
         {
@@ -108,9 +112,10 @@ fun PlayerInfo(color : Color,
 
 //Creates bar for managing rounds
 @Composable
-fun RoundBar(viewModel: ScoreViewModel)
+fun RoundBar(viewModel: ScoreViewModel,dbViewModel: DatabaseViewModel)
 {
 
+    val context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxWidth().height(100.dp).border(2.dp, KTColors.Orange, RectangleShape)
     )
@@ -169,6 +174,14 @@ fun RoundBar(viewModel: ScoreViewModel)
                             {
                                 viewModel.ChangeRound(5)
                                 viewModel.FinishGame()
+
+                                val googleAuthUiClient by lazy {
+                                    GoogleAuthUIClient(context = context.applicationContext, oneTapClient = Identity.getSignInClient(context.applicationContext))
+                                }
+                                if(googleAuthUiClient.isUserSignedIn())
+                                {
+                                    viewModel.SaveGame(dbViewModel,googleAuthUiClient.getSignedInUser())
+                                }
                             }
                             showDialog = false
                         })

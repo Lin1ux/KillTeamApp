@@ -50,12 +50,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.killteam.firebase.DatabaseViewModel
 import com.example.killteam.firebase.GoogleAuthUIClient
 import com.example.killteam.firebase.SignInViewModel
 import com.example.killteam.firebase.UserData
 import com.example.killteam.screens.AttackScreen
 import com.example.killteam.screens.DiceScreen
 import com.example.killteam.screens.FractionScreen
+import com.example.killteam.screens.GameList
 import com.example.killteam.screens.PreviewScreen
 import com.example.killteam.screens.ProfileScreen
 import com.example.killteam.screens.ScoreScreen
@@ -72,12 +74,14 @@ fun Navigation()
     val viewModel: ScoreViewModel = viewModel()
     val loginViewModel = viewModel<SignInViewModel>()
 
+    val dbViewModel = viewModel<DatabaseViewModel>()
+
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.ScoreScreen.route)
     {
         composable(route = Screen.ScoreScreen.route)
         {
-            ShowScoreScreen(navController = navController,viewModel = viewModel)
+            ShowScoreScreen(navController = navController,viewModel = viewModel,dbViewModel = dbViewModel)
         }
         composable(route = Screen.DiceScreen.route)
         {
@@ -90,6 +94,10 @@ fun Navigation()
         composable(route = Screen.ProfileScreen.route)
         {
             ShowProfileScreen(navController,loginViewModel)
+        }
+        composable(route = Screen.HistoryListScreen.route)
+        {
+            ShowHistoryScreen(navController,dbViewModel)
         }
         composable(route = Screen.FractionScreen.route, //route to Fraction Screen
             arguments = listOf(navArgument("RedPlayer") //It requires boolean argument is Red Player
@@ -158,7 +166,7 @@ fun Navigation()
 
 //@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
 @Composable
-fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel)
+fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel,dbViewModel: DatabaseViewModel)
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
@@ -180,7 +188,7 @@ fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel)
         )
         { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                ScoreScreen(viewModel = viewModel, navController)
+                ScoreScreen(viewModel = viewModel,dbViewModel , navController)
             }
         }
     }
@@ -203,7 +211,7 @@ fun ShowDiceScreen(navController : NavController)
         }) {
         Scaffold(
             topBar = {
-                AppBar(navController,"Dice Roller",false,{ scope.launch { drawerState.open()}})
+                AppBar(navController,"Dice Roller",true,{ scope.launch { drawerState.open()}})
             }
         )
         { innerPadding ->
@@ -344,6 +352,53 @@ fun ShowProfileScreen(navController : NavController,loginViewModel: SignInViewMo
                         }
                     }
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun ShowHistoryScreen(navController : NavController,dbViewModel: DatabaseViewModel)
+{
+    val context = LocalContext.current
+    val googleAuthUiClient by lazy {
+        GoogleAuthUIClient(context = context.applicationContext, oneTapClient = Identity.getSignInClient(context.applicationContext))
+    }
+
+    if(!googleAuthUiClient.isUserSignedIn())
+    {
+        navController.navigate(Screen.LoginScreen.route)
+    }
+
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+
+    //val dbViewModel = viewModel<DatabaseViewModel>()
+
+    LaunchedEffect(Unit) {
+        dbViewModel.getUserData(googleAuthUiClient.getSignedInUser())
+    }
+
+    //dbViewModel.saveUserData(googleAuthUiClient.getSignedInUser())
+    //dbViewModel.getUserData(googleAuthUiClient.getSignedInUser())
+
+
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            NavigationMenu(navController,getMenuItem())
+        }) {
+        Scaffold(
+            topBar = {
+                AppBar(navController,"Game history",true,{ scope.launch { drawerState.open()}})
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding))
+            {
+                GameList(navController,dbViewModel)
             }
         }
     }

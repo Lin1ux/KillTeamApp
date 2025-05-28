@@ -6,6 +6,7 @@ sealed class Screen(val route: String)
     object DiceScreen : Screen("dice_screen")
     object LoginScreen : Screen("login_screen")
     object ProfileScreen : Screen("profile_screen")
+    object HistoryListScreen : Screen("history_list_screen")
     object FractionScreen : Screen("fraction_screen/{RedPlayer}")
     object UnitScreen : Screen("unit_screen/{RedPlayer}")
     object UnitPreview : Screen("preview_screen/{RedPlayer}/{index}")
@@ -18,6 +19,8 @@ sealed class Screen(val route: String)
     fun LoginScreenRoute() = "login_screen"
 
     fun ProfileScreenRoute() = "profile_screen"
+
+    fun HistoryListScreenRoute() = "history_list_screen"
 
     fun FractionRoute(RedPlayer : Boolean) = "fraction_screen/$RedPlayer"
 

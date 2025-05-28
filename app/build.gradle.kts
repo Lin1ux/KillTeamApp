@@ -61,6 +61,10 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
     implementation("androidx.compose.material:material:1.8.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+    //Rund Time
+    implementation ("androidx.compose.runtime:runtime:1.3.0")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.3.0")
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
@@ -73,6 +77,8 @@ dependencies {
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
 
 
     //implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")

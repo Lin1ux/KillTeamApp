@@ -21,6 +21,11 @@ import com.example.killteam.Objects.SelectionRuleListChapterTactics
 import com.example.killteam.Objects.SelectionRuleListWithPrimary
 import com.example.killteam.Objects.TeamRule
 import com.example.killteam.Objects.Weapon
+import com.example.killteam.firebase.DatabaseViewModel
+import com.example.killteam.firebase.GameInfo
+import com.example.killteam.firebase.PlayerInfo
+import com.example.killteam.firebase.UnitInfo
+import com.example.killteam.firebase.UserData
 import com.example.killteam.ui.theme.KTColors
 import kotlin.Int
 
@@ -772,6 +777,66 @@ class ScoreViewModel : ViewModel()
             PointType.UNKNOWN -> { }
         }
     }
+    //Saves game if player is logged in
+    fun SaveGame(dbViewModel: DatabaseViewModel,user : UserData?)
+    {
+        if(user == null)
+        {
+            return
+        }
+        //Getting selected equipment
+        var RedEqList : List<String> = emptyList()
+        RedPlayer.eqData.forEach { eq ->
+            if(eq.selected)
+            {
+                RedEqList += eq.eq.name
+            }
+        }
+        var BlueEqList : List<String> = emptyList()
+        BluePlayer.eqData.forEach { eq ->
+            if(eq.selected)
+            {
+                BlueEqList += eq.eq.name
+            }
+        }
+        var RedUnitsList : List<UnitInfo> = emptyList()
+        RedPlayer.GetSelectedTroops().forEach { troop ->
+            RedUnitsList = RedUnitsList + UnitInfo(name = troop.operator.name, currentWounds = troop.currentWounds.value, wounds = troop.operator.wounds)
+        }
+        var BlueUnitsList : List<UnitInfo> = emptyList()
+        BluePlayer.GetSelectedTroops().forEach { troop ->
+            BlueUnitsList = BlueUnitsList + UnitInfo(name = troop.operator.name, currentWounds = troop.currentWounds.value, wounds = troop.operator.wounds)
+        }
+        //Saving data about player
+        val dataRedPlayer : PlayerInfo = PlayerInfo(
+            teamName =  RedPlayer.selectedTeam.name,
+            tacOp = RedPlayer.selectedTacop.name,
+            primaryOp = RedPlayer.primaryOp.name,
+            cp = RedPlayer.commandPoints,
+            killPoints = RedPlayer.killPoints,
+            critPoints = RedPlayer.critPoints,
+            tacPoints = RedPlayer.tacPoints,
+            equipment = RedEqList,
+            units = RedUnitsList,
+            score = RedPlayer.GetAllPoints())
+        val dataBluePlayer : PlayerInfo = PlayerInfo(
+            teamName =  BluePlayer.selectedTeam.name,
+            tacOp = BluePlayer.selectedTacop.name,
+            primaryOp = BluePlayer.primaryOp.name,
+            cp = BluePlayer.commandPoints,
+            killPoints = BluePlayer.killPoints,
+            critPoints = BluePlayer.critPoints,
+            tacPoints = BluePlayer.tacPoints,
+            equipment = BlueEqList,
+            units = BlueUnitsList,
+            score = BluePlayer.GetAllPoints())
+        val dataToSave : GameInfo = GameInfo(
+            redPlayer = dataRedPlayer,
+            bluePlayer = dataBluePlayer)
+        dbViewModel.SaveNewGame(dataToSave,user)
+    }
+
+
 }
 
 data class ploySelection(

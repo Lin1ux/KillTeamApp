@@ -81,6 +81,11 @@ class GoogleAuthUIClient(
         )
     }
 
+    fun isUserSignedIn(): Boolean
+    {
+        return getSignedInUser() != null
+    }
+
     private fun buildSignInRequest(): BeginSignInRequest {
         return BeginSignInRequest.Builder()
             .setGoogleIdTokenRequestOptions(

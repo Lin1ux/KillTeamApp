@@ -143,12 +143,13 @@ fun NavigationMenu(
         { Log.d("Akcja","Akcja 2") },
         { Log.d("Akcja","Akcja 3") },
         { navController.navigate(Screen.DiceScreen.DiceRoute()) },
+        { navController.navigate(Screen.HistoryListScreen.HistoryListScreenRoute()) },
         { navController.navigate(Screen.ScoreScreen.ScoreScreenRoute()) },
     )
 
     Row(modifier = Modifier.fillMaxWidth())
     {
-        Column(modifier = Modifier.weight(0.5f).fillMaxHeight())
+        Column(modifier = Modifier.weight(0.55f).fillMaxHeight())
         {
             Spacer(modifier = Modifier.height(55.dp))
             LazyColumn(modifier = Modifier.clip(RoundedCornerShape(5.dp)).background(KTColors.Background))
@@ -173,7 +174,7 @@ fun NavigationMenu(
                     )
                     {
                         Icon(modifier = Modifier.padding(5.dp),imageVector = item.icon, contentDescription = item.contentDescription)
-                        Spacer(modifier = Modifier.padding(10.dp))
+                        Spacer(modifier = Modifier.padding(5.dp))
                         Text(item.title,style = TextStyle(fontSize = 18.sp),modifier = Modifier.padding(5.dp))
                     }
                 }
@@ -197,6 +198,7 @@ fun getMenuItem() : List<MenuItem>
         MenuItem(2,"Rule Set",""),
         MenuItem(3,"Weapon Rules",""),
         MenuItem(4,"Dice Roller","",Icons.Default.Casino),
-        MenuItem(5,"Score Screen","",Icons.Outlined.Star)
+        MenuItem(5,"Games","",Icons.Default.Casino),
+        MenuItem(6,"Score Screen","",Icons.Outlined.Star)
     )
 }
