@@ -33,6 +33,7 @@ class ScoreViewModel : ViewModel()
 {
     var round by mutableStateOf(1)                          //Current round of game
     var gameFinished by mutableStateOf(false)               //Is game finished
+    var gameSaved by mutableStateOf(false)                  //Is game saved
 
     var initiativeSet = mutableStateListOf(true,false,false,false)        //Is initiative set for rounds
 
@@ -56,6 +57,24 @@ class ScoreViewModel : ViewModel()
         var troopsData = mutableStateListOf<selectedOperators>()        //List of selected operators
 
         var troopsSelected by mutableStateOf(false)                     //Are operators selected
+
+        fun ResetPlayer()
+        {
+            //Reset Mission Points
+            selectedTacop = TacOps.Unknown
+            primaryOp = PointType.UNKNOWN
+
+            critPoints.clear()
+            critPoints.addAll(listOf(0,0,0,0,0,0,0))
+
+            tacPoints.clear()
+            tacPoints.addAll(listOf(0,0,0,0,0,0,0))
+
+            commandPoints = 3
+            //setting team clears all data about team
+            SetTeam(selectedTeam)
+
+        }
 
         fun SetTeam(team : TeamInfo)
         {
@@ -461,8 +480,8 @@ class ScoreViewModel : ViewModel()
             return troopsData[unitIndex].operator.weapons[weaponIndex]
         }
     }
-    val RedPlayer = PlayerState()   //First Player - Red
-    val BluePlayer = PlayerState()  //Blue Player - Blue
+    var RedPlayer = PlayerState()   //First Player - Red
+    var BluePlayer = PlayerState()  //Blue Player - Blue
 
     //Return player
     fun GetPlayer(isRedTeam: Boolean) : PlayerState
@@ -834,6 +853,25 @@ class ScoreViewModel : ViewModel()
             redPlayer = dataRedPlayer,
             bluePlayer = dataBluePlayer)
         dbViewModel.SaveNewGame(dataToSave,user)
+        gameSaved = true
+    }
+
+    fun isGameSaved() : Boolean
+    {
+        return gameSaved
+    }
+
+    fun newGame()
+    {
+        round = 1
+        gameFinished = false
+        gameSaved = false
+
+        initiativeSet.clear()
+        initiativeSet.addAll(listOf(true,false,false,false))
+
+        RedPlayer.ResetPlayer()
+        BluePlayer.ResetPlayer()
     }
 
 

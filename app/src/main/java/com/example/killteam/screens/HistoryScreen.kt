@@ -50,18 +50,16 @@ fun GameList(navController: NavController,dbViewModel: DatabaseViewModel)
                 containerColor = KTColors.Orange)
         )
         {
-            Text("New Game")
+            Text("Current Game")
         }
         LazyColumn(modifier = Modifier.fillMaxWidth())
         {
-            itemsIndexed(gameInfo?.games?.reversed() ?: emptyList()) { index, gameItem ->
-                GameButton(navController, dbViewModel, index)
+            val size = gameInfo?.games?.size ?: 0
+            itemsIndexed(gameInfo?.games ?: emptyList()) { index, gameItem ->
+                GameButton(navController, dbViewModel, (size-1) - index)
             }
         }
     }
-    /*Box {
-        Text(gameInfo?.username ?: "Ładowanie...")
-    }*/
 }
 
 @Composable

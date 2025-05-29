@@ -140,8 +140,8 @@ fun NavigationMenu(
 
     val actions: List<() -> Unit> = listOf(
         { navController.navigate(Screen.LoginScreen.LoginScreenRoute()) },
-        { Log.d("Akcja","Akcja 2") },
-        { Log.d("Akcja","Akcja 3") },
+        //{ Log.d("Akcja","Akcja 2") },
+        { navController.navigate(Screen.WeaponeRuleScreen.WeaponRuleRoute()) },
         { navController.navigate(Screen.DiceScreen.DiceRoute()) },
         { navController.navigate(Screen.HistoryListScreen.HistoryListScreenRoute()) },
         { navController.navigate(Screen.ScoreScreen.ScoreScreenRoute()) },
@@ -195,10 +195,10 @@ fun getMenuItem() : List<MenuItem>
 {
     return listOf(
         MenuItem(1,"Login","1"),
-        MenuItem(2,"Rule Set",""),
-        MenuItem(3,"Weapon Rules",""),
-        MenuItem(4,"Dice Roller","",Icons.Default.Casino),
-        MenuItem(5,"Games","",Icons.Default.Casino),
-        MenuItem(6,"Score Screen","",Icons.Outlined.Star)
+        //MenuItem(2,"Rule Set",""),
+        MenuItem(2,"Weapon Rules",""),
+        MenuItem(3,"Dice Roller","",Icons.Default.Casino),
+        MenuItem(4,"Games","",Icons.Default.Casino),
+        MenuItem(5,"Score Screen","",Icons.Outlined.Star)
     )
 }

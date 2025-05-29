@@ -56,26 +56,30 @@ import com.google.android.gms.auth.api.identity.Identity
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun ScoreScreen(viewModel: ScoreViewModel,dbViewModel: DatabaseViewModel, navController : NavController)
+fun ScoreScreen(viewModel: ScoreViewModel,dbViewModel: DatabaseViewModel, navController : NavController,isLogedIn : Boolean = false)
 {
-    LazyColumn(modifier = Modifier.fillMaxSize().background(KTColors.Background).padding(horizontal = 5.dp))
+    Column(modifier = Modifier.fillMaxWidth())
     {
-        item()
+        NewGameButton(navController,viewModel, dbViewModel,isLogedIn,viewModel.isGameSaved())
+        LazyColumn(modifier = Modifier.fillMaxSize().background(KTColors.Background).padding(horizontal = 5.dp))
         {
-            GameResult(viewModel)   //Result of the game
+            item()
+            {
+                GameResult(viewModel)   //Result of the game
 
-        }
-        item()
-        {
-            RoundBar(viewModel,dbViewModel)    //Show which is current round
-        }
-        item()
-        {
-            PlayerInfo(KTColors.Red,true,viewModel,navController)     //Show info about Red Player
-        }
-        item()
-        {
-            PlayerInfo(KTColors.Blue,false,viewModel,navController)   //Show info about Blue Player
+            }
+            item()
+            {
+                RoundBar(viewModel,dbViewModel)    //Show which is current round
+            }
+            item()
+            {
+                PlayerInfo(KTColors.Red,true,viewModel,navController)     //Show info about Red Player
+            }
+            item()
+            {
+                PlayerInfo(KTColors.Blue,false,viewModel,navController)   //Show info about Blue Player
+            }
         }
     }
 }
@@ -147,7 +151,8 @@ fun RoundBar(viewModel: ScoreViewModel,dbViewModel: DatabaseViewModel)
             }
             if(showInitiativeDialog)
             {
-                InitiativeDialogWindow(viewModel = viewModel, round = buttonValue,
+                InitiativeDialogWindow(
+                    viewModel = viewModel,
                     onDismiss =  {
                         viewModel.ChangeRound(buttonValue)
                         showInitiativeDialog = false},
@@ -592,6 +597,64 @@ fun PlayerTeamInfo(
 
     }
 }
+//Dialog which starts new game
+@Composable
+fun NewGameButton(
+    navController : NavController,
+    viewModel: ScoreViewModel,
+    dbViewModel: DatabaseViewModel,
+    isLogedIn : Boolean = false,
+    isGameSave : Boolean = false
+)
+    {
+    //Onlu show when game was finished
+    if(viewModel.gameFinished)
+    {
+        val context = LocalContext.current
+        var showDialog by remember { mutableStateOf(false) }
+        Row(modifier = Modifier.fillMaxWidth().background(KTColors.Background),
+            horizontalArrangement = Arrangement.Center)
+        {
+            Button(modifier = Modifier.padding(5.dp),
+                onClick = { showDialog = true },
+                shape = RectangleShape,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = KTColors.Orange)
+            )
+            {
+                Text("New Game")
+            }
+        }
+        if(showDialog)
+        {
+            NewGameDialogWindow(
+                color = KTColors.Orange,
+                isLogedIn = isLogedIn,
+                isSaved = isGameSave,
+                onDismiss = { showDialog = false },
+                onLogin = { navController.navigate(Screen.LoginScreen.LoginScreenRoute()) },
+                onAccept = {
+                                showDialog = false
+                                //Save game if wasn't saved
+                                if (!isGameSave)
+                                {
+                                    val googleAuthUiClient by lazy {
+                                        GoogleAuthUIClient(context = context.applicationContext, oneTapClient = Identity.getSignInClient(context.applicationContext))
+                                    }
+                                    if(googleAuthUiClient.isUserSignedIn())
+                                    {
+                                        viewModel.SaveGame(dbViewModel,googleAuthUiClient.getSignedInUser())
+                                    }
+                                }
+                                //new Game
+                                viewModel.newGame()
+                           },
+
+            )
+        }
+
+    }
+}
 
 //Dialog Window which allows user to select Primary Op
 @Composable
@@ -690,11 +753,86 @@ fun EndGameDialogWindow(
     )
 }
 
+//Dialog Window which ask player is he want to start new game
+@Composable
+fun NewGameDialogWindow(
+    color : Color,
+    isLogedIn : Boolean,
+    isSaved : Boolean,
+    onDismiss: () -> Unit,
+    onLogin: () -> Unit,
+    onAccept: (Boolean) -> Unit
+)
+{
+    AlertDialog(
+        onDismissRequest = onDismiss ,
+        title = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            )
+            {
+                Text("Do you want start new game?")
+            }
+        },
+        text = {
+            Column()
+            {
+                if(isLogedIn)   //Is user logged in
+                {
+                    if(isSaved) //Is game saved
+                    {
+                        Text("Game has been saved")
+                    }
+                    else
+                    {
+                        Text("Game would be saved when you confirm")
+                    }
+
+                    Button(
+                        modifier = Modifier.fillMaxWidth().padding(5.dp),
+                        shape = RectangleShape,
+                        colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                        onClick = {onAccept(true)}
+                    )
+                    {
+                        Text("Confirm")
+                    }
+                }
+                else
+                {
+                    Text("If you not logged in, data from this game would be lost")
+                    Button(
+                        modifier = Modifier.fillMaxWidth().padding(5.dp),
+                        shape = RectangleShape,
+                        colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                        onClick = {onLogin()}
+                    )
+                    {
+                        Text("Log in")
+                    }
+                    Button(
+                        modifier = Modifier.fillMaxWidth().padding(5.dp),
+                        shape = RectangleShape,
+                        colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
+                        onClick = {onAccept(true)}
+                    )
+                    {
+                        Text("Confirm")
+                    }
+                }
+            }
+        },
+        confirmButton = {
+
+        }
+    )
+}
+
 //Dialog Window which ask player who have initiative
 @Composable
 fun InitiativeDialogWindow(
     viewModel: ScoreViewModel,
-    round : Int,
     onDismiss: () -> Unit,
     onAccept: (Boolean) -> Unit
 )

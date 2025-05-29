@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -64,6 +65,7 @@ import com.example.killteam.screens.ScoreScreen
 import com.example.killteam.screens.SignInScreen
 import com.example.killteam.screens.UnitScreen
 import com.example.killteam.screens.UnitSelectionScreen
+import com.example.killteam.screens.WeaponeRules
 import com.example.killteam.ui.theme.KTColors
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
@@ -94,6 +96,10 @@ fun Navigation()
         composable(route = Screen.ProfileScreen.route)
         {
             ShowProfileScreen(navController,loginViewModel)
+        }
+        composable(route = Screen.WeaponeRuleScreen.route)
+        {
+            ShowWeaponRulesScreen(navController)
         }
         composable(route = Screen.HistoryListScreen.route)
         {
@@ -170,6 +176,11 @@ fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel,dbVi
 {
     val context = LocalContext.current
     val activity = context as ComponentActivity
+
+    val googleAuthUiClient by lazy {
+        GoogleAuthUIClient(context = context.applicationContext, oneTapClient = Identity.getSignInClient(context.applicationContext))
+    }
+
     //val windowSizeClass = calculateWindowSizeClass(activity)
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -188,7 +199,7 @@ fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel,dbVi
         )
         { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                ScoreScreen(viewModel = viewModel,dbViewModel , navController)
+                ScoreScreen(viewModel = viewModel,dbViewModel , navController,googleAuthUiClient.isUserSignedIn())
             }
         }
     }
@@ -217,6 +228,34 @@ fun ShowDiceScreen(navController : NavController)
         { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 DiceScreen()
+            }
+        }
+    }
+}
+
+//@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
+@Composable
+fun ShowWeaponRulesScreen(navController : NavController)
+{
+    val context = LocalContext.current
+    val activity = context as ComponentActivity
+
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            NavigationMenu(navController,getMenuItem())
+        }) {
+        Scaffold(
+            topBar = {
+                AppBar(navController,"Weapon rules",true,{ scope.launch { drawerState.open()}})
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.fillMaxHeight().padding(innerPadding).background(KTColors.Background)) {
+                WeaponeRules()
             }
         }
     }

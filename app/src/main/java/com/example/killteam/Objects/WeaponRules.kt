@@ -114,7 +114,7 @@ object WeaponRules
     )
 
     val LimitedX = WeaponRule(
-        name = "Limitex X",
+        name = "Limited X",
         description = "After an operative uses this weapon a number of times in the battle equal to x, they no longer have it. If it’s used multiple times in one action (e.g., Blast), treat this as one use."
     )
 
