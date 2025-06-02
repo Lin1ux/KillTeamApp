@@ -59,6 +59,7 @@ import com.example.killteam.screens.AttackScreen
 import com.example.killteam.screens.DiceScreen
 import com.example.killteam.screens.FractionScreen
 import com.example.killteam.screens.GameList
+import com.example.killteam.screens.GamePreviewScreen
 import com.example.killteam.screens.PreviewScreen
 import com.example.killteam.screens.ProfileScreen
 import com.example.killteam.screens.ScoreScreen
@@ -95,7 +96,7 @@ fun Navigation()
         }
         composable(route = Screen.ProfileScreen.route)
         {
-            ShowProfileScreen(navController,loginViewModel)
+            ShowProfileScreen(navController,loginViewModel,dbViewModel)
         }
         composable(route = Screen.WeaponeRuleScreen.route)
         {
@@ -125,7 +126,7 @@ fun Navigation()
             val RedPlayer = entry.arguments?.getBoolean("RedPlayer") ?: false
             ShowUnitScreen(navController,viewModel, RedPlayer)
         }
-        composable(route = Screen.UnitPreview.route, //route to Fraction Screen
+        composable(route = Screen.UnitPreviewScreen.route, //route to Fraction Screen
             arguments = listOf(navArgument("RedPlayer") //It requires boolean argument is Red Player
             {
                 type = NavType.BoolType
@@ -141,6 +142,17 @@ fun Navigation()
             val RedPlayer = entry.arguments?.getBoolean("RedPlayer") ?: false
             val index = entry.arguments!!.getInt("index")
             ShowPreviewScreen(navController,viewModel, RedPlayer,index)
+        }
+        composable(route = Screen.GamePreviewScreen.route, //route to Fraction Screen
+            arguments = listOf(navArgument("index") {
+                    type = NavType.IntType
+                    defaultValue = 0
+                }
+            )
+        )
+        { entry ->
+            val index = entry.arguments!!.getInt("index")
+            ShowGamePreviewScreen(navController,dbViewModel,index)
         }
         composable(route = Screen.UnitAttack.route, //route to Fraction Screen
             arguments = listOf(
@@ -198,7 +210,7 @@ fun ShowScoreScreen(navController : NavController,viewModel: ScoreViewModel,dbVi
             }
         )
         { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight()) {
                 ScoreScreen(viewModel = viewModel,dbViewModel , navController,googleAuthUiClient.isUserSignedIn())
             }
         }
@@ -226,7 +238,7 @@ fun ShowDiceScreen(navController : NavController)
             }
         )
         { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight()) {
                 DiceScreen()
             }
         }
@@ -312,7 +324,7 @@ fun ShowLoginScreen(navController : NavController,loginViewModel: SignInViewMode
             }
         )
         { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background)) {
                 LaunchedEffect(key1 = state.isSignInSuccessful)
                 {
                     if(state.isSignInSuccessful)
@@ -335,7 +347,7 @@ fun ShowLoginScreen(navController : NavController,loginViewModel: SignInViewMode
 }
 
 @Composable
-fun ShowProfileScreen(navController : NavController,loginViewModel: SignInViewModel)
+fun ShowProfileScreen(navController : NavController,loginViewModel: SignInViewModel,dbViewModel: DatabaseViewModel)
 {
     val context = LocalContext.current
 
@@ -363,6 +375,10 @@ fun ShowProfileScreen(navController : NavController,loginViewModel: SignInViewMo
             }
         }
     )
+    //Loading data from database
+    LaunchedEffect(Unit) {
+        dbViewModel.getUserData(googleAuthUiClient.getSignedInUser())
+    }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -371,17 +387,18 @@ fun ShowProfileScreen(navController : NavController,loginViewModel: SignInViewMo
         }) {
         Scaffold(
             topBar = {
-                AppBar(navController,"Login",false,{ scope.launch { drawerState.open()}})
+                AppBar(navController,"Account",false,{ scope.launch { drawerState.open()}})
             }
         )
         { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight()) {
                 LaunchedEffect(key1 = state.isSignInSuccessful)
                 {
                     Toast.makeText(context, "Sign in successful", Toast.LENGTH_LONG).show()
                 }
                 ProfileScreen(
                     userData = googleAuthUiClient.getSignedInUser(),
+                    dbViewModel = dbViewModel,
                     onSignOutClick = {
                         launcherScope.launch {
                             googleAuthUiClient.signOut()
@@ -435,7 +452,7 @@ fun ShowHistoryScreen(navController : NavController,dbViewModel: DatabaseViewMod
             }
         )
         { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding))
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight())
             {
                 GameList(navController,dbViewModel)
             }
@@ -470,7 +487,7 @@ fun ShowFractionScreen(navController : NavController,viewModel: ScoreViewModel,f
             }
         )
         { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight()) {
                 FractionScreen(navController,viewModel, firstPlayer)
             }
         }
@@ -504,7 +521,7 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
                 },
             )
             { innerPadding ->
-                Box(modifier = Modifier.padding(innerPadding)) {
+                Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight()) {
                     UnitScreen(navController, viewModel, firstPlayer)
                 }
             }
@@ -529,7 +546,7 @@ fun ShowUnitScreen(navController : NavController,viewModel: ScoreViewModel,first
                 }
             )
             { innerPadding ->
-                Box(modifier = Modifier.padding(innerPadding)) {
+                Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight()) {
                     UnitSelectionScreen(navController, viewModel, firstPlayer)
                 }
             }
@@ -590,7 +607,7 @@ fun ShowPreviewScreen(navController : NavController,viewModel: ScoreViewModel,fi
                             onClick = {
                                 navController.popBackStack()
                                 navController.navigate(
-                                    Screen.UnitPreview.UnitPreviewRoute(
+                                    Screen.UnitPreviewScreen.UnitPreviewRoute(
                                         firstPlayer,
                                         previousIndex
                                     )
@@ -617,7 +634,7 @@ fun ShowPreviewScreen(navController : NavController,viewModel: ScoreViewModel,fi
                             onClick = {
                                 navController.popBackStack()
                                 navController.navigate(
-                                    Screen.UnitPreview.UnitPreviewRoute(
+                                    Screen.UnitPreviewScreen.UnitPreviewRoute(
                                         firstPlayer,
                                         nextIndex
                                     )
@@ -640,8 +657,41 @@ fun ShowPreviewScreen(navController : NavController,viewModel: ScoreViewModel,fi
             }
         )
         { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight()) {
                 PreviewScreen(navController, viewModel, firstPlayer, index)
+            }
+        }
+    }
+}
+
+@Composable
+fun ShowGamePreviewScreen(navController : NavController,dbViewModel: DatabaseViewModel,index : Int)
+{
+    val context = LocalContext.current
+    val activity = context as ComponentActivity
+    //val windowSizeClass = calculateWindowSizeClass(activity)
+
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+    var selectedIndex = remember {mutableStateOf(0)}
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            NavigationMenu(navController,getMenuItem())
+        })
+    {
+        Scaffold(
+            topBar = {
+                AppBar(navController, "Game Preview",true,{ scope.launch { drawerState.open()}})
+            },
+            bottomBar = {
+
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight()) {
+                GamePreviewScreen(navController,dbViewModel,index)
             }
         }
     }
@@ -676,7 +726,7 @@ fun ShowAttackScreen(navController : NavController,viewModel: ScoreViewModel,fir
             }
         )
         { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight()) {
                 AttackScreen(navController, viewModel, firstPlayer, unitIndex, weaponIndex)
             }
         }

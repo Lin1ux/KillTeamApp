@@ -10,7 +10,8 @@ sealed class Screen(val route: String)
     object HistoryListScreen : Screen("history_list_screen")
     object FractionScreen : Screen("fraction_screen/{RedPlayer}")
     object UnitScreen : Screen("unit_screen/{RedPlayer}")
-    object UnitPreview : Screen("preview_screen/{RedPlayer}/{index}")
+    object GamePreviewScreen : Screen("game_preview_screen/{index}")
+    object UnitPreviewScreen : Screen("preview_screen/{RedPlayer}/{index}")
     object UnitAttack : Screen("attack_screen/{RedPlayer}/{index}/{weaponIndex}")
 
     fun ScoreScreenRoute() = "score_screen"
@@ -28,6 +29,11 @@ sealed class Screen(val route: String)
     fun FractionRoute(RedPlayer : Boolean) = "fraction_screen/$RedPlayer"
 
     fun UnitRoute(RedPlayer : Boolean) = "unit_screen/$RedPlayer"
+
+    fun GamePreviewRoute(index: Int): String
+    {
+        return "game_preview_screen/$index"
+    }
 
     fun UnitPreviewRoute(RedPlayer: Boolean, index: Int): String
     {

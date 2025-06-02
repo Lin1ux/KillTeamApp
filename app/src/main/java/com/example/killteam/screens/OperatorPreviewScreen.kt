@@ -250,7 +250,7 @@ fun OperatorInteractions(viewModel: ScoreViewModel, firstPlayer : Boolean, index
                 Text("Kill",style = TextStyle(fontSize = 20.sp), color = Color.White, textAlign = TextAlign.Center)
                 if(showDialog)  //triggering alert dialog window
                 {
-                    ConfirmDialog("Warning!","Are you sure you want to kill this operator?",
+                    ConfirmDialog("Warning!","Are you sure you want to kill this operator?","KILL",
                         { showDialog = false},
                         { viewModel.GetPlayer(firstPlayer).KillOperator(index)
                             showDialog = false})

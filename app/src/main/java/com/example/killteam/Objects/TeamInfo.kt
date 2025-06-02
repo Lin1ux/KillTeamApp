@@ -1,10 +1,12 @@
 package com.example.killteam.Objects
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.painter.Painter
 import com.example.killteam.ScoreViewModel
 
 data class TeamInfo(
     var name : String,
+    var icon : Int,
     var archetypes : List<Archetype>,
     var teamRules : List<TeamRule> = VoidscaredCorsairsRules.teamRulesList,
     var ploys : List<Ploy>,

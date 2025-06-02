@@ -10,11 +10,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -53,6 +55,7 @@ import com.example.killteam.firebase.GoogleAuthUIClient
 import com.example.killteam.getMissions
 import com.example.killteam.ui.theme.KTColors
 import com.google.android.gms.auth.api.identity.Identity
+import androidx.compose.material3.Icon
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
@@ -200,12 +203,31 @@ fun RoundBar(viewModel: ScoreViewModel,dbViewModel: DatabaseViewModel)
 @Composable
 fun GameResult(viewModel : ScoreViewModel)
 {
-    Box(
-        modifier = Modifier.fillMaxWidth().padding(5.dp),
-        contentAlignment = Alignment.Center
-    )
+    Row()
     {
-        Text("${viewModel.GetPlayer(true).GetAllPoints()}:${viewModel.GetPlayer(false).GetAllPoints()}",style = TextStyle(fontSize = 48.sp))
+        Icon(
+            //modifier = Modifier.weight(0.2f),
+            modifier = Modifier.padding(5.dp).weight(0.3f).height(75.dp),
+            painter = painterResource(viewModel.GetPlayer(true).GetTeam().icon),
+            contentDescription = "Team",
+            tint = KTColors.Red,
+        )
+        Spacer(modifier = Modifier.weight(0.05f))
+        Box(
+            modifier = Modifier.fillMaxWidth().padding(5.dp).weight(0.3f),
+            contentAlignment = Alignment.Center
+        )
+        {
+            Text("${viewModel.GetPlayer(true).GetAllPoints()}:${viewModel.GetPlayer(false).GetAllPoints()}",style = TextStyle(fontSize = 40.sp))
+        }
+        Spacer(modifier = Modifier.weight(0.05f))
+        Icon(
+            modifier = Modifier.padding(5.dp).weight(0.3f).height(75.dp),
+            painter = painterResource(viewModel.GetPlayer(false).GetTeam().icon),
+            contentDescription = "Team",
+            tint = KTColors.Blue,
+
+        )
     }
 }
 

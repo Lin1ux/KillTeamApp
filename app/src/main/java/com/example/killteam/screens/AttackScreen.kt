@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
@@ -161,7 +162,7 @@ fun TargetList(navController : NavController,viewModel: ScoreViewModel,attackVie
                     Row(modifier = Modifier.clickable{
                         if(attackViewModel.allDamage == 0)
                         {
-                            navController.navigate(Screen.UnitPreview.UnitPreviewRoute(!firstPlayer,index))
+                            navController.navigate(Screen.UnitPreviewScreen.UnitPreviewRoute(!firstPlayer,index))
                         }
                         else
                         {
@@ -176,6 +177,8 @@ fun TargetList(navController : NavController,viewModel: ScoreViewModel,attackVie
                             Text(troop.operator.name.RemoveKeyWord(viewModel,!firstPlayer),
                                 style = TextStyle(fontSize = 20.sp),
                                 color = Color.Black,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
                                 textAlign = TextAlign.Start,
                                 modifier = Modifier.padding(5.dp))
                         }

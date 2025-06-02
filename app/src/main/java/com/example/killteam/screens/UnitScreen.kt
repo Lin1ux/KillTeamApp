@@ -75,7 +75,7 @@ fun SelectedOperatorButton(navController: NavController,
     //Box which is used as button to open preview Screen
     Box(modifier = Modifier.fillMaxWidth().background(Color.Transparent).padding(5.dp).border(2.dp,
         GetOrderColor(operator = operator, checkWounds = true),RectangleShape)
-        .clickable { navController.navigate(Screen.UnitPreview.UnitPreviewRoute(firstPlayer,index)) })
+        .clickable { navController.navigate(Screen.UnitPreviewScreen.UnitPreviewRoute(firstPlayer,index)) })
     {
         Row(modifier = Modifier.fillMaxSize().padding(start = 5.dp))
         {

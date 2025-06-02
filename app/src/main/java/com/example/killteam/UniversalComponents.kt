@@ -51,6 +51,7 @@ import kotlin.collections.forEach
 fun ConfirmDialog(
     title : String,
     description : String,
+    confirmText : String,
     onDismiss: () -> Unit,
     onAccept: () -> Unit
 )
@@ -83,7 +84,7 @@ fun ConfirmDialog(
                         onClick = {onAccept()}
                     )
                     {
-                        Text("KILL")
+                        Text("${confirmText}")
                     }
                 }
             }

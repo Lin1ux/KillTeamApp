@@ -10,6 +10,8 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import com.example.killteam.firebase.PlayerInfo
+import com.example.killteam.firebase.UnitInfo
 import com.example.killteam.ui.theme.KTColors
 import kotlin.math.ceil
 
@@ -260,3 +262,31 @@ fun Int.WorsenHitStat(worsen : Boolean) : Int = if(worsen) this + 1 else this
 
 fun String.FormatPrimary(primary : Boolean) : String = if(primary) this.uppercase() else this
 
+//Get number of Operators
+fun GetNumberOfOperators(data : PlayerInfo) : Int
+{
+    return data.units.size
+}
+
+//Get number of Remained operators
+fun GetRemainedOperators(data : PlayerInfo) : Int
+{
+    var sum = 0
+    data.units.forEach { unit ->
+        if(unit.currentWounds > 0)
+        {
+            sum++
+        }
+    }
+    return sum
+}
+
+//Get color dependend from wounds
+fun GetColorByWounds(color : Color,unit : UnitInfo) : Color
+{
+    if(unit.currentWounds == 0)
+    {
+        return KTColors.Incapacitated
+    }
+    return color
+}

@@ -1,10 +1,13 @@
 package com.example.killteam.Objects
 
+import com.example.killteam.R
+
 
 object KillTeams
 {
     val DeathKorps = TeamInfo(
         name = "Death Korps",
+        icon = R.drawable.deathkorps,
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
         teamRules = DeathKorpsRules.teamRulesList,
         ploys = DeathKorpsPloys.ployList,
@@ -17,6 +20,7 @@ object KillTeams
 
     val KasrkinSquad = TeamInfo(
         name = "Kasrkin Squad",
+        icon = R.drawable.kasrkin,
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
         teamRules = KasrkinSquadRules.teamRulesList,
         ploys = KasrkinPloys.ployList,
@@ -29,6 +33,7 @@ object KillTeams
 
     val AngelsOfDeath = TeamInfo(
         name = "Angels Of Death",
+        icon = R.drawable.angelsofdeath,
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
         teamRules = AngelsOfDeathRules.teamRulesList,
         ploys = AngelsOfDeathPloys.ployList,
@@ -41,6 +46,7 @@ object KillTeams
 
     val VoidscaredCorsairs = TeamInfo(
         name = "Corsairs Voidscared",
+        icon = R.drawable.corsairsvoidscared,
         archetypes = listOf(TacOps.Recon, TacOps.Infiltration),
         teamRules = VoidscaredCorsairsRules.teamRulesList,
         ploys = VoidscaredCorsairsPloys.ployList,
@@ -53,6 +59,7 @@ object KillTeams
 
     val PlagueMarines = TeamInfo(
         name = "Plague Marines",
+        icon = R.drawable.plaguemarines,
         archetypes = listOf(TacOps.Security, TacOps.SeekDestroy),
         teamRules = PlagueMarinesRules.teamRulesList,
         ploys = PlagueMarinesPloys.ployList,
@@ -65,6 +72,7 @@ object KillTeams
 
     val HunterClade = TeamInfo(
         name = "Hunter Clade",
+        icon = R.drawable.hunterclade,
         archetypes = listOf(TacOps.Recon, TacOps.SeekDestroy),
         teamRules = HunterCladeRules.teamRulesList,
         ploys = HunterCladePloys.ployList,
@@ -76,6 +84,7 @@ object KillTeams
 
     val Legionary = TeamInfo(
         name = "Legionary",
+        icon = R.drawable.legionary,
         archetypes = listOf(TacOps.SeekDestroy, TacOps.Security),
         teamRules = LegionairesRules.teamRulesList,
         ploys = LegionairesPloys.ployList,
@@ -87,6 +96,7 @@ object KillTeams
 
     val NemesisClaw = TeamInfo(
         name = "Nemesis Claw",
+        icon = R.drawable.nemesisclaw,
         archetypes = listOf(TacOps.SeekDestroy, TacOps.Infiltration),
         teamRules = NemesisClawRules.teamRulesList,
         ploys = NemesisClawPloys.ployList,

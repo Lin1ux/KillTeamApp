@@ -362,10 +362,7 @@ fun Equipment(navController: NavController,viewModel: ScoreViewModel, firstPlaye
                             viewModel.GetPlayer(firstPlayer).SwitchEqPlacement(eqSelection.index)
                         }
                         showDialog = false
-                    },
-                    /*viewModel = viewModel,
-                    navController = navController,
-                    firstPlayer = firstPlayer*/)
+                    })
             }
         }
     }
@@ -378,9 +375,6 @@ fun EquipmentInfoDialog(
     eqSelection: eqSelection,
     onDismiss: () -> Unit,
     onAccept: (Boolean) -> Unit,
-    /*navController: NavController,
-    viewModel: ScoreViewModel,
-    firstPlayer: Boolean,*/
 )
 {
     AlertDialog(
