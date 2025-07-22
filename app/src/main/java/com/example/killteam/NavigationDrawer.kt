@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Adjust
+import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Casino
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.History
@@ -111,6 +112,7 @@ fun NavigationMenu(
 
     val actions: List<() -> Unit> = listOf(
         { navController.navigate(Screen.LoginScreen.LoginScreenRoute()) },
+        { navController.navigate(Screen.TeamRulesScreen.TeamRulesRoute()) },
         { navController.navigate(Screen.WeaponeRuleScreen.WeaponRuleRoute()) },
         { navController.navigate(Screen.WeaponeRuleScreen.TacopScreenRoute()) },
         { navController.navigate(Screen.DiceScreen.DiceRoute()) },
@@ -166,11 +168,12 @@ data class MenuItem(
 fun getMenuItem() : List<MenuItem>
 {
     return listOf(
-        MenuItem(1,"Account","1",Icons.Default.Person),
-        MenuItem(2,"Weapon Rules","",Icons.Default.Adjust),
-        MenuItem(3,"TacOps","",Icons.Default.Flag),
-        MenuItem(4,"Dice Roller","",Icons.Default.Casino),
-        MenuItem(5,"Games","",Icons.Default.History),
-        MenuItem(6,"Score Screen","",Icons.Outlined.Star)
+        MenuItem(1,"Account","Person",Icons.Default.Person),
+        MenuItem(2,"Faction Rules","Book",Icons.Default.Book),
+        MenuItem(3,"Weapon Rules","Sight",Icons.Default.Adjust),
+        MenuItem(4,"TacOps","Flag",Icons.Default.Flag),
+        MenuItem(5,"Dice Roller","Dice",Icons.Default.Casino),
+        MenuItem(6,"Games","History",Icons.Default.History),
+        MenuItem(7,"Score Screen","Star",Icons.Outlined.Star)
     )
 }

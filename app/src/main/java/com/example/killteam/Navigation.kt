@@ -65,6 +65,8 @@ import com.example.killteam.screens.ProfileScreen
 import com.example.killteam.screens.ScoreScreen
 import com.example.killteam.screens.SignInScreen
 import com.example.killteam.screens.TacopScreen
+import com.example.killteam.screens.TeamDataScreen
+import com.example.killteam.screens.TeamRulesScreen
 import com.example.killteam.screens.UnitScreen
 import com.example.killteam.screens.UnitSelectionScreen
 import com.example.killteam.screens.WeaponeRules
@@ -98,6 +100,14 @@ fun Navigation()
         composable(route = Screen.ProfileScreen.route)
         {
             ShowProfileScreen(navController,loginViewModel,dbViewModel)
+        }
+        composable(route = Screen.TeamDataScreen.route)
+        {
+            ShowTeamDataScreen(navController,dbViewModel)
+        }
+        composable(route = Screen.TeamRulesScreen.route)
+        {
+            ShowTeamRulesScreen(navController)
         }
         composable(route = Screen.WeaponeRuleScreen.route)
         {
@@ -159,7 +169,7 @@ fun Navigation()
             val index = entry.arguments!!.getInt("index")
             ShowGamePreviewScreen(navController,dbViewModel,index)
         }
-        composable(route = Screen.UnitAttack.route, //route to Fraction Screen
+        composable(route = Screen.UnitAttack.route, //route to unit attack Screen
             arguments = listOf(
                 navArgument("RedPlayer") //It requires boolean argument is Red Player
                 {
@@ -429,6 +439,7 @@ fun ShowProfileScreen(navController : NavController,loginViewModel: SignInViewMo
                 ProfileScreen(
                     userData = googleAuthUiClient.getSignedInUser(),
                     dbViewModel = dbViewModel,
+                    navController = navController,
                     onSignOutClick = {
                         launcherScope.launch {
                             googleAuthUiClient.signOut()
@@ -438,6 +449,89 @@ fun ShowProfileScreen(navController : NavController,loginViewModel: SignInViewMo
                         }
                     }
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun ShowTeamDataScreen(navController : NavController,dbViewModel: DatabaseViewModel)
+{
+    val context = LocalContext.current
+    val googleAuthUiClient by lazy {
+        GoogleAuthUIClient(context = context.applicationContext, oneTapClient = Identity.getSignInClient(context.applicationContext))
+    }
+
+    if(!googleAuthUiClient.isUserSignedIn())
+    {
+        navController.navigate(Screen.LoginScreen.route)
+    }
+
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+
+    //val dbViewModel = viewModel<DatabaseViewModel>()
+
+    LaunchedEffect(Unit) {
+        dbViewModel.getUserData(googleAuthUiClient.getSignedInUser())
+    }
+
+    //dbViewModel.saveUserData(googleAuthUiClient.getSignedInUser())
+    //dbViewModel.getUserData(googleAuthUiClient.getSignedInUser())
+
+
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            NavigationMenu(navController,getMenuItem())
+        }) {
+        Scaffold(
+            topBar = {
+                AppBar(navController,"Team Data",true,{ scope.launch { drawerState.open()}})
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight())
+            {
+                TeamDataScreen(navController,dbViewModel)
+            }
+        }
+    }
+}
+
+@Composable
+fun ShowTeamRulesScreen(navController : NavController)
+{
+    /*val context = LocalContext.current
+    val googleAuthUiClient by lazy {
+        GoogleAuthUIClient(context = context.applicationContext, oneTapClient = Identity.getSignInClient(context.applicationContext))
+    }
+
+    if(!googleAuthUiClient.isUserSignedIn())
+    {
+        navController.navigate(Screen.LoginScreen.route)
+    }
+    */
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            NavigationMenu(navController,getMenuItem())
+        }) {
+        Scaffold(
+            topBar = {
+                AppBar(navController,"Faction Rules",true,{ scope.launch { drawerState.open()}})
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight())
+            {
+                TeamRulesScreen(navController)
             }
         }
     }

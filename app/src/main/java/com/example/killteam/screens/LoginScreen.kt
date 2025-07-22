@@ -33,7 +33,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.killteam.Screen
 import com.example.killteam.firebase.DatabaseViewModel
 import com.example.killteam.firebase.SignInState
 import com.example.killteam.firebase.TeamSummary
@@ -73,6 +75,7 @@ fun SignInScreen(
 fun ProfileScreen(
     userData: UserData?,
     dbViewModel: DatabaseViewModel,
+    navController: NavController,
     onSignOutClick: () -> Unit
 )
 {
@@ -95,6 +98,10 @@ fun ProfileScreen(
         item()
         {
             TeamSummary(dbViewModel,false)
+        }
+        item()
+        {
+            TeamInfo(navController,dbViewModel)
         }
     }
 }
@@ -361,6 +368,28 @@ fun TeamSummary(dbViewModel: DatabaseViewModel,teamRed : Boolean = true)
                         textAlign = TextAlign.Center,
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun TeamInfo(navController : NavController,dbViewModel: DatabaseViewModel)
+{
+    if (dbViewModel.data != null)
+    {
+        Box(modifier = Modifier.fillMaxWidth().padding(5.dp),
+            contentAlignment = Alignment.Center)
+        {
+            Button(
+                onClick = { navController.navigate(Screen.TeamDataScreen.TeamScreenRoute()) },
+                shape = RectangleShape,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = KTColors.Orange
+                )
+            )
+            {
+                Text("Team statistics")
             }
         }
     }

@@ -8,6 +8,8 @@ sealed class Screen(val route: String)
     object WeaponeRuleScreen : Screen("weapon_rule_screen")
     object TacopScreen : Screen("tacop_screen")
     object ProfileScreen : Screen("profile_screen")
+    object TeamDataScreen : Screen("team_data_screen")
+    object TeamRulesScreen : Screen("team_rule_screen")
     object HistoryListScreen : Screen("history_list_screen")
     object FractionScreen : Screen("fraction_screen/{RedPlayer}")
     object UnitScreen : Screen("unit_screen/{RedPlayer}")
@@ -22,6 +24,10 @@ sealed class Screen(val route: String)
     fun LoginScreenRoute() = "login_screen"
 
     fun ProfileScreenRoute() = "profile_screen"
+
+    fun TeamScreenRoute() = "team_data_screen"
+
+    fun TeamRulesRoute() = "team_rule_screen"
 
     fun WeaponRuleRoute() = "weapon_rule_screen"
 
