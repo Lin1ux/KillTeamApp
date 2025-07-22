@@ -2,6 +2,11 @@ package com.example.killteam.Objects
 
 object Actions
 {
+    val Unknown = Action(
+        name = "",
+        description = ""
+    )
+
     //Universal
     val AmmoResupply = Action(
         name = "AMMO RESUPPLY",
@@ -30,6 +35,31 @@ object Actions
         name = "STUN GRENADE",
         description = "Select an enemy operative within 6\" of this operative and visible to it. That operative and each other operative within 1\" of it makes a stun check. To make a stun check, roll a D6: if the result is 3+, subtract 1 from its APL stat until the end of its next activation.",
         limitation = "An operative cannot perform this action while within control range of an enemy operative, or if you have reached the total number of times your kill team can perform it."
+    )
+
+    //Tacops Action
+
+    val PlantBeacon = Action(
+        name = "PLANT BEACON",
+        description = "Place one of your Beacon mission markers:\n\n" +
+                " • Within the active operative’s control range.\n" +
+                " • More than 4” from your drop zone.\n" +
+                " • More than 6” from your other Beacon mission markers. In a killzone that uses the close quarters rules (e.g. Killzone: Gallowdark), ignore Wall terrain when measuring this distance.\n" +
+                " • With no part of it underneath Vantage terrain.\n",
+        limitation = "An operative cannot perform this action during the first turning point, while within control range of an enemy operative, or during an activation in which it was set up. "
+    )
+
+    val Surveillance = Action(
+        name = "SURVEILLANCE",
+        description = "The active operative has gathered surveillance.",
+        limitation = "An operative cannot perform this action while it has an Engage order. It must be wholly within your opponent’s territory to perform this action, and there must be an enemy operative that’s a valid target for it. \n\n" +
+                "An operative cannot perform this action during the first turning point, or while within control range of an enemy operative."
+    )
+
+    val Wiretap = Action(
+        name = "WIRETAP",
+        description = "Place one of your Wiretap mission markers within the active operative’s control range. In the Ready step of the next Strategy phase, remove that marker.",
+        limitation = "An operative cannot perform this action during the first turning point, while within control range of an enemy operative, during an activation in which it was set up, or if a friendly operative has already performed this action during the turning point."
     )
 
     //Death Korps

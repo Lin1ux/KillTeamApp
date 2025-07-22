@@ -285,9 +285,9 @@ object KasrkinSquadRules
     val LightEmUp = Passive(
         name = "Light 'Em Up",
         description = "Whenever a friendly ##KASRKIN## operative is shooting, its ranged weapons have the xxSeverexx weapon rule if any of the following are true for the target:\n" +
-                "\n • It’s ready.\n" +
-                "\n • It’s not in cover.\n" +
-                "\n • It’s being scanned (see **RECON-TROOPER).**"
+                "• It’s ready.\n" +
+                "• It’s not in cover.\n" +
+                "• It’s being scanned (see **RECON-TROOPER).**"
     )
 
     val StrikeFast = Passive(

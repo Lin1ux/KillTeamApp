@@ -57,6 +57,7 @@ import com.example.killteam.firebase.UnitInfo
 import com.example.killteam.ui.theme.KTColors
 import com.google.android.gms.auth.api.identity.Identity
 
+//Show Game Preview
 @Composable
 fun GamePreviewScreen(navController: NavController, dbViewModel: DatabaseViewModel,index : Int)
 {
@@ -374,21 +375,21 @@ fun TeamPreviewScreen(
                     Text("Operators", color = Color.White, style = TextStyle(fontSize = 24.sp),textAlign = TextAlign.Center)
                 }
                 data.units.forEach { unit ->
-                    OperatorList(unit)
+                    OperatorList(unit,data.teamName)
                 }
             }
         }
     }
 }
 @Composable
-fun OperatorList(unit : UnitInfo)
+fun OperatorList(unit : UnitInfo,teamName : String = "")
 {
     Row()
     {
         //Operator's Name
         Box(modifier = Modifier.weight(0.8f).padding(5.dp).border(2.dp, GetColorByWounds(KTColors.Conceal,unit),RectangleShape))
         {
-            Text(unit.name,
+            Text(unit.name.RemoveKeyWord(teamName),
                 style = TextStyle(fontSize = 18.sp),
                 color = GetColorByWounds(Color.Black,unit),
                 textAlign = TextAlign.Start,

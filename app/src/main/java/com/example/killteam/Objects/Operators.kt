@@ -58,7 +58,17 @@ object DeathKorpsOperators
         weapons = listOf(Weapons.DKMeltaGun, Weapons.DKBayonet),
         keywords = listOf("##DEATH KORPS##"),
         size = 25,
+    )
 
+    val GunnerFlamer = Operator(
+        name = "Death Korps Gunner (Flamer)",
+        APL = 2,
+        move = 6,
+        save = 5,
+        wounds = 7,
+        weapons = listOf(Weapons.DKFlamer, Weapons.DKBayonet),
+        keywords = listOf("##DEATH KORPS##"),
+        size = 25,
     )
 
     val Sapper = Operator(
@@ -138,7 +148,7 @@ object DeathKorpsOperators
         additionalRules = " **Group Activation:** Whenever this operative is expended, you must then activate one other ready friendly ##DEATH KORPS## **TROOPER** operative (if able) before your opponent activates. When that other operative is expended, your opponent then activates as normal (in other words, you cannot activate more than two operatives in succession with this rule). "
     )
 
-    val operatorList = listOf(Watchmaster,Sniper,GunnerGranadeLuncher,GunnerPlasma,GunnerMelta,Sapper,Zealot,Medic,VoxOperator,Spotter,Trooper)
+    val operatorList = listOf(Watchmaster,Sniper,GunnerFlamer,GunnerGranadeLuncher,GunnerPlasma,GunnerMelta,Sapper,Zealot,Medic,VoxOperator,Spotter,Trooper)
 
 }
 
@@ -184,6 +194,17 @@ object KasrkinSquadOperators
                         "**Blast Padding:** Whenever an operative is shooting this operative with a weapon that has the xxBlastxx or xxTorrentxx weapon rule (excluding weapons that have a sweeping profile), you can **re-roll** one of your defence dice. In addition, this operative isn’t affected by the xxx\" Devastating xxx weapon rule (i.e. Devastating with a distance) unless they are the target during that sequence. "
     )
 
+    val GunnerVolleyGun = Operator(
+        name = "Kasrkin Gunner (Volley gun)",
+        APL = 2,
+        move = 6,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.KSVolleyGunFocused,Weapons.KSVolleyGunSweeping, Weapons.KSGunButt),
+        keywords = listOf("##KASRKIN##"),
+        size = 28
+    )
+
     val GunnerGranadeLuncher = Operator(
         name = "Kasrkin Gunner (Grenade Luncher)",
         APL = 2,
@@ -202,6 +223,17 @@ object KasrkinSquadOperators
         save = 4,
         wounds = 8,
         weapons = listOf(Weapons.KSPlasmaGunStandard,Weapons.KSPlasmaGunCharged, Weapons.KSGunButt),
+        keywords = listOf("##KASRKIN##"),
+        size = 28
+    )
+
+    val GunnerFlamer = Operator(
+        name = "Kasrkin Gunner (Flamer)",
+        APL = 2,
+        move = 6,
+        save = 4,
+        wounds = 8,
+        weapons = listOf(Weapons.KSFlamer, Weapons.KSGunButt),
         keywords = listOf("##KASRKIN##"),
         size = 28
     )
@@ -274,7 +306,7 @@ object KasrkinSquadOperators
                 "The rules for these actions are found in universal equipment. Performing these actions using this rule doesn’t count towards their action limits (i.e. if you also select those grenades from equipment).\n"
     )
 
-    val operatorList = listOf(Seargent,Medic,DemoTrooper,GunnerGranadeLuncher,GunnerPlasma,GunnerMelta,ReconTrooper,Sharpshooter,VoxTrooper,Trooper)
+    val operatorList = listOf(Seargent,Medic,DemoTrooper,GunnerVolleyGun,GunnerGranadeLuncher,GunnerPlasma,GunnerFlamer,GunnerMelta,ReconTrooper,Sharpshooter,VoxTrooper,Trooper)
 
 }
 
@@ -865,7 +897,7 @@ object LegionairesOperators
     )
 
     val IconBearerBoltgun = Operator(
-        name = "Icon Bearer (Bolt gun)",
+        name = "Icon Bearer (Boltgun)",
         APL = 3,
         move = 6,
         save = 3,
@@ -903,7 +935,7 @@ object LegionairesOperators
     )
 
     val WarriorBoltgun = Operator(
-        name = "Warrior (Bolt gun)",
+        name = "Warrior (Boltgun)",
         APL = 3,
         move = 6,
         save = 3,
@@ -1075,8 +1107,5 @@ object NemesiClawOperators{
         additionalRules = "**Cruel Tormenter:** Whenever this operative is shooting against, fighting against or retaliating against an injured enemy operative, or an enemy operative that has a Wounds stat of 7 or less, its weapons have the xxLethal 5+xx weapon rule. "
     )
 
-
-
-
-    val operatorList = listOf(Visionary,Fearmonger,Screecher,Skinthief,Ventrilokar,HeavyGunnerMissile,HeavyGunnerBolter,GunnerMelta,GunnerPlasma,WarriorBolter,WarriorChainsword)
+    val operatorList = listOf(Visionary,Fearmonger,Screecher,Skinthief,Ventrilokar,HeavyGunnerMissile,HeavyGunnerBolter,GunnerPlasma,GunnerFlamer,GunnerMelta,WarriorBolter,WarriorChainsword)
 }

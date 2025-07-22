@@ -33,6 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -97,7 +98,7 @@ fun ConfirmDialog(
 
 //Create Box which show action and it's rules
 @Composable
-fun Actions(actionList : List<Action>)
+fun Actions(actionList : List<Action>,TitleSize : TextUnit = 24.sp)
 {
     //If empty don't create
     if(actionList.isEmpty())
@@ -117,13 +118,13 @@ fun Actions(actionList : List<Action>)
                 //label with action name
                 Box(modifier = Modifier.weight(0.7f).fillMaxHeight().padding(5.dp))
                 {
-                    Text(action.name,style = TextStyle(fontSize = 24.sp),color = Color.White, textAlign = TextAlign.Start)
+                    Text(action.name,style = TextStyle(fontSize = TitleSize),color = Color.White, textAlign = TextAlign.Start)
                 }
                 //label with cost of action (in APL)
                 Box(modifier = Modifier.weight(0.3f).fillMaxHeight().padding(5.dp),
                     contentAlignment = Alignment.CenterEnd)
                 {
-                    Text("${action.cost}APL",style = TextStyle(fontSize = 24.sp),color = Color.White, textAlign = TextAlign.End)
+                    Text("${action.cost}APL",style = TextStyle(fontSize = TitleSize),color = Color.White, textAlign = TextAlign.End)
                 }
             }
             //Description of action
@@ -142,7 +143,10 @@ fun Actions(actionList : List<Action>)
                 //Formatted description of action
                 Box(modifier = Modifier.weight(0.9f).fillMaxHeight().padding(5.dp))
                 {
-                    Text(FormatTextWithMarkers(action.description),style = TextStyle(fontSize = 14.sp), textAlign = TextAlign.Justify)
+                    Text(text = FormatTextWithMarkers(action.description),
+                        modifier = Modifier.padding(end = 10.dp),
+                        style = TextStyle(fontSize = 14.sp),
+                        textAlign = TextAlign.Justify)
                 }
             }
             Row(modifier = Modifier.fillMaxWidth())
@@ -160,7 +164,11 @@ fun Actions(actionList : List<Action>)
                 //Formated description of action limits
                 Box(modifier = Modifier.weight(0.9f).fillMaxHeight().padding(5.dp))
                 {
-                    Text(FormatTextWithMarkers(action.limitation),style = TextStyle(fontSize = 14.sp), textAlign = TextAlign.Justify)
+                    Text(
+                        text = FormatTextWithMarkers(action.limitation),
+                        modifier = Modifier.padding(end = 10.dp),
+                        style = TextStyle(fontSize = 14.sp),
+                        textAlign = TextAlign.Justify)
                 }
             }
         }

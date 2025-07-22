@@ -10,7 +10,7 @@ object WeaponRules
 
     val Balanced = WeaponRule(
         name = "Balanced",
-        description = ""
+        description = "You can re-roll one of your attack dice."
     )
 
     val BlastX = WeaponRule(

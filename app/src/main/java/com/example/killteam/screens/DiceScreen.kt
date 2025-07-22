@@ -49,6 +49,7 @@ import com.example.killteam.ui.theme.KTColors
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
+//Screen which shows allows to show dices
 @Composable
 fun DiceScreen()
 {
@@ -375,8 +376,8 @@ class DiceViewModel(application: Application) : AndroidViewModel(application)
     {
         for(i in 0..5)
         {
-            leftValues[i] = Random.nextInt(1,6)
-            rightValues[i] = Random.nextInt(1,6)
+            leftValues[i] = Random.nextInt(1,7)
+            rightValues[i] = Random.nextInt(1,7)
         }
     }
     fun getNumberOfDices(leftSide: Boolean) : Int

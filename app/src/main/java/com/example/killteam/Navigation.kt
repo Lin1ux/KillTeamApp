@@ -64,6 +64,7 @@ import com.example.killteam.screens.PreviewScreen
 import com.example.killteam.screens.ProfileScreen
 import com.example.killteam.screens.ScoreScreen
 import com.example.killteam.screens.SignInScreen
+import com.example.killteam.screens.TacopScreen
 import com.example.killteam.screens.UnitScreen
 import com.example.killteam.screens.UnitSelectionScreen
 import com.example.killteam.screens.WeaponeRules
@@ -101,6 +102,10 @@ fun Navigation()
         composable(route = Screen.WeaponeRuleScreen.route)
         {
             ShowWeaponRulesScreen(navController)
+        }
+        composable(route = Screen.TacopScreen.route)
+        {
+            ShowTacopScreen(navController)
         }
         composable(route = Screen.HistoryListScreen.route)
         {
@@ -250,7 +255,6 @@ fun ShowDiceScreen(navController : NavController)
 fun ShowWeaponRulesScreen(navController : NavController)
 {
     val context = LocalContext.current
-    val activity = context as ComponentActivity
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -268,6 +272,32 @@ fun ShowWeaponRulesScreen(navController : NavController)
         { innerPadding ->
             Box(modifier = Modifier.fillMaxHeight().padding(innerPadding).background(KTColors.Background)) {
                 WeaponeRules()
+            }
+        }
+    }
+}
+//Show tacop Screen
+@Composable
+fun ShowTacopScreen(navController : NavController)
+{
+    val context = LocalContext.current
+
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            NavigationMenu(navController,getMenuItem())
+        }) {
+        Scaffold(
+            topBar = {
+                AppBar(navController,"Tacops",true,{ scope.launch { drawerState.open()}})
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.fillMaxHeight().padding(innerPadding).background(KTColors.Background)) {
+                TacopScreen()
             }
         }
     }

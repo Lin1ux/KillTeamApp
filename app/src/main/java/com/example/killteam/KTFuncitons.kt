@@ -10,6 +10,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import com.example.killteam.Objects.KillTeams
 import com.example.killteam.firebase.PlayerInfo
 import com.example.killteam.firebase.UnitInfo
 import com.example.killteam.ui.theme.KTColors
@@ -203,6 +204,20 @@ fun GetOrderColor(operator: selectedOperators,modifyAlpha : Boolean = true,check
 //Remove keyword from name
 fun String.RemoveKeyWord(viewModel: ScoreViewModel,firstPlayer : Boolean) :
         String = this.replace(viewModel.GetPlayer(firstPlayer).GetTeam().nameKeyword,"")
+
+//Remove keyword from name based on team in which it is
+fun String.RemoveKeyWord(teamName : String) : String
+        {
+            var foundName : String = ""
+            KillTeams.teamList.forEach { team ->
+                if(team.name == teamName)
+                {
+                    return this.replace(team.nameKeyword,"")
+                }
+            }
+            return this
+        }
+
 
 //Get List of Weapon rules and build string with them
 fun ConvertWeaponRulesToString(rules : List<WeaponRule>) : String

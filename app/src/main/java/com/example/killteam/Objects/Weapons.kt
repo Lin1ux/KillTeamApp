@@ -1,5 +1,8 @@
 package com.example.killteam.Objects
 
+import com.example.killteam.Objects.WeaponRules.Saturate
+import com.example.killteam.screens.WeaponRules
+
 object Weapons
 {
     //Universal
@@ -134,6 +137,16 @@ object Weapons
         Dmg = 3,
         CritDmg = 3,
         WeaponRulesList = listOf(WeaponRules.Devastating3, WeaponRules.Heavy)
+    )
+
+    val DKFlamer = Weapon(
+        name = " Flamer",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 2,
+        Dmg = 3,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Range8,WeaponRules.Torrent2,WeaponRules.Saturate)
     )
 
     val DKGranadeLuncherFrag = Weapon(
@@ -351,13 +364,43 @@ object Weapons
     )
 
     val KSMeltaGun = Weapon(
-        name = " Melta gun",
+        name = "Melta gun",
         type = WeaponType.RANGED,
         Atk = 4,
         Hit = 3,
         Dmg = 6,
         CritDmg = 3,
         WeaponRulesList = listOf(WeaponRules.Range6, WeaponRules.Devastating4,WeaponRules.Piercieng2)
+    )
+
+    val KSVolleyGunFocused = Weapon(
+        name = "Hot-shot volley gun (Focused)",
+        type = WeaponType.RANGED,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.PiercingCrits1)
+    )
+
+    val KSVolleyGunSweeping = Weapon(
+        name = "Hot-shot volley gun (Sweeping)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.PiercingCrits1, WeaponRules.Torrent1)
+    )
+
+    val KSFlamer = Weapon(
+        name = "Flamer",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 2,
+        Dmg = 3,
+        CritDmg = 3,
+        WeaponRulesList = listOf(WeaponRules.Range8,WeaponRules.Torrent2,Saturate)
     )
 
     //Angels of Death

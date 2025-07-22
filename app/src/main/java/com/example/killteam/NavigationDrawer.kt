@@ -19,7 +19,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Adjust
 import androidx.compose.material.icons.filled.Casino
+import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Star
@@ -109,11 +111,12 @@ fun NavigationMenu(
 
     val actions: List<() -> Unit> = listOf(
         { navController.navigate(Screen.LoginScreen.LoginScreenRoute()) },
-        //{ Log.d("Akcja","Akcja 2") },
         { navController.navigate(Screen.WeaponeRuleScreen.WeaponRuleRoute()) },
+        { navController.navigate(Screen.WeaponeRuleScreen.TacopScreenRoute()) },
         { navController.navigate(Screen.DiceScreen.DiceRoute()) },
         { navController.navigate(Screen.HistoryListScreen.HistoryListScreenRoute()) },
         { navController.navigate(Screen.ScoreScreen.ScoreScreenRoute()) },
+        //{ Log.d("Akcja","Akcja 2") },
     )
 
     Row(modifier = Modifier.fillMaxWidth())
@@ -164,10 +167,10 @@ fun getMenuItem() : List<MenuItem>
 {
     return listOf(
         MenuItem(1,"Account","1",Icons.Default.Person),
-        //MenuItem(2,"Rule Set",""),
         MenuItem(2,"Weapon Rules","",Icons.Default.Adjust),
-        MenuItem(3,"Dice Roller","",Icons.Default.Casino),
-        MenuItem(4,"Games","",Icons.Default.History),
-        MenuItem(5,"Score Screen","",Icons.Outlined.Star)
+        MenuItem(3,"TacOps","",Icons.Default.Flag),
+        MenuItem(4,"Dice Roller","",Icons.Default.Casino),
+        MenuItem(5,"Games","",Icons.Default.History),
+        MenuItem(6,"Score Screen","",Icons.Outlined.Star)
     )
 }

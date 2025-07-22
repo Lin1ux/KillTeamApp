@@ -24,6 +24,7 @@ import com.example.killteam.InfoPopUp
 import com.example.killteam.Objects.WeaponRules
 import com.example.killteam.ui.theme.KTColors
 
+//Screen with list of Weapon rules
 @Composable
 fun WeaponeRules()
 {

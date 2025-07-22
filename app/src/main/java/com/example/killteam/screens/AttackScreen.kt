@@ -40,12 +40,16 @@ import com.example.killteam.FormatTextWithMarkers
 import com.example.killteam.GetOrderColor
 import com.example.killteam.IsInjured
 import com.example.killteam.Objects.Weapon
+import com.example.killteam.Objects.WeaponRule
+import com.example.killteam.Objects.WeaponRules
+import com.example.killteam.Objects.WeaponRules.WeaponRuleList
 import com.example.killteam.RemoveKeyWord
 import com.example.killteam.ScoreViewModel
 import com.example.killteam.Screen
 import com.example.killteam.WeaponsListSmall
 import com.example.killteam.ui.theme.KTColors
 
+//Screen which shows attack options
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun AttackScreen(navController: NavController, viewModel: ScoreViewModel, firstPlayer : Boolean, unitIndex : Int, weaponIndex : Int)
@@ -326,9 +330,27 @@ class AttackViewModel : ViewModel()
 
     fun countDamage(weapon: Weapon) : Int
     {
-        allDamage = normalDamage * weapon.Dmg + criticalDamage * weapon.CritDmg
+        allDamage = normalDamage * weapon.Dmg + criticalDamage * ( weapon.CritDmg + getDamageFromDevastatingRule(weapon) )
         return allDamage
     }
+
+    fun getDamageFromDevastatingRule(weapon : Weapon) : Int
+    {
+        var additionalDmg = 0
+        weapon.WeaponRulesList.forEach { weaponRule ->
+            when (weaponRule)
+            {
+                WeaponRules.Devastating11 -> { additionalDmg += 1 }
+                WeaponRules.Devastating2 ->  { additionalDmg += 2 }
+                WeaponRules.Devastating22 -> { additionalDmg += 2 }
+                WeaponRules.Devastating3 ->  { additionalDmg += 3 }
+                WeaponRules.Devastating4 ->  { additionalDmg += 4 }
+                else -> {}
+            }
+        }
+        return additionalDmg
+    }
+
     fun resetDice()
     {
         normalDamage = 0

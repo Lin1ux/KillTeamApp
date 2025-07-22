@@ -6,6 +6,7 @@ sealed class Screen(val route: String)
     object DiceScreen : Screen("dice_screen")
     object LoginScreen : Screen("login_screen")
     object WeaponeRuleScreen : Screen("weapon_rule_screen")
+    object TacopScreen : Screen("tacop_screen")
     object ProfileScreen : Screen("profile_screen")
     object HistoryListScreen : Screen("history_list_screen")
     object FractionScreen : Screen("fraction_screen/{RedPlayer}")
@@ -23,6 +24,8 @@ sealed class Screen(val route: String)
     fun ProfileScreenRoute() = "profile_screen"
 
     fun WeaponRuleRoute() = "weapon_rule_screen"
+
+    fun TacopScreenRoute() = "tacop_screen"
 
     fun HistoryListScreenRoute() = "history_list_screen"
 

@@ -45,6 +45,7 @@ import com.example.killteam.ploySelection
 import com.example.killteam.ployToColor
 import com.example.killteam.ui.theme.KTColors
 
+//Show Fraction values
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun FractionScreen(navController : NavController,viewModel: ScoreViewModel, firstPlayer: Boolean) {

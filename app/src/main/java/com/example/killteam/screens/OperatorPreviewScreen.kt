@@ -68,6 +68,7 @@ import com.example.killteam.WeaponsListSmall
 import com.example.killteam.WorsenHitStat
 import com.example.killteam.ui.theme.KTColors
 
+//Show information about Operator
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun PreviewScreen(navController: NavController,viewModel: ScoreViewModel, firstPlayer : Boolean, index : Int)
