@@ -164,7 +164,7 @@ fun OverallInfo(dbViewModel: DatabaseViewModel,userData : UserData?,onSignOutCli
                         color = Color.White
                     )
                     Text(
-                        text = "Game Played: ${dbViewModel.GetNumberOfGames()}",
+                        text = "Games Played: ${dbViewModel.GetNumberOfGames()}",
                         modifier = Modifier.padding(start = 5.dp).fillMaxWidth(),
                         style = TextStyle(fontSize = 18.sp),
                         textAlign = TextAlign.Start,
@@ -389,7 +389,7 @@ fun TeamInfo(navController : NavController,dbViewModel: DatabaseViewModel)
                 )
             )
             {
-                Text("Team statistics")
+                Text("Teams Data")
             }
         }
     }

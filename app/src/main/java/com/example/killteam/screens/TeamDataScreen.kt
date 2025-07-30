@@ -42,7 +42,7 @@ fun TeamDataScreen(navController : NavController,dbViewModel: DatabaseViewModel)
             {
                 TeamIcons(
                     onClick = { team ->
-                        Log.d("AKCJA 1",team)
+                        navController.navigate(Screen.FractionDataScreen.FractionDataRoute(team))
                     })
             }
         }
@@ -57,7 +57,6 @@ fun TeamRulesScreen(navController: NavController)
         {
             TeamIcons(
                 onClick = { team ->
-                    //Log.d("AKCJA 1",team)
                     navController.navigate(Screen.FractionRulesScreen.FractionRulesRoute(team))
                 })
         }

@@ -17,6 +17,7 @@ sealed class Screen(val route: String)
     object UnitPreviewScreen : Screen("preview_screen/{RedPlayer}/{index}")
     object UnitAttack : Screen("attack_screen/{RedPlayer}/{index}/{weaponIndex}")
     object FractionRulesScreen : Screen("fraction_rule_screen/{teamName}")
+    object FractionDataScreen : Screen("fraction_data_screen/{teamName}")
 
     fun ScoreScreenRoute() = "score_screen"
 
@@ -58,5 +59,10 @@ sealed class Screen(val route: String)
     fun FractionRulesRoute(teamName: String): String
     {
         return "fraction_rule_screen/$teamName"
+    }
+
+    fun FractionDataRoute(teamName: String): String
+    {
+        return "fraction_data_screen/$teamName"
     }
 }
