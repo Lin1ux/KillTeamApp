@@ -19,23 +19,35 @@ class Passive(name : String = "name",
         PassiveDescription(this)
     }
 
+    @Composable
+    override fun DrawNoSelectable()
+    {
+        PassiveDescription(this)
+    }
+
     override fun deepCopy(): TeamRule {
         return Passive(name = this.name, description = this.description)}
 }
 
-class SelectionRuleList(
+open class SelectionRuleList(
     name : String = "name",
     description : String = "",
     ruleList: List<TeamRule>
 ) : TeamRule(name, description)
 {
-    val selectionList : List<TeamRule> = ruleList
-    var selectedIndex : MutableState<Int> = mutableStateOf(-1)
+    open val selectionList : List<TeamRule> = ruleList
+    open var selectedIndex : MutableState<Int> = mutableStateOf(-1)
 
     @Composable
     override fun Draw(viewModel: ScoreViewModel,firstPlayer : Boolean)
     {
         ListDescription(viewModel,firstPlayer,this)
+    }
+
+    @Composable
+    override fun DrawNoSelectable()
+    {
+        ListDescription(this)
     }
 
     override fun deepCopy(): TeamRule {
@@ -48,21 +60,21 @@ class SelectionRuleList(
         }
     }
 
-    fun SelectIndex(value : Int)
+    open fun SelectIndex(value : Int)
     {
         selectedIndex.value = value
     }
 }
 
-class SelectionRuleListWithPrimary(
+open class SelectionRuleListWithPrimary(
     name : String = "name",
     description : String = "",
     ruleList: List<TeamRule>
-) : TeamRule(name, description)
+) : SelectionRuleList(name, description,ruleList)
 {
-    val selectionList : List<TeamRule> = ruleList
-    var selectedIndex : MutableState<Int> = mutableStateOf(-1)
-    var primaryIndex : MutableState<Int> = mutableStateOf(-1)
+    override val selectionList : List<TeamRule> = ruleList
+    override var selectedIndex : MutableState<Int> = mutableStateOf(-1)
+    open var primaryIndex : MutableState<Int> = mutableStateOf(-1)
 
     @Composable
     override fun Draw(viewModel: ScoreViewModel,firstPlayer : Boolean)
@@ -81,11 +93,6 @@ class SelectionRuleListWithPrimary(
         }
     }
 
-    fun SelectIndex(value : Int)
-    {
-        selectedIndex.value = value
-    }
-
     fun SelectPrimaryIndex(value : Int)
     {
         primaryIndex.value = value
@@ -96,11 +103,11 @@ class SelectionRuleListChapterTactics(
     name : String = "name",
     description : String = "",
     ruleList: List<TeamRule>
-) : TeamRule(name, description)
+) : SelectionRuleListWithPrimary(name, description,ruleList)
 {
-    val selectionList : List<TeamRule> = ruleList
-    var selectedIndex : MutableState<Int> = mutableStateOf(-1)
-    var primaryIndex : MutableState<Int> = mutableStateOf(-1)
+    override val selectionList : List<TeamRule> = ruleList
+    override var selectedIndex : MutableState<Int> = mutableStateOf(-1)
+    override var primaryIndex : MutableState<Int> = mutableStateOf(-1)
 
     @Composable
     override fun Draw(viewModel: ScoreViewModel,firstPlayer : Boolean)
@@ -118,19 +125,6 @@ class SelectionRuleListChapterTactics(
             this.primaryIndex.value = this@SelectionRuleListChapterTactics.primaryIndex.value
         }
     }
-
-    fun SelectIndex(value : Int)
-    {
-        if(value != primaryIndex.value)
-        {
-            selectedIndex.value = value
-        }
-    }
-
-    fun SelectPrimaryIndex(value : Int)
-    {
-        primaryIndex.value = value
-    }
 }
 
 object AngelsOfDeathRules
@@ -142,9 +136,7 @@ object AngelsOfDeathRules
 
     val Dueller = Passive(
         name = "Dueller",
-        description = "Once per sequence, whenever this operative is fighting or retaliating:\n" +
-                "\n • One of your normal successes can block one unresolved critical success (unless the enemy operative's weapon has the xxBrutalxx weapon rule).\n" +
-                "\n • One of your critical successes can block two unresolved normal successes (instead of one critical success).",
+        description = "Whenever this operative is fighting or retaliating, each of your normal successes can block one unresolved critical success (unless the enemy operative’s weapon has the Brutal weapon rule).",
     )
 
     val Resolute = Passive(
@@ -385,7 +377,7 @@ object NemesisClawRules
     val InMidnightClad = Passive(
         name = "In Midnight Clad",
         description = "Whenever an enemy operative is shooting a friendly ##NEMESIS CLAW## operative, that friendly operative is **obscured** if both of the following are true:\n" +
-                "\n • It’s more than 6\" from enemy operatives it’s visible to.\n" +
+                "\n • It’s more than 8\" from enemy operatives it’s visible to.\n" +
                 "\n • It has Heavy terrain within its control range, or any part of its base is underneath Vantage terrain.",
     )
 

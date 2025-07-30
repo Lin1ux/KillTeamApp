@@ -180,7 +180,7 @@ fun Actions(actionList : List<Action>,TitleSize : TextUnit = 24.sp)
 @Composable
 fun WeaponsList(weapons : List<Weapon>,injured : Boolean)
 {
-    Column(modifier = Modifier.fillMaxWidth())
+    Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 5.dp))
     {
         Box(
             modifier = Modifier
@@ -200,39 +200,32 @@ fun WeaponsList(weapons : List<Weapon>,injured : Boolean)
                 .weight(0.06f)
                 .fillMaxHeight())
             Box(modifier = Modifier
-                .weight(0.25f)
+                .weight(0.49f)
                 .fillMaxHeight(),
                 contentAlignment = Alignment.Center)
             {
                 Text("Name",style = TextStyle(fontSize = 16.sp))
             }
             Box(modifier = Modifier
-                .weight(0.09f)
+                .weight(0.15f)
                 .fillMaxHeight(),
                 contentAlignment = Alignment.Center)
             {
                 Text("Atk",style = TextStyle(fontSize = 16.sp))
             }
             Box(modifier = Modifier
-                .weight(0.09f)
+                .weight(0.15f)
                 .fillMaxHeight(),
                 contentAlignment = Alignment.Center)
             {
                 Text("Hit",style = TextStyle(fontSize = 16.sp))
             }
             Box(modifier = Modifier
-                .weight(0.11f)
+                .weight(0.15f)
                 .fillMaxHeight(),
                 contentAlignment = Alignment.Center)
             {
                 Text("Dmg",style = TextStyle(fontSize = 16.sp))
-            }
-            Box(modifier = Modifier
-                .weight(0.48f)
-                .fillMaxHeight(),
-                contentAlignment = Alignment.Center)
-            {
-                Text("WR",style = TextStyle(fontSize = 16.sp))
             }
         }
         //Little Box to seperate statistics name from weapons
@@ -240,62 +233,69 @@ fun WeaponsList(weapons : List<Weapon>,injured : Boolean)
             .height(2.dp)
             .background(KTColors.Orange))
         //Creating table with weapon informations
-        weapons.forEach { weapon ->
-            //Row with weapon's statistics
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            )
+        weapons.forEachIndexed { index, weapon ->
+            Column()
             {
-                //Image of Weapon type (melee or ranged)
-                Box(modifier = Modifier
-                    .weight(0.06f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
+                //Row with weapon's statistics
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                )
                 {
-                    Image(
-                        modifier = Modifier.align(Alignment.Center),
-                        contentDescription = "Weapon Type",
-                        painter = painterResource(id = if (weapon.type == WeaponType.RANGED) {R.drawable.ranged} else {R.drawable.melee}),
-                        contentScale = ContentScale.FillWidth
-                    )
+                    //Image of Weapon type (melee or ranged)
+                    Box(modifier = Modifier
+                        .weight(0.06f)
+                        .fillMaxHeight(),
+                        contentAlignment = Alignment.Center)
+                    {
+                        Image(
+                            modifier = Modifier.align(Alignment.Center),
+                            contentDescription = "Weapon Type",
+                            painter = painterResource(id = if (weapon.type == WeaponType.RANGED) {R.drawable.ranged} else {R.drawable.melee}),
+                            contentScale = ContentScale.FillWidth
+                        )
+                    }
+                    Box(modifier = Modifier
+                        .weight(0.49f)
+                        .fillMaxHeight(),
+                        contentAlignment = Alignment.CenterStart)
+                    {
+                        Text("${weapon.name}",style = TextStyle(fontSize = 15.sp), textAlign = TextAlign.Start,fontWeight = FontWeight.Bold)
+                    }
+                    Box(modifier = Modifier
+                        .weight(0.15f)
+                        .fillMaxHeight(),
+                        contentAlignment = Alignment.Center)
+                    {
+                        Text("${weapon.Atk}",style = TextStyle(fontSize = 15.sp))
+                    }
+                    //Hit stat which can be modified if operator is injured (injuring changes also color)
+                    Box(modifier = Modifier
+                        .weight(0.15f)
+                        .fillMaxHeight(),
+                        contentAlignment = Alignment.Center)
+                    {
+                        Text("${weapon.Hit.WorsenHitStat(injured)}+",style = TextStyle(fontSize = 15.sp),color = SelectColorByInjuring(Color.Black,
+                            KTColors.DarkInjured,injured))
+                    }
+                    Box(modifier = Modifier
+                        .weight(0.15f)
+                        .fillMaxHeight(),
+                        contentAlignment = Alignment.Center)
+                    {
+                        //weapon's dmg/critical damage
+                        Text("${weapon.Dmg}/${weapon.CritDmg}",style = TextStyle(fontSize = 15.sp))
+                    }
                 }
+                //Little Box to seperate statistics name from weapons
+                Box(modifier = Modifier.fillMaxWidth()
+                    .height(2.dp)
+                    .background(KTColors.Operator.copy(alpha = 0.25f)))
+                //Weapon Rules
                 Box(modifier = Modifier
-                    .weight(0.25f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
+                    .fillMaxWidth().padding(start = 5.dp),
+                    contentAlignment = Alignment.CenterStart)
                 {
-                    Text("${weapon.name}",style = TextStyle(fontSize = 15.sp), textAlign = TextAlign.Center)
-                }
-                Box(modifier = Modifier
-                    .weight(0.09f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
-                {
-                    Text("${weapon.Atk}",style = TextStyle(fontSize = 15.sp))
-                }
-                //Hit stat which can be modified if operator is injured (injuring changes also color)
-                Box(modifier = Modifier
-                    .weight(0.09f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
-                {
-                    Text("${weapon.Hit.WorsenHitStat(injured)}+",style = TextStyle(fontSize = 15.sp),color = SelectColorByInjuring(Color.Black,
-                        KTColors.DarkInjured,injured))
-                }
-                Box(modifier = Modifier
-                    .weight(0.11f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
-                {
-                    //weapon's dmg/critical damage
-                    Text("${weapon.Dmg}/${weapon.CritDmg}",style = TextStyle(fontSize = 15.sp))
-                }
-                Box(modifier = Modifier
-                    .weight(0.48f)
-                    .fillMaxHeight(),
-                    contentAlignment = Alignment.Center)
-                {
-                    Text("${ConvertWeaponRulesToString(weapon.WeaponRulesList)}",style = TextStyle(fontSize = 15.sp), textAlign = TextAlign.Center)
+                    Text("WR: ${ConvertWeaponRulesToString(weapon.WeaponRulesList)}",style = TextStyle(fontSize = 15.sp), textAlign = TextAlign.Start)
                 }
             }
             Box(modifier = Modifier.fillMaxWidth()

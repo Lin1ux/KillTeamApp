@@ -266,10 +266,8 @@ object PlagueMarinesPloys
     val Contagion = Ploy(
         name = "Contagion",
         description = "Subtract 2\" from the Move stat of an enemy operative and worsen the Hit stat of its weapons by 1 (this isn’t cumulative with being injured) whenever any of the following are true:\n" +
-                "\n • It’s within control range of friendly ##PLAGUE MARINE## operatives.\n" +
                 "\n • It has one of your Poison tokens and is visible to (or vice versa) and within 3\" of friendly ##PLAGUE MARINE## operatives.\n" +
-                "\n • It’s visible to (or vice versa) and within 3\" of a friendly ##PLAGUE MARINE## **ICON BEARER** operative.\n" +
-                "\n",
+                "\n • It’s visible to (or vice versa) and within 3\" of a friendly ##PLAGUE MARINE## **ICON BEARER** operative.\n",
         type = PloyType.STRATEGY,
         cost = "1CP"
     )
@@ -369,7 +367,7 @@ object HunterCladePloys
 
     val OmnissiahsImperative = Ploy(
         name = "Omnissiah's Imperative",
-        description = "Use this firefight ploy during a friendly ##HUNTER CLADE## operative’s activation. Alternatively, use it when an enemy operative is shooting a friendly ##HUNTER CLADE## operative, at the end of the Roll Attack Dice step. Inflict D3+1 damage on that friendly operative. Until the Ready step of the next Strategy phase, that friendly operative has an additional rule determined by its current **DOCTRINA IMPERATIVE** as follows:\n" +
+        description = "Use this firefight ploy during a friendly ##HUNTER CLADE## operative’s activation. Alternatively, use it when an enemy operative is shooting a friendly ##HUNTER CLADE## operative, at the end of the Roll Attack Dice step. Until the Ready step of the next Strategy phase, that friendly operative has an additional rule determined by its current **DOCTRINA IMPERATIVE** as follows:\n" +
                 "\n • **Protector:** This operative’s ranged weapons have the xxSeverexx weapon rule.\n" +
                 "\n • **Conqueror:** Whenever this operative is fighting, after resolving your first attack dice during that sequence, you can immediately resolve another (before your opponent).\n" +
                 "\n • **Bulwark:** Improve this operative’s Save stat by 1. In addition, whenever an operative is shooting this operative, you can collect and roll an additional defence dice. If you use this ploy during a **Shoot** action, this operative’s Save stat is changed immediately (this takes precedence over the core rules).\n" +
@@ -404,16 +402,16 @@ object LegionairesPloys
 {
     val BloodForTheBloodGod = Ploy(
         name = "Blood For The Blood God",
-        description = "Whenever a friendly ##LEGIONARY## operative ( excluding **KHORNE** ) is fighting, the first time you strike during that sequence, inflict 1 additional damage.\n\n" +
-                "Add 1 to both Dmg stats of friendly ##LEGIONARY## **KHORNE** operatives’ melee weapons.\n",
+        description = "Whenever a friendly ##LEGIONARY## operative ( excluding **KHORNE** ) is fighting, the first time you strike during that sequence, inflict 1 additional damage. (to a maximum of 7)\n\n" +
+                "Add 1 to both Dmg stats of friendly ##LEGIONARY## **KHORNE** operatives’ melee weapons. (to a maximum of 7).\n",
         type = PloyType.STRATEGY,
         cost = "1CP"
     )
 
     val Implacable = Ploy(
         name = "Implacable",
-        description = "You can ignore any changes to the stats of friendly ##LEGIONARY## operatives from being injured.\n\n" +
-                "Whenever an operative is shooting a friendly ##LEGIONARY## **NURGLE** operative, weapons with the xxPiercing 1xx weapon rule have the xxPiercing Crits 1xx weapon rule instead.\n",
+        description = "Whenever an operative is shooting a friendly ##LEGIONARY## operative, weapons with the xxPiercing 1xx weapon rule have the xxPiercing Crits 1xx weapon rule instead.\n\n" +
+                "You can ignore any changes to the stats of friendly ##LEGIONARY## **NURGLE** operatives from being injured.",
         type = PloyType.STRATEGY,
         cost = "1CP"
     )
@@ -429,7 +427,7 @@ object LegionairesPloys
 
     val FickleFates = Ploy(
         name = "Fickle Fates",
-        description = "Whenever a friendly ##LEGIONARY## operative is shooting a ready enemy operative, that friendly operative’s ranged weapons have the xxCeaselessxx weapon rule; if the weapon already has that weapon rule (e.g., reaper chaincannon), it has the xxRelentlessxx weapon rule.\n\n" +
+        description = "Whenever a friendly ##LEGIONARY## operative is shooting a ready enemy operative, that friendly operative’s ranged weapons have the xxBalancedxx weapon rule\n\n" +
                 "Whenever an operative is shooting a ready friendly ##LEGIONARY## **TZEENTCH** operative, in the Roll Defence Dice step, if you retain any critical successes, you can retain one of your fails as a normal success instead of discarding it.",
         type = PloyType.STRATEGY,
         cost = "1CP"
@@ -495,7 +493,7 @@ object NemesisClawPloys
 
     val ReturnToDarkness = Ploy(
         name = "Return To Darkness",
-        description = "One friendly ##NEMESIS CLAW## operative can immediately perform a free **Fall Back** or **Reposition** action, but it must end that move with Heavy terrain within its control range, or any part of its base underneath Vantage terrain. In addition, it cannot end that move closer to enemy operatives. (in a killzone that uses the close quarters rules, e.g. Killzone: Gallowdark, ignore Wall terrain when determining this).",
+        description = "One friendly ##NEMESIS CLAW## operative can immediately perform a free **Fall Back** or **Reposition** action, but it must end that move with Heavy terrain within its control range, or any part of its base underneath Vantage terrain. In addition, it cannot move more than 4\" during that action and it cannot end that move closer to enemy operatives. (in a killzone that uses the close quarters rules, e.g. Killzone: Gallowdark, ignore Wall terrain when determining this).",
         type = PloyType.STRATEGY,
         cost = "1CP"
     )

@@ -45,7 +45,7 @@ import com.example.killteam.ploySelection
 import com.example.killteam.ployToColor
 import com.example.killteam.ui.theme.KTColors
 
-//Show Fraction values
+//Show Faction values
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun FractionScreen(navController : NavController,viewModel: ScoreViewModel, firstPlayer: Boolean) {
@@ -57,7 +57,7 @@ fun FractionScreen(navController : NavController,viewModel: ScoreViewModel, firs
                 modifier = Modifier.fillMaxWidth().background(KTColors.Orange).padding(vertical = 10.dp),
                 contentAlignment = Alignment.Center)
             {
-                Text("Fraction Rules",style = TextStyle(fontSize = 32.sp),color = Color.White)
+                Text("Faction Rules",style = TextStyle(fontSize = 32.sp),color = Color.White)
             }
         }
         item()
@@ -152,6 +152,7 @@ fun FractionScreen(navController : NavController,viewModel: ScoreViewModel, firs
     }
 }
 
+//Show ploy
 @Composable
 fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean, ploySelection: ploySelection)
 {
@@ -241,7 +242,7 @@ fun Ploys(viewModel: ScoreViewModel, firstPlayer: Boolean, ploySelection: ploySe
         }
     }
 }
-//Dialog Window which ask player is game should be ended
+//Dialog Window which allows player to change state of ploy
 @Composable
 fun PloyInfoDialog(
     color : Color,

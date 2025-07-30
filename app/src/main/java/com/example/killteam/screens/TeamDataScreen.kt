@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.killteam.Objects.KillTeams.teamList
+import com.example.killteam.Screen
 import com.example.killteam.firebase.DatabaseViewModel
 import com.example.killteam.ui.theme.KTColors
 
@@ -56,7 +57,8 @@ fun TeamRulesScreen(navController: NavController)
         {
             TeamIcons(
                 onClick = { team ->
-                    Log.d("AKCJA 1",team)
+                    //Log.d("AKCJA 1",team)
+                    navController.navigate(Screen.FractionRulesScreen.FractionRulesRoute(team))
                 })
         }
     }
@@ -96,30 +98,4 @@ fun TeamIcons(onClick: (teamName : String) -> Unit)
             }
         }
     }
-    /*for (i in 0..teamList.size step 2)
-    {
-        Row(modifier = Modifier.padding(5.dp))
-        {
-            Box(modifier = Modifier.padding(5.dp))
-            {
-                Icon(
-                    //modifier = Modifier.weight(0.2f),
-                    modifier = Modifier.padding(5.dp),
-                    painter = painterResource(teamList[i].icon),
-                    contentDescription =  teamList[i].name,
-                    tint = KTColors.Red,
-                )
-            }
-            Box(modifier = Modifier.padding(5.dp))
-            {
-                Icon(
-                    //modifier = Modifier.weight(0.2f),
-                    modifier = Modifier.padding(5.dp),
-                    painter = painterResource(teamList[i+1].icon),
-                    contentDescription = teamList[i+1].name,
-                    tint = KTColors.Red,
-                )
-            }
-        }
-    }*/
 }

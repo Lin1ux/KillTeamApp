@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -24,6 +25,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.killteam.Objects.Passive
@@ -46,7 +48,12 @@ fun PassiveDescription(passiveRule : Passive)
             )
         )
         {
-            Text(" "+passiveRule.name,style = TextStyle(fontSize = 28.sp),color = Color.White)
+            Text(" "+passiveRule.name,
+                modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+                style = TextStyle(fontSize = 28.sp),
+                color = Color.White,
+                maxLines = 1,
+                overflow = TextOverflow.Clip)
         }
         if(startDialog)
         {
@@ -102,7 +109,12 @@ fun ListDescription(viewModel: ScoreViewModel,firstPlayer : Boolean,ListRules : 
                         modifier = Modifier.fillMaxWidth().padding(5.dp)
                     )
                     {
-                        Text(" "+rule.name,style = TextStyle(fontSize = 28.sp),color = KTColors.Conceal.copy(GetReadyAlpha(selected)))
+                        Text(" "+rule.name,
+                            modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+                            style = TextStyle(fontSize = 28.sp),
+                            color = KTColors.Conceal.copy(GetReadyAlpha(selected)),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis)
                     }
                 }
                 if(startDialog)
@@ -118,6 +130,82 @@ fun ListDescription(viewModel: ScoreViewModel,firstPlayer : Boolean,ListRules : 
                             startDialog = false
                         }
                     )
+                }
+            }
+        }
+    }
+}
+
+//List of Faction rules without selection
+@Composable
+fun ListDescription(ListRules : SelectionRuleList)
+{
+    Column(Modifier.fillMaxWidth().padding(5.dp).border(2.dp, KTColors.Conceal,RectangleShape))
+    {
+        Box(
+            modifier = Modifier.fillMaxWidth().background(KTColors.Conceal),
+            contentAlignment = Alignment.CenterStart)
+        {
+            var startDialog by remember { mutableStateOf(false) }
+            Box(
+                modifier = Modifier.fillMaxWidth().padding(10.dp).clickable(
+                    onClick = { startDialog = true}
+                )
+            )
+            {
+                Text(" "+ListRules.name,
+                    modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+                    style = TextStyle(fontSize = 28.sp),
+                    color = Color.White,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis)
+            }
+            if(startDialog)
+            {
+                InfoPopUp(
+                    title = ListRules.name,
+                    description = ListRules.description,
+                    onDismiss = { startDialog = false }
+                )
+            }
+        }
+        Column(modifier = Modifier.fillMaxWidth())
+        {
+
+            ListRules.selectionList.forEachIndexed { index, rule ->
+                var startDialog by remember { mutableStateOf(false) }
+
+                Box(
+                    modifier = Modifier.fillMaxWidth().padding(5.dp).border(2.dp, KTColors.Conceal, RectangleShape).clickable(){
+                        startDialog = true
+                    }
+                )
+                {
+                    Box(
+                        modifier = Modifier.fillMaxWidth().padding(5.dp)
+                    )
+                    {
+                        Text(" "+rule.name,style = TextStyle(fontSize = 28.sp),color = KTColors.Conceal)
+                    }
+                }
+                if(startDialog)
+                {
+                    InfoPopUp(
+                        title = rule.name,
+                        description = rule.description,
+                        onDismiss = { startDialog = false }
+                    )
+                    /*RuleSelectionInfoDialog(
+                        index = index,
+                        ruleIndex = ListRules.ruleIndex,
+                        firstPlayer = firstPlayer,
+                        viewModel = viewModel,
+                        onDismiss = {startDialog = false},
+                        onAccept = { RecievedIndex ->
+                            viewModel.GetPlayer(firstPlayer).SetTeamRuleActiveIndex(RecievedIndex,ListRules.ruleIndex)
+                            startDialog = false
+                        }
+                    )*/
                 }
             }
         }
@@ -361,7 +449,11 @@ fun ListDescriptionChapterTactics(viewModel: ScoreViewModel,firstPlayer : Boolea
                 )
             )
             {
-                Text(" "+ListRules.name,style = TextStyle(fontSize = 28.sp),color = Color.White)
+                Text(" "+ListRules.name,
+                    style = TextStyle(fontSize = 28.sp),
+                    color = Color.White,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis)
             }
             if(startDialog)
             {

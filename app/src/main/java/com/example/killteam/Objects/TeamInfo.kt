@@ -99,6 +99,12 @@ abstract class TeamRule(
 
     }
 
+    @Composable
+    open fun DrawNoSelectable()
+    {
+
+    }
+
     abstract fun deepCopy(): TeamRule
 }
 

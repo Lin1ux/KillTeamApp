@@ -49,9 +49,7 @@ fun UnitSelectionScreen(navController : NavController, viewModel: ScoreViewModel
                 item()
                 {
                     var noTroops by remember { mutableStateOf(10.dp) }
-                    /*if(viewModel.GetPlayer(firstPlayer).GetSelectedTroops().isEmpty())
-                    {
-                    }*/
+
                     Box(
                         modifier = Modifier.fillMaxWidth().background(KTColors.Orange).padding(vertical = 10.dp),
                         contentAlignment = Alignment.Center)

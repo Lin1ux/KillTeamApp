@@ -387,7 +387,7 @@ object AngelsOfDeathOperators
     val HeavyGunner = Operator(
         name = "Heavy Intercessor Gunner",
         APL = 3,
-        move = 4,
+        move = 5,
         save = 3,
         wounds = 18,
         weapons = listOf(Weapons.ADHeavyBolterSweeping,Weapons.ADHeavyBolterFocused, Weapons.ADFists),
@@ -963,7 +963,7 @@ object NemesiClawOperators{
         keywords = listOf("##Nemesis Claw##"),
         size = 32,
         leader = true,
-        additionalRules = "**Prescience: PSYCHIC.** In the Ready step of each Strategy phase, you gain **D3** Prescience points. You can spend your Prescience points in the Firefight phase as follows (you cannot use each of the following rules more than once per turning point):\n\n" +
+        additionalRules = "**Prescience: PSYCHIC.** In the Ready step of each Strategy phase, you gain **D3** Prescience points. At the end of each turning point, discard your Prescience points. You can spend your Prescience points in the Firefight phase as follows (you cannot use each of the following rules more than once per turning point):\n\n" +
                 "\n • **Foreboding: PSYCHIC.** Whenever it’s your turn to activate a friendly operative, you can spend 1 of your Prescience points to skip that activation.\n" +
                 "\n • **Portent: PSYCHIC.** Whenever an attack dice inflicts Normal Dmg on this operative, you can spend 1 of your Prescience points to ignore that inflicted damage.\n\n" +
                 "You cannot gain or spend your Prescience points if this operative is incapacitated.. ",

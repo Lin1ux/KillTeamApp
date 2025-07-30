@@ -51,12 +51,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.killteam.Objects.KillTeams
+import com.example.killteam.Objects.TeamInfo
 import com.example.killteam.firebase.DatabaseViewModel
 import com.example.killteam.firebase.GoogleAuthUIClient
 import com.example.killteam.firebase.SignInViewModel
 import com.example.killteam.firebase.UserData
 import com.example.killteam.screens.AttackScreen
 import com.example.killteam.screens.DiceScreen
+import com.example.killteam.screens.FactionRules
 import com.example.killteam.screens.FractionScreen
 import com.example.killteam.screens.GameList
 import com.example.killteam.screens.GamePreviewScreen
@@ -168,6 +171,17 @@ fun Navigation()
         { entry ->
             val index = entry.arguments!!.getInt("index")
             ShowGamePreviewScreen(navController,dbViewModel,index)
+        }
+        composable(route = Screen.FractionRulesScreen.route, //route to Fraction Screen
+            arguments = listOf(navArgument("teamName") {
+                type = NavType.StringType
+                defaultValue = "Angels Of Death"
+            }
+            )
+        )
+        { entry ->
+            val teamName = entry.arguments!!.getString("teamName") ?: "Angels Of Death"
+            ShowFractionRulesScreen(navController, teamName)
         }
         composable(route = Screen.UnitAttack.route, //route to unit attack Screen
             arguments = listOf(
@@ -852,6 +866,43 @@ fun ShowAttackScreen(navController : NavController,viewModel: ScoreViewModel,fir
         { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight()) {
                 AttackScreen(navController, viewModel, firstPlayer, unitIndex, weaponIndex)
+            }
+        }
+    }
+}
+
+@Composable
+fun ShowFractionRulesScreen(navController : NavController,teamName: String)
+{
+    var factionTeam : TeamInfo = KillTeams.AngelsOfDeath
+
+    KillTeams.teamList.forEach { team ->
+        if(team.name == teamName)
+        {
+            factionTeam = team
+        }
+    }
+
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            NavigationMenu(navController,getMenuItem())
+        })
+    {
+        Scaffold(
+            topBar = {
+                AppBar(navController,teamName,true,{ scope.launch { drawerState.open()}})
+            },
+            bottomBar = {
+
+            }
+        )
+        { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding).background(KTColors.Background).fillMaxHeight()) {
+                FactionRules(navController,factionTeam)
             }
         }
     }
