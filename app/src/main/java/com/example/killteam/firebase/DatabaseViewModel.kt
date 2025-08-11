@@ -697,7 +697,7 @@ class DatabaseViewModel(): ViewModel()
                     {
                         tacop.winRate+=1
                     }
-                    tacop.score += team.redPlayer.tacPoints.sum() - team.redPlayer.tacPoints[5]
+                    tacop.score += team.redPlayer.tacPoints.sum() - team.redPlayer.tacPoints[6]
                 }
             }
         }
@@ -714,7 +714,7 @@ class DatabaseViewModel(): ViewModel()
                     {
                         tacop.winRate+=1
                     }
-                    tacop.score += team.redPlayer.tacPoints.sum() - team.redPlayer.tacPoints[5]
+                    tacop.score += team.redPlayer.tacPoints.sum() - team.redPlayer.tacPoints[6]
                 }
                 //Blue team
                 if(team.bluePlayer.teamName == playedTeam.name && team.bluePlayer.tacOp == tacoop)
@@ -724,7 +724,7 @@ class DatabaseViewModel(): ViewModel()
                     {
                         tacop.winRate+=1
                     }
-                    tacop.score += team.bluePlayer.tacPoints.sum() - team.redPlayer.tacPoints[5]
+                    tacop.score += team.bluePlayer.tacPoints.sum() - team.bluePlayer.tacPoints[6]
                 }
             }
         }
@@ -734,6 +734,187 @@ class DatabaseViewModel(): ViewModel()
         return tacop
     }
 
+    fun GetPrimaryOp(playedTeam: TeamInfo, RedTeamOnly: Boolean = true) : List<String>
+    {
+        var primaryOps = mutableListOf<String>()
+
+        data?.games?.forEach { primary ->
+            //Red Team tacop
+            if(playedTeam.name == primary.redPlayer.teamName)
+            {
+                if (!(primary.redPlayer.primaryOp in primaryOps))
+                {
+                    primaryOps.add(primary.redPlayer.primaryOp)
+                }
+            }
+            //Blue Team tacop
+            if(!RedTeamOnly && playedTeam.name == primary.bluePlayer.teamName)
+            {
+                if (!(primary.bluePlayer.primaryOp in primaryOps))
+                {
+                    primaryOps.add(primary.bluePlayer.primaryOp)
+                }
+            }
+        }
+        return primaryOps.sorted()
+    }
+
+    fun GetPrimaryOpInfo(playedTeam : TeamInfo,primaryOp : String,RedTeamOnly : Boolean) : PrimarySummary
+    {
+        var primaryOps : PrimarySummary = PrimarySummary(name = primaryOp)
+
+        if(RedTeamOnly)
+        {
+            //Get team values
+            data?.games?.forEach { primary ->
+                if(primary.redPlayer.teamName == playedTeam.name && primary.redPlayer.primaryOp == primaryOp)
+                {
+                    primaryOps.games+=1
+                    if(primary.redPlayer.score > primary.bluePlayer.score)
+                    {
+                        primaryOps.winRate+=1
+                    }
+                    primaryOps.score += primary.redPlayer.critPoints[6]
+                    primaryOps.score += primary.redPlayer.tacPoints[6]
+                    primaryOps.score += primary.redPlayer.killPoints[6]
+                }
+            }
+        }
+        else
+        {
+            //Get team values
+
+            data?.games?.forEach { primary ->
+                //Red Team
+                if(primary.redPlayer.teamName == playedTeam.name && primary.redPlayer.primaryOp == primaryOp)
+                {
+                    primaryOps.games+=1
+                    if(primary.redPlayer.score > primary.bluePlayer.score)
+                    {
+                        primaryOps.winRate+=1
+                    }
+                    primaryOps.score += primary.redPlayer.critPoints[6]
+                    primaryOps.score += primary.redPlayer.tacPoints[6]
+                    primaryOps.score += primary.redPlayer.killPoints[6]
+                }
+                //Blue team
+                if(primary.bluePlayer.teamName == playedTeam.name && primary.bluePlayer.primaryOp == primaryOp)
+                {
+                    primaryOps.games+=1
+                    if(primary.redPlayer.score < primary.bluePlayer.score)
+                    {
+                        primaryOps.winRate+=1
+                    }
+                    primaryOps.score += primary.bluePlayer.critPoints[6]
+                    primaryOps.score += primary.bluePlayer.tacPoints[6]
+                    primaryOps.score += primary.bluePlayer.killPoints[6]
+                }
+            }
+        }
+        //Counting avarage
+        primaryOps.winRate/=primaryOps.games
+        primaryOps.score/=primaryOps.games
+        return primaryOps
+    }
+
+    fun GetOperatorsTeams(playedTeam: TeamInfo, RedTeamOnly: Boolean = true) : List<OperatorInfo>
+    {
+        var operators = mutableListOf<OperatorInfo>()
+
+        data?.games?.forEach { team ->
+            //Red Team operators
+            if(playedTeam.name == team.redPlayer.teamName)
+            {
+                team.redPlayer.units.forEach { unit ->
+                    val amount = team.redPlayer.units.count{ it == unit }
+                    if(!operators.contains(OperatorInfo(name = unit.name,amount = amount)))
+                    {
+                        operators.add(OperatorInfo(name = unit.name,amount = amount))
+                    }
+                }
+            }
+            //Blue Team eq
+            if(!RedTeamOnly && playedTeam.name == team.bluePlayer.teamName)
+            {
+                team.bluePlayer.units.forEach { unit ->
+                    val amount = team.bluePlayer.units.count{ it == unit }
+                    if(!operators.contains(OperatorInfo(name = unit.name,amount = amount)))
+                    {
+                        operators.add(OperatorInfo(name = unit.name,amount = amount))
+                    }
+                }
+            }
+        }
+        return operators
+    }
+
+    fun GetOperatorsInfo(playedTeam : TeamInfo,operator : OperatorInfo,RedTeamOnly : Boolean) : OperatorSummary
+    {
+        var operators : OperatorSummary = OperatorSummary(name = operator.name)
+
+        if(RedTeamOnly)
+        {
+            //Get team values
+            data?.games?.forEach { team ->
+                if(team.redPlayer.teamName == playedTeam.name)
+                {
+                    for (unit in team.redPlayer.units)
+                    {
+                        if(unit.name == operator.name && operator.amount == team.redPlayer.units.count{ it == unit })
+                        {
+                            operators.games+=1
+                            if(team.redPlayer.score > team.bluePlayer.score)
+                            {
+                                operators.winRate+=1
+                            }
+                            break
+                        }
+
+                    }
+                }
+            }
+        }
+        else
+        {
+            //Get team values
+            //Red Team
+            data?.games?.forEach { team ->
+                if(team.redPlayer.teamName == playedTeam.name)
+                {
+                    for (unit in team.redPlayer.units)
+                    {
+                        if(unit.name == operator.name && operator.amount == team.redPlayer.units.count{ it == unit })
+                        {
+                            operators.games+=1
+                            if(team.redPlayer.score > team.bluePlayer.score)
+                            {
+                                operators.winRate+=1
+                            }
+                            break
+                        }
+                    }
+                }
+                if(team.bluePlayer.teamName == playedTeam.name)
+                {
+                    for (unit in team.bluePlayer.units)
+                    {
+                        if(unit.name == operator.name && operator.amount == team.bluePlayer.units.count{ it == unit })
+                        {
+                            operators.games+=1
+                            if(team.redPlayer.score < team.bluePlayer.score)
+                            {
+                                operators.winRate+=1
+                            }
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        //Counting avarage
+        operators.winRate/=operators.games
+        return operators
+    }
 }
 
 data class TeamSummary(
@@ -757,4 +938,22 @@ data class TacOpSummary(
     var games: Int = 0,
     var winRate: Float = 0.0f,
     var score: Float = 0.0f,
+)
+
+data class PrimarySummary(
+    var name: String = "",
+    var games: Int = 0,
+    var winRate: Float = 0.0f,
+    var score: Float = 0.0f,
+)
+
+data class OperatorInfo(
+    var name: String = "",
+    var amount: Int = 0,
+)
+
+data class OperatorSummary(
+    var name: String = "",
+    var games: Int = 0,
+    var winRate: Float = 0.0f,
 )

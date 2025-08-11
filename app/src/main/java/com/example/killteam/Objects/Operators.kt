@@ -879,7 +879,7 @@ object LegionairesOperators
         keywords = listOf("##Legionary##"),
         size = 32,
         additionalRules = "**Vicious Reflexes:** Whenever this operative is retaliating, you resolve the first attack dice (i.e. defender instead of attacker). \n\n" +
-                        "**Horrifying Dismemberment:** Whenever this operative incapacitates an enemy operative while fighting or retaliating, select one other enemy operative visible to and within 3\" of either this operative or the incapacitated enemy operative. Subtract 1 from that enemy operative’s APL stat until the end of its next activation. ",
+                        " **Horrifying Dismemberment:** Whenever this operative incapacitates an enemy operative while fighting or retaliating, select one other enemy operative visible to and within 3\" of either this operative or the incapacitated enemy operative. Subtract 1 from that enemy operative’s APL stat until the end of its next activation. ",
         actions = listOf(Actions.LGrislyMark)
     )
 
@@ -893,7 +893,7 @@ object LegionairesOperators
         keywords = listOf("##Legionary##"),
         size = 32,
         additionalRules = "**Icon Bearer:** Whenever determining control of a marker, treat this operative’s APL stat as 1 higher. Note this isn’t a change to its APL stat, so any changes are cumulative with this.  \n\n" +
-                "**Favoured of the Dark Gods:** In the Ready step of each Strategy phase, if this operative controls an objective marker that isn’t tainted, that objective marker is tainted for the battle and you gain 1CP. Note that if any operative (including enemy operatives) has tainted an objective marker, you cannot taint that objective marker. "
+                " **Favoured of the Dark Gods:** In the Ready step of each Strategy phase, if this operative controls an objective marker that isn’t tainted, that objective marker is tainted for the battle and you gain 1CP. Note that if any operative (including enemy operatives) has tainted an objective marker, you cannot taint that objective marker. "
     )
 
     val IconBearerBoltgun = Operator(
@@ -906,7 +906,7 @@ object LegionairesOperators
         keywords = listOf("##Legionary##"),
         size = 32,
         additionalRules = "**Icon Bearer:** Whenever determining control of a marker, treat this operative’s APL stat as 1 higher. Note this isn’t a change to its APL stat, so any changes are cumulative with this.  \n\n" +
-                "**Favoured of the Dark Gods:** In the Ready step of each Strategy phase, if this operative controls an objective marker that isn’t tainted, that objective marker is tainted for the battle and you gain 1CP. Note that if any operative (including enemy operatives) has tainted an objective marker, you cannot taint that objective marker. "
+                " **Favoured of the Dark Gods:** In the Ready step of each Strategy phase, if this operative controls an objective marker that isn’t tainted, that objective marker is tainted for the battle and you gain 1CP. Note that if any operative (including enemy operatives) has tainted an objective marker, you cannot taint that objective marker. "
     )
 
     val BaleFireAcolyte = Operator(

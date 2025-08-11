@@ -36,9 +36,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.killteam.Objects.TeamInfo
+import com.example.killteam.RemoveKeyWord
 import com.example.killteam.Screen
 import com.example.killteam.firebase.DatabaseViewModel
 import com.example.killteam.firebase.EqSummary
+import com.example.killteam.firebase.OperatorSummary
+import com.example.killteam.firebase.PrimarySummary
 import com.example.killteam.firebase.TacOpSummary
 import com.example.killteam.firebase.TeamSummary
 import com.example.killteam.firebase.UserData
@@ -89,11 +92,19 @@ fun FactionData(navController : NavController,team : TeamInfo,dbViewModel : Data
         }
         item()
         {
+            TeamPrimaryInfo(dbViewModel,team,RedTeamOnly)
+        }
+        item()
+        {
             TeamTacOpInfo(dbViewModel,team,RedTeamOnly)
         }
         item()
         {
             TeamEqInfo(dbViewModel,team,RedTeamOnly)
+        }
+        item()
+        {
+            TeamOperatorsInfo(dbViewModel,team,RedTeamOnly)
         }
     }
 }
@@ -486,9 +497,103 @@ fun TeamTacOpInfo(dbViewModel: DatabaseViewModel,team : TeamInfo,RedTeamOnly: Bo
                 Spacer(modifier = Modifier.fillMaxWidth().height(2.dp).background(KTColors.Blue))
                 Row(modifier = Modifier.fillMaxWidth().padding(5.dp))
                 {
-                    val eqInfo : TacOpSummary = dbViewModel.GetTacopInfo(team,tacop,RedTeamOnly)
+                    val tacOpInfo : TacOpSummary = dbViewModel.GetTacopInfo(team,tacop,RedTeamOnly)
                     Text(
                         text = tacop,
+                        modifier = Modifier.weight(0.4f),
+                        style = TextStyle(fontSize = 14.sp),
+                        textAlign = TextAlign.Start,
+                    )
+                    Text(
+                        text = "${tacOpInfo.games}",
+                        modifier = Modifier.weight(0.2f),
+                        style = TextStyle(fontSize = 14.sp),
+                        textAlign = TextAlign.Center,
+                    )
+                    Text(
+                        text = "${ceil(tacOpInfo.winRate*100).toInt()}%",
+                        modifier = Modifier.weight(0.2f),
+                        style = TextStyle(fontSize = 14.sp),
+                        textAlign = TextAlign.Center,
+                    )
+                    Text(
+                        text = "${"%.1f".format(tacOpInfo.score)}",
+                        modifier = Modifier.weight(0.2f),
+                        style = TextStyle(fontSize = 14.sp),
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TeamPrimaryInfo(dbViewModel: DatabaseViewModel,team : TeamInfo,RedTeamOnly: Boolean = true)
+{
+    if (dbViewModel.data != null)
+    {
+        Column(
+            modifier = Modifier.fillMaxWidth().
+            padding(horizontal = 10.dp, vertical = 5.dp).
+            border(2.dp, KTColors.Blue, RoundedCornerShape(5.dp))
+        )
+        {
+            Text(
+                text = "Primary Ops",
+                modifier = Modifier.fillMaxWidth()
+                    .border(2.dp, KTColors.Blue, RoundedCornerShape(5.dp))
+                    .background(KTColors.Blue),
+                style = TextStyle(fontSize = 18.sp),
+                textAlign = TextAlign.Center,
+                color = Color.White
+            )
+            Row(modifier = Modifier.fillMaxWidth().background(KTColors.Blue))
+            {
+                Text(
+                    text = "Name",
+                    modifier = Modifier.weight(0.4f)
+                        .border(2.dp, KTColors.Blue, RoundedCornerShape(5.dp))
+                        .background(KTColors.Blue),
+                    style = TextStyle(fontSize = 14.sp),
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
+                Text(
+                    text = "Games",
+                    modifier = Modifier.weight(0.2f)
+                        .border(2.dp, KTColors.Blue, RoundedCornerShape(5.dp))
+                        .background(KTColors.Blue),
+                    style = TextStyle(fontSize = 14.sp),
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
+                Text(
+                    text = "Win Rate",
+                    modifier = Modifier.weight(0.2f)
+                        .border(2.dp, KTColors.Blue, RoundedCornerShape(5.dp))
+                        .background(KTColors.Blue),
+                    style = TextStyle(fontSize = 14.sp),
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
+                Text(
+                    text = "Avg Score",
+                    modifier = Modifier.weight(0.2f)
+                        .border(2.dp, KTColors.Blue, RoundedCornerShape(5.dp))
+                        .background(KTColors.Blue),
+                    style = TextStyle(fontSize = 14.sp),
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
+            }
+            dbViewModel.GetPrimaryOp(team,RedTeamOnly).forEach { primaryOp ->
+                Spacer(modifier = Modifier.fillMaxWidth().height(2.dp).background(KTColors.Blue))
+                Row(modifier = Modifier.fillMaxWidth().padding(5.dp))
+                {
+                    val eqInfo : PrimarySummary = dbViewModel.GetPrimaryOpInfo(team,primaryOp,RedTeamOnly)
+                    Text(
+                        text = primaryOp,
                         modifier = Modifier.weight(0.4f),
                         style = TextStyle(fontSize = 14.sp),
                         textAlign = TextAlign.Start,
@@ -507,6 +612,86 @@ fun TeamTacOpInfo(dbViewModel: DatabaseViewModel,team : TeamInfo,RedTeamOnly: Bo
                     )
                     Text(
                         text = "${"%.1f".format(eqInfo.score)}",
+                        modifier = Modifier.weight(0.2f),
+                        style = TextStyle(fontSize = 14.sp),
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TeamOperatorsInfo(dbViewModel: DatabaseViewModel,team : TeamInfo,RedTeamOnly: Boolean = true)
+{
+    if (dbViewModel.data != null)
+    {
+        Column(
+            modifier = Modifier.fillMaxWidth().
+            padding(horizontal = 10.dp, vertical = 5.dp).
+            border(2.dp, KTColors.Blue, RoundedCornerShape(5.dp))
+        )
+        {
+            Text(
+                text = "Operators",
+                modifier = Modifier.fillMaxWidth()
+                    .border(2.dp, KTColors.Blue, RoundedCornerShape(5.dp))
+                    .background(KTColors.Blue),
+                style = TextStyle(fontSize = 18.sp),
+                textAlign = TextAlign.Center,
+                color = Color.White
+            )
+            Row(modifier = Modifier.fillMaxWidth().background(KTColors.Blue))
+            {
+                Text(
+                    text = "Name",
+                    modifier = Modifier.weight(0.6f)
+                        .border(2.dp, KTColors.Blue, RoundedCornerShape(5.dp))
+                        .background(KTColors.Blue),
+                    style = TextStyle(fontSize = 14.sp),
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
+                Text(
+                    text = "Games",
+                    modifier = Modifier.weight(0.2f)
+                        .border(2.dp, KTColors.Blue, RoundedCornerShape(5.dp))
+                        .background(KTColors.Blue),
+                    style = TextStyle(fontSize = 14.sp),
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
+                Text(
+                    text = "Win Rate",
+                    modifier = Modifier.weight(0.2f)
+                        .border(2.dp, KTColors.Blue, RoundedCornerShape(5.dp))
+                        .background(KTColors.Blue),
+                    style = TextStyle(fontSize = 14.sp),
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
+            }
+            dbViewModel.GetOperatorsTeams(team,RedTeamOnly).forEach { unit ->
+                Spacer(modifier = Modifier.fillMaxWidth().height(2.dp).background(KTColors.Blue))
+                Row(modifier = Modifier.fillMaxWidth().padding(5.dp))
+                {
+                    val operatorsInfo : OperatorSummary = dbViewModel.GetOperatorsInfo(team,unit,RedTeamOnly)
+                    Text(
+                        text = "${unit.name.RemoveKeyWord(team.name)} " +
+                                if(unit.amount > 1) "(x${unit.amount})" else "",
+                        modifier = Modifier.weight(0.6f),
+                        style = TextStyle(fontSize = 14.sp),
+                        textAlign = TextAlign.Start,
+                    )
+                    Text(
+                        text = "${operatorsInfo.games}",
+                        modifier = Modifier.weight(0.2f),
+                        style = TextStyle(fontSize = 14.sp),
+                        textAlign = TextAlign.Center,
+                    )
+                    Text(
+                        text = "${ceil(operatorsInfo.winRate*100).toInt()}%",
                         modifier = Modifier.weight(0.2f),
                         style = TextStyle(fontSize = 14.sp),
                         textAlign = TextAlign.Center,

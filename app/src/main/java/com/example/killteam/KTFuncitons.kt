@@ -1,4 +1,5 @@
 package com.example.killteam
+import android.util.Log
 import com.example.killteam.Objects.Mission
 import com.example.killteam.Objects.Ploy
 import com.example.killteam.Objects.PloyType
@@ -208,7 +209,6 @@ fun String.RemoveKeyWord(viewModel: ScoreViewModel,firstPlayer : Boolean) :
 //Remove keyword from name based on team in which it is
 fun String.RemoveKeyWord(teamName : String) : String
         {
-            var foundName : String = ""
             KillTeams.teamList.forEach { team ->
                 if(team.name == teamName)
                 {
