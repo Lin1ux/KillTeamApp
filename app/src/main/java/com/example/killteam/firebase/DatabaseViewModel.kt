@@ -125,10 +125,16 @@ class DatabaseViewModel(): ViewModel()
                 }
             }
     }
-
+    //Get game using index
     fun getDataByIndex(index: Int) : GameInfo
     {
         return data?.games[index] ?: GameInfo()
+    }
+
+    //Get number of games
+    fun getNumberOfGames() : Int
+    {
+        return data?.games?.size ?: 0
     }
     //Get number of games
     fun GetNumberOfGames(team: TeamInfo? = null, RedTeamOnly: Boolean = false) : Int
@@ -826,7 +832,7 @@ class DatabaseViewModel(): ViewModel()
             if(playedTeam.name == team.redPlayer.teamName)
             {
                 team.redPlayer.units.forEach { unit ->
-                    val amount = team.redPlayer.units.count{ it == unit }
+                    val amount = team.redPlayer.units.count{ it.name == unit.name }
                     if(!operators.contains(OperatorInfo(name = unit.name,amount = amount)))
                     {
                         operators.add(OperatorInfo(name = unit.name,amount = amount))
@@ -837,7 +843,8 @@ class DatabaseViewModel(): ViewModel()
             if(!RedTeamOnly && playedTeam.name == team.bluePlayer.teamName)
             {
                 team.bluePlayer.units.forEach { unit ->
-                    val amount = team.bluePlayer.units.count{ it == unit }
+
+                    val amount = team.bluePlayer.units.count{ it.name == unit.name }
                     if(!operators.contains(OperatorInfo(name = unit.name,amount = amount)))
                     {
                         operators.add(OperatorInfo(name = unit.name,amount = amount))
@@ -860,7 +867,7 @@ class DatabaseViewModel(): ViewModel()
                 {
                     for (unit in team.redPlayer.units)
                     {
-                        if(unit.name == operator.name && operator.amount == team.redPlayer.units.count{ it == unit })
+                        if(unit.name == operator.name && operator.amount == team.redPlayer.units.count{ it.name == unit.name })
                         {
                             operators.games+=1
                             if(team.redPlayer.score > team.bluePlayer.score)
@@ -883,7 +890,7 @@ class DatabaseViewModel(): ViewModel()
                 {
                     for (unit in team.redPlayer.units)
                     {
-                        if(unit.name == operator.name && operator.amount == team.redPlayer.units.count{ it == unit })
+                        if(unit.name == operator.name && operator.amount == team.redPlayer.units.count{ it.name == unit.name })
                         {
                             operators.games+=1
                             if(team.redPlayer.score > team.bluePlayer.score)

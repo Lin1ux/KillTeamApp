@@ -48,7 +48,7 @@ fun UnitSelectionScreen(navController : NavController, viewModel: ScoreViewModel
             {
                 item()
                 {
-                    var noTroops by remember { mutableStateOf(10.dp) }
+                    //var noTroops by remember { mutableStateOf(10.dp) }
 
                     Box(
                         modifier = Modifier.fillMaxWidth().background(KTColors.Orange).padding(vertical = 10.dp),
@@ -124,8 +124,6 @@ fun UnitSelectionScreen(navController : NavController, viewModel: ScoreViewModel
 @Composable
 fun OperatorButton(viewModel: ScoreViewModel, firstPlayer : Boolean, operator: Operator, Adding : Boolean)
 {
-    var showDialog by remember { mutableStateOf(false) }
-
     Box(
         modifier = Modifier.fillMaxWidth().padding(10.dp).background(KTColors.Operator),
         contentAlignment = Alignment.CenterStart)
@@ -134,7 +132,16 @@ fun OperatorButton(viewModel: ScoreViewModel, firstPlayer : Boolean, operator: O
             modifier = Modifier.fillMaxSize().background(Color.Transparent).padding(5.dp),
             shape = RectangleShape,
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.White),
-            onClick = { showDialog = true }
+            onClick = {
+                if(Adding)
+                {
+                    viewModel.GetPlayer(firstPlayer).AddTroop(operator)
+                }
+                else
+                {
+                    viewModel.GetPlayer(firstPlayer).RemoveTroop(operator)
+                }
+            }
         )
         {
             if(operator.leader)
@@ -145,90 +152,6 @@ fun OperatorButton(viewModel: ScoreViewModel, firstPlayer : Boolean, operator: O
             {
                 Text("${operator.name.RemoveKeyWord(viewModel,firstPlayer)}", style = TextStyle(fontSize = 20.sp), textAlign = TextAlign.Center)
             }
-            if(showDialog)
-            {
-                TroopSelectionInfoDialog(
-                    KTColors.Orange,firstPlayer, operator,viewModel,Adding,
-                    {showDialog = false},   //On Dismiss
-                    { finish -> if(finish)  //On Accept (Add Troop)
-                        {
-                            //Add new troop
-                            viewModel.GetPlayer(firstPlayer).AddTroop(operator)
-                            //.SwitchEqPlacement(eqSelection.index)
-                        }
-                        showDialog = false
-                    },
-                    { finish -> if(finish)  //On Accept (Remove Troop)
-                        {
-                            //Remove troop
-                            viewModel.GetPlayer(firstPlayer).RemoveTroop(operator)
-                            //viewModel.GetPlayer(firstPlayer).SwitchEqPlacement(eqSelection.index)
-                        }
-                        showDialog = false
-                    })
-            }
         }
     }
-}
-
-//Dialog Window which ask player is he want to confirm selected troops
-@Composable
-fun TroopSelectionInfoDialog(
-    color : Color,
-    firstPlayer : Boolean,
-    operator: Operator,
-    viewModel: ScoreViewModel,
-    Adding : Boolean,
-    onDismiss: () -> Unit,
-    AddTroop: (Boolean) -> Unit,
-    RemoveTroop: (Boolean) -> Unit
-)
-{
-    AlertDialog(
-        onDismissRequest = onDismiss ,
-        title = {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            )
-            {
-                Text("${operator.name.RemoveKeyWord(viewModel,firstPlayer)}", textAlign = TextAlign.Center)
-            }
-        },
-        text = {
-            LazyColumn(horizontalAlignment = Alignment.CenterHorizontally)
-            {
-                item()
-                {
-                    if(Adding)
-                    {
-                        Button(
-                            modifier = Modifier.fillMaxWidth().padding(5.dp),
-                            shape = RectangleShape,
-                            colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
-                            onClick = {AddTroop(true)}
-                        )
-                        {
-                            Text("Add")
-                        }
-                    }
-                    else
-                    {
-                        Button(
-                            modifier = Modifier.fillMaxWidth().padding(5.dp),
-                            shape = RectangleShape,
-                            colors = ButtonDefaults.buttonColors(contentColor = Color.White, containerColor = color),
-                            onClick = {RemoveTroop(true)}
-                        )
-                        {
-                            Text("Remove")
-                        }
-                    }
-                }
-            }
-        },
-        confirmButton = {
-
-        }
-    )
 }

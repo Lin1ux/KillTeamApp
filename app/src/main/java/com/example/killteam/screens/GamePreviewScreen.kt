@@ -25,8 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
@@ -40,17 +38,12 @@ import androidx.navigation.NavController
 import com.example.killteam.ConfirmDialog
 import com.example.killteam.GetColorByWounds
 import com.example.killteam.GetNumberOfOperators
-import com.example.killteam.GetOrderColor
 import com.example.killteam.GetRemainedOperators
-import com.example.killteam.InfoPopUp
-import com.example.killteam.Objects.PointType
 import com.example.killteam.Objects.teamIcons
 import com.example.killteam.R
 import com.example.killteam.RemoveKeyWord
-import com.example.killteam.ScoreViewModel
 import com.example.killteam.Screen
 import com.example.killteam.firebase.DatabaseViewModel
-import com.example.killteam.firebase.GameInfo
 import com.example.killteam.firebase.GoogleAuthUIClient
 import com.example.killteam.firebase.PlayerInfo
 import com.example.killteam.firebase.UnitInfo
@@ -62,6 +55,11 @@ import com.google.android.gms.auth.api.identity.Identity
 fun GamePreviewScreen(navController: NavController, dbViewModel: DatabaseViewModel,index : Int)
 {
     if(dbViewModel.IsdataEmpty())
+    {
+        navController.navigate(Screen.HistoryListScreen.HistoryListScreenRoute())
+        return
+    }
+    if(index >= dbViewModel.getNumberOfGames())
     {
         navController.navigate(Screen.HistoryListScreen.HistoryListScreenRoute())
         return
