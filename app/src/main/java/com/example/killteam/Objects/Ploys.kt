@@ -529,3 +529,71 @@ object NemesisClawPloys
 
     val ployList = listOf(WeHaveComeForYou,TheBlackHunt,Preysight,ReturnToDarkness,VoxScream,DeathToTheFalseEmperor,ProclivityForMurder,DirtyFighter)
 }
+
+object RavenersPloys
+{
+    val DeathFromBelow = Ploy(
+        name = "Death From Below",
+        description = "Whenever a friendly ##RAVENER## operative is fighting:" +
+                "\n • If it’s performed the **Burrow** action during that activation/counteraction, its melee weapons have the xxBalancedxx weapon rule." +
+                "\n • If it’s on your **TUNNEL,** its melee weapons have the xxCeaselessxx weapon rule.",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val WhipcordEmergence = Ploy(
+        name = "Whipcord Emergence",
+        description = "Whenever an operative is shooting a friendly ##RAVENER## operative:" +
+                "\n • If that friendly operative has performed the **Burrow** action during that turning point, you can re-roll one of your defence dice." +
+                "\n • If that friendly operative is on your **TUNNEL,** you can re-roll any of your defence dice.",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val WritheOutOfSight = Ploy(
+        name = "Writhe Out Of Sight",
+        description = "Select one friendly ##RAVENER## operative. That friendly operative can immediately perform a free **Burrow** action." +
+                "\n • If it’s within 2\" of your **TUNNEL,** it can immediately perform a free **Fall Back** or **Reposition** action before it does so.",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val TunnelLurkers = Ploy(
+        name = "Tunnel Lurkers",
+        description = "Whenever a friendly ##RAVENER## operative is on your **TUNNEL** it’s in cover, unless it’s within 2\" of the active operative. Treat this as cover provided by **Light terrain** (therefore it’s affected by rules that prevent this, e.g. xxSeek Lightxx and **Vantage** terrain).",
+        type = PloyType.STRATEGY,
+        cost = "1CP"
+    )
+
+    val SlitheringEvasion = Ploy(
+        name = "Slithering Evasion",
+        description = "Use this firefight ploy during a friendly ##RAVENER## operative’s activation or counteraction, before or after it performs an action.. During that activation/counteraction, that operative can:" +
+                "\n • Perform the **Fall Back** action for 1 less AP." +
+                "\n • Perform the **Charge** action while within control range of an enemy operative, and can leave that operative’s control range to do so (but then normal requirements for that move apply).",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP",
+    )
+
+    val SubterraneanHorror = Ploy(
+        name = "Subterranean Horror",
+        description = "Use this firefight ploy when an enemy operative is performing the **Fight** action and selects a friendly ##RAVENER## operative on your **TUNNEL** to fight against. In the Resolve Attack Dice step of that sequence, you resolve the first attack dice (i.e. defender instead of attacker).",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP"
+    )
+
+    val BurrowingStrike = Ploy(
+        name = "Burrowing Strike",
+        description = "Use this firefight ploy when a friendly ##RAVENER## operative performs the **Burrow** action. Before that operative is removed from the killzone, or after setting it up on your **TUNNEL,** inflict **D3+1** damage on each enemy operative within its control range. You cannot use this ploy in the Strategy phase, or during a **FELLTALON** operative’s activation or counteraction if it performs the **Toxic Lunge** action (and vice versa).",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP"
+    )
+
+    val FrenzyOfDeath = Ploy(
+        name = "Frenzy Of Death",
+        description = "Use this firefight ploy when a friendly ##RAVENER## operative is incapacitated. Before that operative is removed from the killzone, inflict **D3** damage to each enemy operative in its control range. If that operative is a **VENOMSPITTER** and has the effects of its **Distended Sacs** action, inflict **2D3** damage instead.",
+        type = PloyType.FIREFIGHT,
+        cost = "1CP"
+    )
+
+    val ployList = listOf(DeathFromBelow,WhipcordEmergence,WritheOutOfSight,TunnelLurkers,SlitheringEvasion,SubterraneanHorror,BurrowingStrike,FrenzyOfDeath)
+}

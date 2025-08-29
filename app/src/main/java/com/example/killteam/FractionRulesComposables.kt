@@ -28,10 +28,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.killteam.Objects.ActionPassive
+import com.example.killteam.Objects.Equipment
 import com.example.killteam.Objects.Passive
 import com.example.killteam.Objects.SelectionRuleList
 import com.example.killteam.Objects.SelectionRuleListChapterTactics
 import com.example.killteam.Objects.SelectionRuleListWithPrimary
+import com.example.killteam.screens.Equipment
+import com.example.killteam.screens.EquipmentInfoPopUp
 import com.example.killteam.ui.theme.KTColors
 
 @Composable
@@ -60,6 +64,42 @@ fun PassiveDescription(passiveRule : Passive)
             InfoPopUp(
                 title = passiveRule.name,
                 description = passiveRule.description,
+                onDismiss = { startDialog = false }
+            )
+        }
+    }
+}
+
+@Composable
+fun ActionPassiveDescription(passiveRule : ActionPassive)
+{
+    Box(
+        modifier = Modifier.fillMaxWidth().padding(5.dp).background(KTColors.Conceal),
+        contentAlignment = Alignment.CenterStart)
+    {
+        var startDialog by remember { mutableStateOf(false) }
+        Box(
+            modifier = Modifier.fillMaxWidth().padding(10.dp).clickable(
+                onClick = { startDialog = true}
+            )
+        )
+        {
+            Text(" "+passiveRule.name,
+                modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+                style = TextStyle(fontSize = 28.sp),
+                color = Color.White,
+                maxLines = 1,
+                overflow = TextOverflow.Clip)
+        }
+        if(startDialog)
+        {
+            EquipmentInfoPopUp(
+                eq = Equipment(
+                    name = passiveRule.name,
+                    description = passiveRule.description,
+                    weapons = listOf(),
+                    actions = passiveRule.actions
+                ),
                 onDismiss = { startDialog = false }
             )
         }

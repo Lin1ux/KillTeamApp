@@ -1109,3 +1109,97 @@ object NemesiClawOperators{
 
     val operatorList = listOf(Visionary,Fearmonger,Screecher,Skinthief,Ventrilokar,HeavyGunnerMissile,HeavyGunnerBolter,GunnerPlasma,GunnerFlamer,GunnerMelta,WarriorBolter,WarriorChainsword)
 }
+
+object RavenersOperators{
+
+    val Prime = Operator(
+        name = "Ravener Prime",
+        APL = 3,
+        move = 7,
+        save = 5,
+        wounds = 21,
+        weapons = listOf(Weapons.RTailBlade,Weapons.RScythingTalonsAndRendingClaws),
+        keywords = listOf("##Ravener##"),
+        size = 40,
+        leader = true,
+        additionalRules = "**Neuropredatory Crest:** Whenever determining control of a marker, treat the total APL stat of enemy operatives that contest it as 1 lower if at least one of those enemy operatives is within 3\" of this operative. Note this isn’t a change to the APL stat, so any changes are cumulative with this. Whenever an enemy operative is within 3\" of this operative:" +
+                "\n • Your opponent must spend 1 additional AP for that enemy operative to perform the Pick Up Marker and mission actions.\n" +
+                "\n • Your opponent cannot re-roll their attack or defence dice for that operative.\n\n " +
+                "**Synaptic Link: STRATEGIC GAMBIT** if this operative isn’t incapacitated. Roll one **D6** and compare the result to the number of the current turning point; if the result is:" +
+                "\n • Higher: you gain 1CP." +
+                "\n • Equal: nothing happens." +
+                "\n • Less: inflict damage on this operative equal to the result.",
+        actions = listOf()
+    )
+
+    val Felltalon = Operator(
+        name = "Ravener Felltalon",
+        APL = 3,
+        move = 7,
+        save = 5,
+        wounds = 20,
+        weapons = listOf(Weapons.RPincerTail,Weapons.RToxicGlands,Weapons.RToxicScythes),
+        keywords = listOf("##Ravener##"),
+        size = 40,
+        additionalRules = "***Poison:** In the Resolve Attack Dice step, if you inflict damage with any critical successes, the operative this weapon is being used against gains one of your **Poison** tokens (if it doesn’t already have one). Whenever an operative that has one of your Poison tokens is activated, inflict **D3** damage on it.",
+        actions = listOf(Actions.RToxicLunge)
+    )
+
+    val Tremorscythe = Operator(
+        name = "Ravener Tremoscythe",
+        APL = 3,
+        move = 7,
+        save = 5,
+        wounds = 20,
+        weapons = listOf(Weapons.RPincerTail,Weapons.RScythingTalonsAndRendingClaws),
+        keywords = listOf("##Ravener##"),
+        size = 40,
+        additionalRules = "**Subterranean Ambush:** Once per turning point, after an enemy operative performs an action in which it moves more than 2\" and ends within 2\" of your **TUNNEL,** if this operative is underground and is either ready or hasn’t counteracted during this turning point, you can interrupt that enemy operative’s activation/counteraction to use this rule.\n" +
+                "If you do, activate or counteract with this operative (as appropriate), but during its activation/counteraction it must **fight** against or **shoot** against that enemy operative, and cannot do so against any other enemy operatives until it does (if this isn’t possible, this operative’s activation/counteraction is cancelled and this rule hasn’t been used). After completing this operative’s activation/counteraction, continue that enemy operative’s activation/counteraction (if possible).\n\n " +
+                "**Hypersensory Hunter:** This operative can perform the **Charge** action while it has a **Conceal** order if it performed the **Burrow** action during the same activation/counteraction.",
+        actions = listOf()
+    )
+
+    val Venomspitter = Operator(
+        name = "Ravener Venomspitter",
+        APL = 3,
+        move = 7,
+        save = 5,
+        wounds = 20,
+        weapons = listOf(Weapons.RPincerTail,Weapons.RVenomBoltBlast,Weapons.RVenomBoltFocused,Weapons.RScythingTalons),
+        keywords = listOf("##Ravener##"),
+        size = 40,
+        additionalRules = "***Poison:** In the Resolve Attack Dice step, if you inflict damage with any critical successes, the operative this weapon is being used against gains one of your **Poison** tokens (if it doesn’t already have one). Whenever an operative that has one of your Poison tokens is activated, inflict **D3** damage on it.",
+        actions = listOf(Actions.RDistentDorsalSac)
+    )
+
+    val Wrecker = Operator(
+        name = "Ravener Wrecker",
+        APL = 3,
+        move = 7,
+        save = 4,
+        wounds = 20,
+        weapons = listOf(Weapons.RBoneMace,Weapons.RScythingTalonsAndCrushingClaws),
+        keywords = listOf("##Ravener##"),
+        size = 40,
+        additionalRules = "**Reinforced Carapace:** Normal and Critical Dmg of 4 or more inflicts 1 less damage on this operative.\n\n " +
+                "***Crush:** Whenever you strike, you and your opponent roll-off, adding 1 to your result if the operative this weapon is being used against has a Wounds stat of 9 or less. If you win, inflict additional damage on that operative equal to the difference between the dice results (to a maximum of 3 additional damage).",
+        actions = listOf()
+    )
+
+    val Warrior = Operator(
+        name = "Ravener Warrior",
+        APL = 3,
+        move = 7,
+        save = 5,
+        wounds = 20,
+        weapons = listOf(Weapons.RPincerTail,Weapons.RScythingTalons),
+        keywords = listOf("##Ravener##"),
+        size = 40,
+        additionalRules = "**Instinctive Behaviour:** Whenever this operative is shooting against, fighting against or retaliating against a wounded enemy operative, or an enemy operative that performed the **Fall Back** action during this turning point, this operative’s weapons have the xxLethal 5+xx weapon rule.",
+        actions = listOf(),
+        specialist = false
+    )
+
+    val operatorList = listOf(Prime,Felltalon,Tremorscythe,Venomspitter,Wrecker,Warrior)
+}

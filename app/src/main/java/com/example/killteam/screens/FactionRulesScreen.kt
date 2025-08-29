@@ -1,6 +1,5 @@
 package com.example.killteam.screens
 
-import android.provider.CalendarContract.Colors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -40,27 +39,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.killteam.Actions
 import com.example.killteam.FormatTextWithMarkers
-import com.example.killteam.GetAlphaFromPloySelecion
-import com.example.killteam.GetOrderColor
 import com.example.killteam.InfoPopUp
-import com.example.killteam.InjureWorsenMove
 import com.example.killteam.Objects.Equipment
 import com.example.killteam.Objects.Operator
 import com.example.killteam.Objects.Ploy
 import com.example.killteam.Objects.PloyType
-import com.example.killteam.Objects.TacOps
 import com.example.killteam.Objects.TeamInfo
 import com.example.killteam.RemoveKeyWord
-import com.example.killteam.ScoreViewModel
-import com.example.killteam.Screen
-import com.example.killteam.SelectColorByInjuring
 import com.example.killteam.WeaponsList
 import com.example.killteam.WeaponsListSmall
-import com.example.killteam.eqSelection
-import com.example.killteam.ploySelection
 import com.example.killteam.ployToColor
 import com.example.killteam.ui.theme.KTColors
-import com.google.firebase.firestore.core.FieldFilter
 
 
 //Show informations about faction

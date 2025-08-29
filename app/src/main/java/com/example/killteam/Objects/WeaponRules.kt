@@ -38,6 +38,11 @@ object WeaponRules
         description = "You can re-roll any of your attack dice results of one result (e.g., results of 2).",
     )
 
+    val Crush = WeaponRule(
+        name = "Crush",
+        description = "Whenever you strike, you and your opponent roll-off, adding 1 to your result if the operative this weapon is being used against has a Wounds stat of 9 or less. If you win, inflict additional damage on that operative equal to the difference between the dice results (to a maximum of 3 additional damage).",
+    )
+
     val ConcealedPosition = WeaponRule(
         name = "Concealed Position*",
         description = "This operative can only use this weapon the first time it’s performing the Shoot action during the battle."
@@ -146,6 +151,11 @@ object WeaponRules
     val Poison = WeaponRule(
         name = "Poison*",
         description = "In the Resolve Attack Dice step, if you inflict damage with any successes, the operative this weapon is being used against (excluding friendly PLAGUE MARINE operatives) gains one of your Poison tokens (if it doesn’t already have one). Whenever an operative that has one of your Poison tokens is activated, inflict 1 damage on it."
+    )
+
+    val RavenersPoison = WeaponRule(
+        name = "Poison*",
+        description = "In the Resolve Attack Dice step, if you inflict damage with any critical successes, the operative this weapon is being used against gains one of your **Poison** tokens (if it doesn’t already have one). Whenever an operative that has one of your **Poison** tokens is activated, inflict **D3** damage on it."
     )
 
     val Psychic = WeaponRule(

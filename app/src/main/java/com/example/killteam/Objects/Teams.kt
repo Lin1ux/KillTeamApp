@@ -106,5 +106,17 @@ object KillTeams
         maxOperator = 6
     )
 
-    val teamList = listOf(AngelsOfDeath,DeathKorps,HunterClade,KasrkinSquad,Legionary,NemesisClaw,PlagueMarines,VoidscaredCorsairs,)
+    val Raveners = TeamInfo(
+        name = "Raveners",
+        icon = R.drawable.raveners,
+        archetypes = listOf(TacOps.SeekDestroy, TacOps.Infiltration),
+        teamRules = RavenersRules.teamRulesList,
+        ploys = RavenersPloys.ployList,
+        equipment = RavenersEQ.equipmentList,
+        operators = RavenersOperators.operatorList,
+        minOperators = 5,
+        maxOperator = 5
+    )
+
+    val teamList = listOf(AngelsOfDeath,DeathKorps,HunterClade,KasrkinSquad,Legionary,NemesisClaw,PlagueMarines,VoidscaredCorsairs,Raveners)
 }

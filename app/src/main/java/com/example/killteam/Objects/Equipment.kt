@@ -1,9 +1,10 @@
 package com.example.killteam.Objects
 
-import com.example.killteam.Objects.PlagueMarinesEQ.PlagueBells
-import com.example.killteam.Objects.PlagueMarinesEQ.PlagueGrenades
-import com.example.killteam.Objects.PlagueMarinesEQ.PlagueRounds
-import com.example.killteam.Objects.PlagueMarinesEQ.PoisonVents
+import com.example.killteam.Objects.NemesisClawEQ.ChainSnare
+import com.example.killteam.Objects.NemesisClawEQ.CommsJammers
+import com.example.killteam.Objects.NemesisClawEQ.FlayedSkin
+import com.example.killteam.Objects.NemesisClawEQ.GrislyTrophy
+import com.example.killteam.screens.Equipment
 import kotlin.collections.listOf
 
 object UniversalEquipment
@@ -278,4 +279,29 @@ object NemesisClawEQ
     )
 
     val equipmentList = listOf(FlayedSkin,ChainSnare,GrislyTrophy,CommsJammers) + UniversalEquipment.equipmentList
+}
+
+object RavenersEQ
+{
+    val ChromatosporeCamouflage = Equipment(
+        name = "Chromatospore Camouflage",
+        description = "Whenever an operative is shooting a friendly ##RAVENER## operative, if you can retain any cover saves, you can retain one additional cover save. This isn’t cumulative with improved cover saves from Vantage terrain."
+    )
+
+    val MetamorphicFlesh = Equipment(
+        name = "Metamorphic Flesh",
+        description = "Whenever a friendly ##RAVENER## operative is activated, it regains **D3** lost wounds."
+    )
+
+    val AcidBlood = Equipment(
+        name = "Acid Blood",
+        description = "Whenever a friendly ##RAVENER## operative is fighting or retaliating, whenever an attack dice inflicts damage on it, roll one **D6:** on a 5+, inflict 1 damage on the enemy operative in that sequence."
+    )
+
+    val HeightenedSenses = Equipment(
+        name = "Heightened Senses",
+        description = "Once per battle, when rolling off to decide initiative, if a friendly ##RAVENER## operative is underground and an enemy operative is within 5\" of your **TUNNEL,** you can re-roll your dice."
+    )
+
+    val equipmentList = listOf(ChromatosporeCamouflage,MetamorphicFlesh,AcidBlood,HeightenedSenses) + UniversalEquipment.equipmentList
 }

@@ -3,13 +3,15 @@ package com.example.killteam.Objects
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import com.example.killteam.ActionPassiveDescription
 import com.example.killteam.ListDescription
 import com.example.killteam.ListDescriptionChapterTactics
 import com.example.killteam.ListDescriptionWithPrimary
 import com.example.killteam.PassiveDescription
 import com.example.killteam.ScoreViewModel
+import kotlin.collections.listOf
 
-class Passive(name : String = "name",
+open class Passive(name : String = "name",
               description : String = ""
 ) : TeamRule(name, description)
 {
@@ -27,6 +29,27 @@ class Passive(name : String = "name",
 
     override fun deepCopy(): TeamRule {
         return Passive(name = this.name, description = this.description)}
+}
+
+open class ActionPassive(   name : String = "name",
+                            description : String = "",
+                            val actions: List<Action> = listOf<Action>()
+) : Passive(name, description)
+{
+    @Composable
+    override fun Draw(viewModel: ScoreViewModel,firstPlayer : Boolean)
+    {
+        ActionPassiveDescription(this)
+    }
+
+    @Composable
+    override fun DrawNoSelectable()
+    {
+        ActionPassiveDescription(this)
+    }
+
+    override fun deepCopy(): TeamRule {
+        return ActionPassive(name = this.name, description = this.description, actions = this.actions)}
 }
 
 open class SelectionRuleList(
@@ -388,4 +411,33 @@ object NemesisClawRules
     )
 
     val teamRulesList = listOf<TeamRule>(InMidnightClad,Astartes)
+}
+
+object RavenersRules
+{
+    val Burrow = ActionPassive(
+        name = "Burrow",
+        description = "When setting up a ##RAVENER## kill team before the battle, your first two operatives must be set up as normal. Each other friendly ##RAVENER## operative thereafter can be set up underground: place it to one side instead of in the killzone.\n" +
+                "In the Firefight phase, friendly ##RAVENER## operatives set up underground are activated and can counteract as normal. Whenever a friendly ##RAVENER## operative is underground, it cannot perform any actions other than **Burrow.** At the end of the battle, each friendly ##RAVENER## operative that’s underground is incapacitated.\n" +
+                "Friendly ##RAVENER## operatives can perform the following unique action:",
+        actions = listOf<Action>(Actions.RBurrow)
+    )
+
+    val Tunnel = Passive(
+        name = "Tunnel",
+        description = "At the end of the Set Up Operatives step, place your **Tunnel** marker numbered “0” on the killzone floor, wholly within your drop zone and touching your killzone edge.\n" +
+                "As a **STRATEGIC GAMBIT** in the first four turning points, you can place your next numbered **Tunnel** marker on the killzone floor wholly within 5\" of your preceding Tunnel marker (in Killzone: Gallowdark, this distance can be measured through walls). This means that, as the battle progresses, you can have a series of sequentially numbered Tunnel markers (0, 1, 2, 3 and 4). Once you have placed five Tunnel markers, don’t place any more (i.e. if your battle lasts more than four turning points).\n" +
+                "Your Tunnel markers and the area between your sequentially numbered markers (i.e. between 0 and 1, and 1 and 2, etc.) create your **TUNNEL.** \n" +
+                "In a killzone that uses the hazardous areas rules (e.g. Killzone: Bheta Decima), for the purposes of the Restricted Movement rule, parts of a Tunnel marker that are touching a hazardous area are treated as a hazardous area.",
+    )
+
+    val PredatoryInstincts = Passive(
+        name = "Predatory Instincts",
+        description = "During each friendly ##RAVENER## operative’s activation, it can perform two Fight actions.\n" +
+                "Each friendly ##RAVENER## operative can counteract regardless of its order.\n" +
+                "\n • You can change its order first, or change its order instead of performing an action (for the latter, still treat it as having counteracted this turning point).\n" +
+                "\n • During that counteraction, if it doesn’t perform a mission action it can perform a free Burrow action.",
+    )
+
+    val teamRulesList = listOf<TeamRule>(Burrow,Tunnel,PredatoryInstincts)
 }

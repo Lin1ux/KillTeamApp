@@ -195,4 +195,23 @@ object Actions
                 "\n • Change its order.\n" +
                 "\n • Perform a free **Dash** action with it (specify the location for your opponent to move it to)."
     )
+
+    val RBurrow = Action(
+        name = "Burrow",
+        description = "If this operative is underground, set it up on your **TUNNEL** in a location it can be placed (it’s no longer underground, and it can be set up within control range of enemy operatives). Until the end of the activation/counteraction, subtract 2\" from its Move stat.\n" +
+                      "Alternatively, instead of resolving the above effect, if this operative is in the killzone and on your **TUNNEL,** remove it from the killzone: it’s now underground. ",
+        limitation = "An operative cannot perform this action while carrying a marker, or if it isn’t either underground or on your TUNNEL."
+    )
+
+    val RToxicLunge = Action(
+        name = "TOXIC LUNGE",
+        description = "Select one enemy operative within 2\" of this operative. Alternatively, if this operative is underground, select one enemy operative on your **TUNNEL.** Inflict **D3+2** damage on that enemy operative and it gains one of your **Poison** tokens (if it doesn’t already have one).",
+        limitation = "This operative can perform this action while underground (this takes precedence over the normal Burrow rules)."
+    )
+
+    val RDistentDorsalSac = Action(
+        name = "DISTENT DORSAL SAC",
+        description = "Until this operative has shot with its venom bolt, until it performs this action again or until it performs the **Burrow** action (whichever comes first), all profiles of its venom bolt have the xxLethal 5+xx weapon rule, have 1 added to their Atk stat and the xxRange 8\"xx weapon rule is removed.",
+        limitation = ""
+    )
 }

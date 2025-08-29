@@ -12,6 +12,7 @@ object teamIcons
         "Plague Marines" to R.drawable.plaguemarines,
         "Hunter Clade" to R.drawable.hunterclade,
         "Legionary" to R.drawable.legionary,
-        "Nemesis Claw" to R.drawable.nemesisclaw
+        "Nemesis Claw" to R.drawable.nemesisclaw,
+        "Raveners" to R.drawable.raveners
     )
 }

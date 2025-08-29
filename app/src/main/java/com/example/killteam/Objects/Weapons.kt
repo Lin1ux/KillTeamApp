@@ -1407,7 +1407,105 @@ object Weapons
         WeaponRulesList = listOf()
     )
 
+    //Raveners
+    val RTailBlade = Weapon(
+        name = "Tail blade",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range3, WeaponRules.Rending ,WeaponRules.Silent)
+    )
 
+    val RScythingTalonsAndRendingClaws  = Weapon(
+        name = "Scything talons and rending claws",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Rending)
+    )
 
+    val RPincerTail = Weapon(
+        name = "Pincer tail",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range3 ,WeaponRules.Silent)
+    )
+
+    val RToxicGlands = Weapon(
+        name = "Toxic Glands",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range6 ,WeaponRules.Silent , WeaponRules.RavenersPoison)
+    )
+
+    val RToxicScythes = Weapon(
+        name = "Toxic scythes",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Shock, WeaponRules.Lethal5 ,WeaponRules.RavenersPoison)
+    )
+
+    val RVenomBoltBlast = Weapon(
+        name = "Venom bolt (Blast)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Range8,WeaponRules.Blast2,WeaponRules.RavenersPoison)
+    )
+
+    val RVenomBoltFocused = Weapon(
+        name = "Venom bolt (Focused)",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Range8,WeaponRules.Piercieng1,WeaponRules.RavenersPoison)
+    )
+
+    val RScythingTalons = Weapon(
+        name = "Scything talons",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf()
+    )
+
+    val RBoneMace = Weapon(
+        name = "Scything talons",
+        type = WeaponType.RANGED,
+        Atk = 4,
+        Hit = 3,
+        Dmg = 3,
+        CritDmg = 4,
+        WeaponRulesList = listOf(WeaponRules.Range3, WeaponRules.Piercieng1,WeaponRules.Silent)
+    )
+
+    val RScythingTalonsAndCrushingClaws = Weapon(
+        name = "Scything talons and crushing claws",
+        type = WeaponType.MELEE,
+        Atk = 5,
+        Hit = 3,
+        Dmg = 4,
+        CritDmg = 5,
+        WeaponRulesList = listOf(WeaponRules.Crush)
+    )
 
 }
